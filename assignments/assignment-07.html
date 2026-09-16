@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A07: Multivariate Visualizations & Dimensionality // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A07</span>
+        <span>STATUS: PROJECTED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A07</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-06.html" class="nav-link">[&lt; PREV: A06]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-08.html" class="nav-link">[NEXT: A08 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-06.html" class="nav-btn-link">&lt;&lt; [06] CORRELATIONS</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 07 OF 12</span>
+      <a href="assignment-08.html" class="nav-btn-link">[08] TIME-SERIES &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 07</span>
+        <span class="tag">MULTIVARIATE</span>
+        <span class="tag">DIMENSIONALITY REDUCTION</span>
+      </div>
+      <h1>07. MULTIVARIATE VISUALIZATIONS &amp; DIMENSIONALITY<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Synthesizing high-dimensional attribute topologies, executing PCA decompositions, and mapping multi-axial radar profiles.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Explain your multivariate projections, cluster profiles, and how you mapped 3+ dimensions simultaneously.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">6</div>
+        <div class="metric-label">FEATURE DIMENSIONS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">83.2%</div>
+        <div class="metric-label">PCA EXPLAINED VAR</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">3</div>
+        <div class="metric-label">DISTINCT CLUSTERS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.68</div>
+        <div class="metric-label">SILHOUETTE SCORE</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[7.1]</span> RADAR TOPOLOGY OF EMPIRICAL CLUSTERS</h2>
+        <span class="card-badge complete">[DECOMPOSED]</span>
+      </div>
+      <p>
+        To prevent cognitive overload from multiple pairwise scatterplots, we map multi-dimensional cluster profiles across six normalized axes. 
+        Cluster Alpha demonstrates high velocity and volume, whereas Cluster Beta specializes in reliability and low error variance.
+      </p>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[7.2]</span> VISUALIZATION: MULTI-AXIS RADAR SIGNATURE</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Comparing normalized feature profiles across 6 operational dimensions</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">RADAR TOPOLOGY</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a07"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[7.3]</span> PCA PROJECTION SCRIPT</h2>
+        <span class="tag">PYTHON / SCIKIT-LEARN</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/07_pca_decomposition.py</span>
+          <span>SHA-256: 6b19a0...</span>
+        </div>
+        <pre class="code-content"><code>from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+features = ['dim_volume', 'dim_velocity', 'dim_fidelity', 'dim_spread', 'dim_intensity', 'dim_latency']
+X = df[features]
+X_scaled = StandardScaler().fit_transform(X)
+
+pca = PCA(n_components=2)
+principal_components = pca.fit_transform(X_scaled)
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-06.html" class="nav-btn-link">&lt;&lt; [06] RETURN TO ASSIGNMENT 06</a>
+      <a href="assignment-08.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 08 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A07: MULTIVARIATE]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-06.html">[PREV]</a></li>
+        <li><a href="assignment-08.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a07');
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Volume Capacity', 'Processing Velocity', 'System Fidelity', 'Spatial Spread', 'Energy Intensity', 'Latency Overhead'],
+          datasets: [
+            {
+              label: 'Cohort Alpha (High Throughput)',
+              data: [88, 92, 65, 78, 85, 42],
+              backgroundColor: 'rgba(66, 255, 146, 0.25)',
+              borderColor: '#42ff92',
+              pointBackgroundColor: '#42ff92'
+            },
+            {
+              label: 'Cohort Beta (High Fidelity)',
+              data: [54, 60, 94, 52, 48, 86],
+              backgroundColor: 'rgba(0, 229, 255, 0.2)',
+              borderColor: '#00e5ff',
+              pointBackgroundColor: '#00e5ff'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              grid: { color: 'rgba(25, 106, 54, 0.4)' },
+              angleLines: { color: 'rgba(25, 106, 54, 0.6)' },
+              pointLabels: { color: '#20e070', font: { family: "'Share Tech Mono', monospace" } },
+              ticks: { color: '#128243', backdropColor: 'transparent' }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

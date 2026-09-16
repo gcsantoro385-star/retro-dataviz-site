@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A10: Interactive Visualizations & Controls // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A10</span>
+        <span>STATUS: INTERACTIVE</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A10</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-09.html" class="nav-link">[&lt; PREV: A09]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-11.html" class="nav-link">[NEXT: A11 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-09.html" class="nav-btn-link">&lt;&lt; [09] GEOSPATIAL</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 10 OF 12</span>
+      <a href="assignment-11.html" class="nav-btn-link">[11] STORYTELLING &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 10</span>
+        <span class="tag">INTERACTION DESIGN</span>
+        <span class="tag">USER CONTROLS</span>
+      </div>
+      <h1>10. INTERACTIVE VISUALIZATIONS &amp; DYNAMIC FILTERS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Empowering user-directed exploration through dynamic query filters, responsive brush-and-link widgets, and low-latency rendering.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Explain your user interaction techniques (e.g. details-on-demand, zooming, faceted filtering, tooltips) below.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">&lt; 16ms</div>
+        <div class="metric-label">FRAME RENDER LATENCY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">3 Filters</div>
+        <div class="metric-label">DYNAMIC PARAMETERS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100%</div>
+        <div class="metric-label">CLIENTSIDE REACTIVITY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">60 FPS</div>
+        <div class="metric-label">CANVAS PERFORMANCE</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[10.1]</span> SHNEIDERMAN'S MANTRIC WORKFLOW</h2>
+        <span class="card-badge complete">[IMPLEMENTED]</span>
+      </div>
+      <p>
+        Guided by Ben Shneiderman's visual information seeking mantra (<em>"Overview first, zoom and filter, then details-on-demand"</em>), 
+        this module provides dynamic controls allowing users to modulate the visible time frame and switch target metrics without refreshing.
+      </p>
+    </article>
+
+    <!-- Interactive Filtered Chart Container -->
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[10.2]</span> INTERACTIVE CANVAS: LIVE METRIC SWITCHER</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Use the dropdown menu below to re-render data dynamically in real time</span>
+        </div>
+        <div class="chart-controls">
+          <label for="metric-selector" style="font-size: 0.8rem; color: var(--text-muted);">SELECT METRIC:</label>
+          <select id="metric-selector" class="chart-select">
+            <option value="throughput">System Throughput (Req/s)</option>
+            <option value="latency">Mean Latency (ms)</option>
+            <option value="errorRate">Error Variance Rate (ppm)</option>
+          </select>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a10"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[10.3]</span> REACTIVE DISPATCH &amp; EVENT LISTENER CODE</h2>
+        <span class="tag">JAVASCRIPT / ES6</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>assets/js/interactive_controller.js</span>
+          <span>SHA-256: 8f192b...</span>
+        </div>
+        <pre class="code-content"><code>// Dynamic reactive updating without page reloads
+const selector = document.getElementById('metric-selector');
+selector.addEventListener('change', (e) => {
+  const selectedKey = e.target.value;
+  activeChart.data.datasets[0].data = datasetProfiles[selectedKey].values;
+  activeChart.data.datasets[0].label = datasetProfiles[selectedKey].label;
+  activeChart.update('active'); // Smooth retro transition
+});</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-09.html" class="nav-btn-link">&lt;&lt; [09] RETURN TO ASSIGNMENT 09</a>
+      <a href="assignment-11.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 11 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A10: INTERACTIVE VISUALIZATIONS]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-09.html">[PREV]</a></li>
+        <li><a href="assignment-11.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a10');
+      const metricsData = {
+        throughput: {
+          label: 'System Throughput (Req/s)',
+          data: [1200, 1450, 1380, 1820, 2100, 1980, 2450, 2700],
+          color: '#42ff92',
+          bgColor: 'rgba(66, 255, 146, 0.2)'
+        },
+        latency: {
+          label: 'Mean Latency (ms)',
+          data: [85, 78, 92, 64, 52, 48, 41, 38],
+          color: '#00e5ff',
+          bgColor: 'rgba(0, 229, 255, 0.2)'
+        },
+        errorRate: {
+          label: 'Error Variance Rate (ppm)',
+          data: [18, 24, 15, 9, 6, 4, 3, 2],
+          color: '#ffb000',
+          bgColor: 'rgba(255, 176, 0, 0.2)'
+        }
+      };
+
+      const chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['T-01', 'T-02', 'T-03', 'T-04', 'T-05', 'T-06', 'T-07', 'T-08'],
+          datasets: [{
+            label: metricsData.throughput.label,
+            data: metricsData.throughput.data,
+            borderColor: metricsData.throughput.color,
+            backgroundColor: metricsData.throughput.bgColor,
+            fill: true,
+            borderWidth: 2,
+            tension: 0.25,
+            pointRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } },
+            y: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } }
+          }
+        }
+      });
+
+      const selector = document.getElementById('metric-selector');
+      if (selector) {
+        selector.addEventListener('change', (e) => {
+          const m = metricsData[e.target.value];
+          chartInstance.data.datasets[0].label = m.label;
+          chartInstance.data.datasets[0].data = m.data;
+          chartInstance.data.datasets[0].borderColor = m.color;
+          chartInstance.data.datasets[0].backgroundColor = m.bgColor;
+          chartInstance.update();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

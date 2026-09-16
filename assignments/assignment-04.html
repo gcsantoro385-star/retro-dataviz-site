@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A04: Data Cleaning & Feature Pipeline // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A04</span>
+        <span>STATUS: CLEANED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A04</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-03.html" class="nav-link">[&lt; PREV: A03]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-05.html" class="nav-link">[NEXT: A05 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-03.html" class="nav-btn-link">&lt;&lt; [03] SUMMARY STATS</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 04 OF 12</span>
+      <a href="assignment-05.html" class="nav-btn-link">[05] DISTRIBUTIONS &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 04</span>
+        <span class="tag">ETL PIPELINE</span>
+        <span class="tag">DATA WRANGLING</span>
+      </div>
+      <h1>04. DATA CLEANING &amp; FEATURE TRANSFORMATION PIPELINE<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Executing deterministic imputation protocols, filtering aberrant artifacts, scaling numeric features, and constructing derived indicators.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Detail your imputation choices, transformation algorithms (e.g. Box-Cox, Log1p, Standard Scaler), and cleanup rules here.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">124,115</div>
+        <div class="metric-label">RETAINED RECORDS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">685</div>
+        <div class="metric-label">PURGED ARTIFACTS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100.0%</div>
+        <div class="metric-label">POST-CLEAN FIDELITY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">+6</div>
+        <div class="metric-label">ENGINEERED FEATURES</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[4.1]</span> DATA SANITIZATION METHODOLOGY</h2>
+        <span class="card-badge complete">[PIPELINE PASS]</span>
+      </div>
+      
+      <p>
+        The cleaning stage resolved missing values across high-priority predictors using median group-imputation to preserve variance without propagating distortions. 
+        Six new analytical features were engineered, including <code>normalized_growth_rate</code>, <code>rolling_7d_variance</code>, and <code>temporal_season_index</code>.
+      </p>
+
+      <div class="table-responsive">
+        <table class="terminal-table">
+          <thead>
+            <tr>
+              <th>FEATURE NAME</th>
+              <th>RAW ANOMALY IDENTIFIED</th>
+              <th>CORRECTIVE PROTOCOL</th>
+              <th>POST-CONDITION CHECK</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>primary_metric</code></td>
+              <td>1.6% NaN entries due to sensor offline</td>
+              <td>Forward fill within matching regional cohort</td>
+              <td>0 NaN, preserved cohort mean within 0.1%</td>
+            </tr>
+            <tr>
+              <td><code>secondary_metric</code></td>
+              <td>Negative values physically impossible</td>
+              <td>Clamped to 0.00 floor bounds</td>
+              <td>All values &gt;= 0.00</td>
+            </tr>
+            <tr>
+              <td><code>region_code</code></td>
+              <td>Mixed casing and whitespace inconsistencies</td>
+              <td>Regex normalization: <code>.str.strip().str.upper()</code></td>
+              <td>Exact 5-set categorical validation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[4.2]</span> VISUALIZATION: RECORD RETENTION &amp; PURGE BREAKDOWN</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Inspection of data loss ratios through successive filtration stages</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">FUNNEL BAR</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a04"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[4.3]</span> PYTHON TRANSFORMATION PIPELINE CODE</h2>
+        <span class="tag">PYTHON / SKLEARN</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/04_cleaning_pipeline.py</span>
+          <span>SHA-256: 7a82c4...</span>
+        </div>
+        <pre class="code-content"><code>import pandas as pd
+import numpy as np
+
+def clean_empirical_dataset(input_file: str, output_file: str):
+    df = pd.read_csv(input_file)
+    
+    # 1. Clean categoricals
+    df['region_code'] = df['region_code'].astype(str).str.strip().str.upper()
+    
+    # 2. Impute continuous values by regional median
+    df['primary_metric'] = df.groupby('region_code')['primary_metric'].transform(
+        lambda grp: grp.fillna(grp.median())
+    )
+    
+    # 3. Engineer standardized log transform for heavy-tailed metric
+    df['metric_log1p'] = np.log1p(np.maximum(df['primary_metric'], 0))
+    
+    df.to_csv(output_file, index=False)
+    print("[SUCCESS] Cleaned dataset serialized to:", output_file)
+
+clean_empirical_dataset("./data/raw.csv", "./data/clean.csv")</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-03.html" class="nav-btn-link">&lt;&lt; [03] RETURN TO ASSIGNMENT 03</a>
+      <a href="assignment-05.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 05 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A04: DATA CLEANING]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-03.html">[PREV]</a></li>
+        <li><a href="assignment-05.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      RetroCharts.createRetroBarChart('chart-a04', {
+        labels: ['Raw Ingestion', 'Deduplication', 'Null Imputation', 'Outlier Clamping', 'Final Clean Corpus'],
+        data: [124800, 124800, 124450, 124115, 124115],
+        label: 'Retained Valid Records'
+      });
+    });
+  </script>
+</body>
+</html>

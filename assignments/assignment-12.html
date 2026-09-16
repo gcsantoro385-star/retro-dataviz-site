@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A12: Final Capstone Report & Findings // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A12 [CAPSTONE]</span>
+        <span>STATUS: FINALIZED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A12 [CAPSTONE]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-11.html" class="nav-link">[&lt; PREV: A11]</a></li>
+        <li><a href="../index.html" class="nav-link">[RETURN TO COVER]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-11.html" class="nav-btn-link">&lt;&lt; [11] STORYTELLING &amp; DASHBOARDS</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 12 OF 12 [FINAL SHOWCASE]</span>
+      <a href="../index.html" class="nav-btn-link primary">[00] RETURN TO COVER &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">FINAL MILESTONE</span>
+        <span class="tag">CAPSTONE SHOWCASE</span>
+        <span class="tag">ACTIONABLE RECOMMENDATIONS</span>
+      </div>
+      <h1>12. FINAL PROJECT SHOWCASE &amp; STRATEGIC FINDINGS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Synthesizing the semester-long 12-assignment empirical trajectory, presenting core takeaways, articulating domain recommendations, and framing future research vectors.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Present your overarching conclusions, key empirical discoveries, strategic recommendations for policymakers or organizations, and study limitations below.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">12 / 12</div>
+        <div class="metric-label">MODULES COMPLETE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">4 Key</div>
+        <div class="metric-label">CORE FINDINGS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">98.8%</div>
+        <div class="metric-label">REPRODUCIBILITY SCORE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">PASS</div>
+        <div class="metric-label">CAPSTONE VERIFICATION</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[12.1]</span> EXECUTIVE SUMMARY &amp; KEY EMPIRICAL FINDINGS</h2>
+        <span class="card-badge complete">[CONCLUDED]</span>
+      </div>
+      
+      <p>
+        Across twelve structured assignments, this project traversed the entire data visualization lifecycle: from unformatted raw record ingestion 
+        and missingness audits to high-dimensional spatial-temporal modeling and interactive decision support interfaces.
+      </p>
+
+      <div class="table-responsive">
+        <table class="terminal-table">
+          <thead>
+            <tr>
+              <th>CORE FINDING</th>
+              <th>EVIDENCE / MODULE SOURCE</th>
+              <th>STRATEGIC IMPLICATION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Structural Regional Disparity</strong></td>
+              <td>Assignment 03 &amp; 09 (Spatial Variance)</td>
+              <td>Resource allocation models must adjust for geographical baseline divergence rather than applying flat quotas.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Strong Predictor Collinearity</strong></td>
+              <td>Assignment 06 &amp; 07 (Bivariate &amp; PCA)</td>
+              <td>Monitoring two primary indices captures 83.2% of system variance, dramatically reducing telemetry overhead.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Seasonal Inflection Windows</strong></td>
+              <td>Assignment 08 (Time-Series Decomposition)</td>
+              <td>Preventative interventions deployed during Q2 yield a 3.4x greater mitigation impact than reactive Q4 measures.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[12.2]</span> VISUALIZATION: SYSTEM MATURITY &amp; RIGOR EVALUATION</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Self-assessment across six core applied data visualization dimensions</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">POLAR AUDIT</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a12"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[12.3]</span> RETROSPECTIVE, LIMITATIONS &amp; FUTURE WORK</h2>
+        <span class="tag">FUTURE SCOPE</span>
+      </div>
+      <p>
+        <strong>Key Limitations:</strong> While the empirical corpus provides comprehensive regional coverage, sensor granularity in peripheral sub-sectors 
+        leaves minor confidence intervals unobserved. Future extensions could incorporate streaming real-time Kafka pipelines and WebGL-accelerated 
+        spatial shaders for ultra-large dataset interaction.
+      </p>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-11.html" class="nav-btn-link">&lt;&lt; [11] RETURN TO ASSIGNMENT 11</a>
+      <a href="../index.html" class="nav-btn-link primary">[00] RETURN TO COVER PAGE &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A12: FINAL CAPSTONE SHOWCASE]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-11.html">[PREV]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a12');
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Data Hygiene', 'Statistical Rigor', 'Perceptual Design', 'Interactive Depth', 'Narrative Flow', 'Reproducibility'],
+          datasets: [{
+            label: 'Course Evaluation Score',
+            data: [95, 92, 98, 90, 94, 99],
+            backgroundColor: 'rgba(66, 255, 146, 0.25)',
+            borderColor: '#42ff92',
+            pointBackgroundColor: '#42ff92',
+            pointBorderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              grid: { color: 'rgba(25, 106, 54, 0.4)' },
+              angleLines: { color: 'rgba(25, 106, 54, 0.6)' },
+              pointLabels: { color: '#20e070', font: { family: "'Share Tech Mono', monospace", size: 12 } },
+              ticks: { color: '#128243', backdropColor: 'transparent', stepSize: 20 }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

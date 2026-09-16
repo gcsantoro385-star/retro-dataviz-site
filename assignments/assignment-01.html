@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A01: Research Question &amp; Project Proposal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <!-- Terminal Header & Status Bar -->
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A01</span>
+        <span>STATUS: VERIFIED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A01</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">[&lt; BACK TO COVER]</a></li>
+        <li><a href="assignment-02.html" class="nav-link">[NEXT: A02 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <!-- Subpage Navigation Controls -->
+    <nav class="assignment-nav-bar">
+      <a href="../index.html" class="nav-btn-link">&lt;&lt; [00] HOME COVER</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 01 OF 12</span>
+      <a href="assignment-02.html" class="nav-btn-link">[02] DATA INGESTION &gt;&gt;</a>
+    </nav>
+
+    <!-- Page Title Header -->
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 01</span>
+        <span class="tag">RESEARCH SCOPE</span>
+        <span class="tag">PROBLEM FORMULATION</span>
+      </div>
+      <h1>01. DATASET SELECTION &amp; PROBLEM FORMULATION<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Defining the subject, formulate a hypothesis, and establishing primary research questions.
+      </p>
+    </section>
+
+    <!-- Quick Metrics Strip -->
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">388</div>
+        <div class="metric-label">RAW RECORDS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">13</div>
+        <div class="metric-label">TOTAL ATTRIBUTES</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">2015-2024</div>
+        <div class="metric-label">TEMPORAL WINDOW</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">8.3%</div>
+        <div class="metric-label">INITIAL COMPLETENESS</div>
+      </div>
+    </div>
+
+    <!-- Main Assignment Dossier Card -->
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[1.1]</span> RESEARCH PROBLEM &amp; CONTEXT</h2>
+        <span class="card-badge complete">[STATUS: DOCUMENTED]</span>
+      </div>
+      
+      <p>
+        <strong>Background &amp; Motivation:</strong> 
+        This dataset consists of information about consumers and their online food ordering behavior. What is also included in 
+        this dataset is information about demographic, socioeconomic, educational, family, geographic and customer feedback, which can 
+        help identify certain patterns.
+      </p>
+
+<h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--text-bright);">&gt; CORE RESEARCH QUESTION</h3>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-main); line-height: 1.8;">
+        <li><strong>RQ1:</strong> How does social status determine a person's ordering habits for online food delivery?</li>
+      </ul>
+
+      <h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--text-bright);">&gt; SUB QUESTIONS</h3>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-main); line-height: 1.8;">
+        <li><strong>SQ1:</strong> Do online food orders differ based on single and married individuals?</li>
+        <li><strong>SQ2:</strong> Which factors have the strongest impact when it comes to ordering food?</li>
+        <li><strong>SQ3:</strong> What sort of motivations are involved in these factors for every type of individual?</li>
+      </ul>
+
+      <h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--text-bright);">&gt; TARGET AUDIENCE &amp; STAKEHOLDERS</h3>
+      <p>
+        The visualizations constructed throughout this project are tailored for domain analysts, policy researchers, and academic peers 
+        seeking actionable interpretations of complex empirical patterns without sacrificing statistical rigor.
+      </p>
+    </article>
+
+    <!-- Variables and Hypothesis -->
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[1.2]</span> VARIABLES &amp; HYPOTHESIS</h2>
+        <span class="card-badge complete">[STATUS: DOCUMENTED]</span>
+      </div>
+
+      <h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--text-bright);">&gt; HYPOTHESIS</h3>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-main); line-height: 1.8;">
+        <li><strong>H1:</strong> Younger single individuals are more likely to order food online than older married couples.</li>
+        <li><strong>H2:</strong> Food ordering habits differ between both married and single individuals depending on factors
+        related to convenience.</li>
+      </ul>
+
+      <h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--text-bright);">&gt; VARIABLES</h3>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-main); line-height: 1.8;">
+        <li>Marital Status</li>
+        <li>Occupation</li>
+        <li>Monthly Income</li>
+        <li>Education</li>
+        <li>Family Size</li>
+        <li>Customer Type</li>
+      </ul>
+
+    </article>
+
+    <!-- Bottom Navigation -->
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="../index.html" class="nav-btn-link">&lt;&lt; [00] RETURN TO COVER</a>
+      <a href="assignment-02.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 02 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A01: DATASET SELECTION]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-02.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      RetroCharts.createRetroBarChart('chart-a01', {
+        labels: ['Demographics', 'Spatial / Geo', 'Economic Metrics', 'Temporal Logs', 'Environmental', 'Status Codes'],
+        data: [7, 5, 8, 4, 3, 1],
+        label: 'Feature Count per Domain'
+      });
+    });
+  </script>
+</body>
+</html>

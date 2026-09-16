@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A02: Data Acquisition & Schema Profiling // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <!-- Terminal Header & Status Bar -->
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A02</span>
+        <span>STATUS: AUDITED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A02</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-01.html" class="nav-link">[&lt; PREV: A01]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-03.html" class="nav-link">[NEXT: A03 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-01.html" class="nav-btn-link">&lt;&lt; [01] DATASET SELECTION</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 02 OF 12</span>
+      <a href="assignment-03.html" class="nav-btn-link">[03] SUMMARY STATS &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 02</span>
+        <span class="tag">DATA INGESTION</span>
+        <span class="tag">SCHEMA PROFILING</span>
+      </div>
+      <h1>02. DATA ACQUISITION &amp; SCHEMA PROFILING<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Executing ingestion protocols, auditing data types, validating null constraints, and constructing formal data dictionaries.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Document your ingestion pipeline, API endpoints or flat file structures, and describe the schema dictionary of your real-world dataset.
+    </div>
+
+    <!-- Quick Metrics Strip -->
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">124,800</div>
+        <div class="metric-label">PARSED ROWS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.6%</div>
+        <div class="metric-label">NULL RATE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0</div>
+        <div class="metric-label">DUPLICATE KEYS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">18.4 MB</div>
+        <div class="metric-label">IN-MEMORY FOOTPRINT</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[2.1]</span> DATA DICTIONARY &amp; ATTRIBUTE TYPOLOGY</h2>
+        <span class="card-badge complete">[VERIFIED]</span>
+      </div>
+      
+      <p>
+        Reliable data visualization requires a disciplined type taxonomy. Every feature in the ingested corpus has been typed 
+        into discrete quantitative, continuous ratio, categorical nominal, or temporal ordinal classes:
+      </p>
+
+      <div class="table-responsive">
+        <table class="terminal-table">
+          <thead>
+            <tr>
+              <th>FIELD NAME</th>
+              <th>DATA TYPE</th>
+              <th>CONSTRAINTS</th>
+              <th>SAMPLE RANGE / VALUES</th>
+              <th>VISUAL ENCODING ROLE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>record_id</code></td>
+              <td>UUID / String</td>
+              <td>Primary Key, Non-Null</td>
+              <td><code>rec_84820a...</code></td>
+              <td>Unique Identifier</td>
+            </tr>
+            <tr>
+              <td><code>timestamp_utc</code></td>
+              <td>Datetime64[ns]</td>
+              <td>ISO-8601 Valid</td>
+              <td>2015-01-01 to 2024-12-31</td>
+              <td>Temporal Axis (X-Axis)</td>
+            </tr>
+            <tr>
+              <td><code>region_code</code></td>
+              <td>Categorical Nominal</td>
+              <td>5 Distinct Codes</td>
+              <td><code>NORTH, SOUTH, EAST, WEST, CENT</code></td>
+              <td>Faceted Color Hue</td>
+            </tr>
+            <tr>
+              <td><code>primary_metric</code></td>
+              <td>Float64 Continuous</td>
+              <td>&gt;= 0.0</td>
+              <td>[12.40 — 894.15]</td>
+              <td>Spatial Position (Y-Axis)</td>
+            </tr>
+            <tr>
+              <td><code>confidence_score</code></td>
+              <td>Float32 Continuous</td>
+              <td>0.00 to 1.00</td>
+              <td>Mean: 0.94</td>
+              <td>Alpha Opacity / Error Bounds</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[2.2]</span> VISUALIZATION: MISSING DATA AUDIT (% COMPLETENESS)</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Inspection of null percentage across primary feature columns</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">COMPLETENESS METRIC</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a02"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[2.3]</span> SCHEMA VALIDATION SCRIPT</h2>
+        <span class="tag">PYTHON / PYDANTIC / PANDAS</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/02_schema_validator.py</span>
+          <span>SHA-256: 91fa02...</span>
+        </div>
+        <pre class="code-content"><code>import pandas as pd
+
+def audit_schema(csv_path: str):
+    df = pd.read_csv(csv_path, parse_dates=['timestamp_utc'])
+    
+    # Missing value evaluation
+    null_summary = df.isnull().sum()
+    null_pct = (null_summary / len(df)) * 100
+    
+    # Deduplication integrity
+    dupes = df.duplicated(subset=['record_id']).sum()
+    print(f"[AUDIT] Duplicate record_id count: {dupes}")
+    
+    return pd.DataFrame({'null_count': null_summary, 'null_percent': null_pct})
+
+report = audit_schema("./data/raw_empirical_records.csv")
+print(report[report['null_count'] > 0])</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-01.html" class="nav-btn-link">&lt;&lt; [01] RETURN TO ASSIGNMENT 01</a>
+      <a href="assignment-03.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 03 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A02: SCHEMA PROFILING]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-01.html">[PREV]</a></li>
+        <li><a href="assignment-03.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      RetroCharts.createRetroBarChart('chart-a02', {
+        labels: ['record_id', 'timestamp', 'region_code', 'primary_metric', 'secondary_metric', 'status_flag'],
+        data: [100.0, 100.0, 99.8, 98.4, 94.2, 99.9],
+        label: 'Feature Completeness Rate (%)'
+      });
+    });
+  </script>
+</body>
+</html>

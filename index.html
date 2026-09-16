@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applied Data Visualization // Research Terminal</title>
+  <link rel="stylesheet" href="assets/css/terminal.css">
+</head>
+<body>
+  <!-- CRT Screen Scanline & Vignette Overlay -->
+  <div class="crt-overlay"></div>
+
+  <!-- Terminal Header & Status Bar -->
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>SYS_OK</span>
+        <span>NODE: ADV-5150</span>
+        <span>BAUD: 9600-8N1</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio" title="Toggle retro key audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines" title="Toggle CRT scanline raster">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow" title="Toggle phosphor text bloom">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd" title="Open Jump Menu">[CMD JUMP ^K]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // DATA VISUALIZATION</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">[HOME / COVER]</a></li>
+        <li><a href="#dossier" class="nav-link">[DATASET DOSSIER]</a></li>
+        <li><a href="#assignments" class="nav-link">[ASSIGNMENTS MATRIX]</a></li>
+        <li><a href="assignments/assignment-01.html" class="nav-link">[START A01]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="container" style="flex: 1; padding-top: 1.5rem; padding-bottom: 3rem;">
+    
+    <!-- Hero Section with ASCII Art -->
+    <section class="hero-section">
+      <pre class="ascii-banner">
+██████╗ ███████╗██╗     ██╗██╗   ██╗███████╗██████╗ ██╗███████╗███████╗
+██╔══██╗██╔════╝██║     ██║██║   ██║██╔════╝██╔══██╗██║██╔════╝██╔════╝
+██║  ██║█████╗  ██║     ██║██║   ██║█████╗  ██████╔╝██║█████╗  ███████╗
+██║  ██║██╔══╝  ██║     ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║
+██████╔╝███████╗███████╗██║ ╚████╔╝ ███████╗██║  ██║██║███████╗███████║
+╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝
+
+ █████╗ ███╗   ██╗██████╗
+██╔══██╗████╗  ██║██╔══██╗
+███████║██╔██╗ ██║██║  ██║
+██╔══██║██║╚██╗██║██║  ██║
+██║  ██║██║ ╚████║██████╔╝
+╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝
+
+███████╗ ██████╗  ██████╗██╗ █████╗ ██╗
+██╔════╝██╔═══██╗██╔════╝██║██╔══██╗██║
+███████╗██║   ██║██║     ██║███████║██║
+╚════██║██║   ██║██║     ██║██╔══██║██║
+███████║╚██████╔╝╚██████╗██║██║  ██║███████╗
+╚══════╝ ╚═════╝  ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝
+
+███████╗████████╗ █████╗ ████████╗██╗   ██╗███████╗
+██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██║   ██║██╔════╝
+███████╗   ██║   ███████║   ██║   ██║   ██║███████╗
+╚════██║   ██║   ██╔══██║   ██║   ██║   ██║╚════██║
+███████║   ██║   ██║  ██║   ██║   ╚██████╔╝███████║
+╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+      </pre>
+
+      <h1 style="margin-top: 0.5rem;">APPLIED DATA VISUALIZATION RESEARCH DOSSIER<span class="cursor-blink">_</span></h1>
+      <p class="hero-subtitle">
+        A progressive 12-page investigation that explores the consumtion habits and preferences of different individuals
+        based on their social status.
+      </p>
+
+      <!-- Project Metadata Grid -->
+      <div class="hero-meta-panel">
+        <div class="meta-box highlight">
+          <div class="meta-label">COURSE DIRECTIVE</div>
+          <div class="meta-value">ADV-401: Applied Data Visualization</div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">INVESTIGATOR / AUTHOR</div>
+          <div class="meta-value">[Giancarlo Santoro]</div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">DATASET CORPUS</div>
+          <div class="meta-value">[Online Food Ordering Dataset]</div>
+        </div>
+        <div class="meta-box">
+          <div class="meta-label">TOTAL MODULES</div>
+          <div class="meta-value">1 / 12 ASSIGNMENTS READY</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dataset Dossier & Research Scope Card -->
+    <section id="dossier" style="margin-top: 2.5rem;">
+      <div class="terminal-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span>[#]</span>
+            <span>SYSTEM DOSSIER: RESEARCH CONTEXT &amp; DATASET PROFILE</span>
+          </h2>
+          <span class="card-badge complete">STATUS: ACTIVE INVESTIGATION</span>
+        </div>
+
+        <div class="edit-prompt-callout">
+          <strong>QUICK CUSTOMIZATION HINT:</strong> You can edit this section directly in <code>index.html</code> to describe your specific dataset, research hypotheses, and primary data sources.
+        </div>
+
+        <p>
+          This repository serves as the centralized digital workbook and portfolio for the semester-long Applied Data Visualization curriculum. 
+          Across twelve distinct laboratory assignments, we interrogate an empirical dataset to uncover latent structures, evaluate distributional anomalies, 
+          model temporal dynamics, and construct intuitive, human-centered visual representations.
+        </p>
+
+        <div class="table-responsive" style="margin-top: 1.25rem;">
+          <table class="terminal-table">
+            <thead>
+              <tr>
+                <th>ATTRIBUTE</th>
+                <th>SYSTEM SPECIFICATION</th>
+                <th>REMARKS &amp; NOTES</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dataset Title</strong></td>
+                <td>[online food delivery dataset.csv]</td>
+                <td>Primary empirical record under investigation</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Source</strong></td>
+                <td>[Kaggle]</td>
+                <td>Verified open data repository or research archive</td>
+              </tr>
+              <tr>
+                <td><strong>Dimensionality</strong></td>
+                <td>[388 Records × 13 columns]</td>
+                <td>Tabular record count and column cardinality</td>
+              </tr>
+              <tr>
+                <td><strong>Core Research Question</strong></td>
+                <td>[How does social status determine a person's ordering habits for online food delivery?]</td>
+                <td>Guiding analytical hypothesis across all 12 modules</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Tooling</strong></td>
+                <td>Python (Pandas, Scipy), Chart.js, D3.js, Modern CSS3 Terminal UI</td>
+                <td>Full-stack reproducible visualization pipeline</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12-Assignment Terminal Index Grid -->
+    <section id="assignments" style="margin-top: 3rem;">
+      <div class="card-header" style="margin-bottom: 1.5rem;">
+        <h2 class="card-title">
+          <span>[+]</span>
+          <span>CURRICULUM INDEX: 12-ASSIGNMENT PROGRESSION</span>
+        </h2>
+        <span class="card-badge">[TOTAL STAGES: 12]</span>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Select any assignment module below to view detailed methodology, interactive visualizations, statistical metrics, code repositories, and analytical write-ups.
+      </p>
+
+      <div class="assignment-grid">
+
+        <!-- Assignment 01 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">Assignment // 01</span>
+            <span class="card-badge complete">[COMPLETE]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-01.html">01. Research Question &amp; Project Proposal</a></h3>
+          <p class="tile-desc">
+            Formulating core research questions and identifying topics that can be investigated.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">SCOPE</span>
+              <span class="tag">QUESTIONS</span>
+            </div>
+            <a href="assignments/assignment-01.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 02 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 02</span>
+            <span class="card-badge wip">[IN PROGRESS]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-02.html">02. Data Acquisition &amp; Schema Profiling</a></h3>
+          <p class="tile-desc">
+            Data dictionary audit, schema validation, data types taxonomy, parsing missing values, and baseline record integrity testing.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">INGEST</span>
+              <span class="tag">SCHEMA</span>
+            </div>
+            <a href="assignments/assignment-02.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 03 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 03</span>
+           <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-03.html">03. Exploratory Data Analysis &amp; Statistics</a></h3>
+          <p class="tile-desc">
+            Summary statistics (mean, median, dispersion, IQR), central tendency comparisons, and five-number summaries.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">EDA</span>
+              <span class="tag">STATS</span>
+            </div>
+            <a href="assignments/assignment-03.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 04 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 04</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-04.html">04. Data Cleaning &amp; Feature Pipeline</a></h3>
+          <p class="tile-desc">
+            Imputation protocols, deduplication, normalizing skewed variables, one-hot encoding, and feature engineering.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">ETL</span>
+              <span class="tag">CLEANING</span>
+            </div>
+            <a href="assignments/assignment-04.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 05 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 05</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-05.html">05. Univariate Distributions &amp; Outliers</a></h3>
+          <p class="tile-desc">
+            Histograms, kernel density estimates, boxplots, identifying extreme outliers via Tukey fences and Z-scores.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">DISTRIBUTION</span>
+              <span class="tag">KDE</span>
+            </div>
+            <a href="assignments/assignment-05.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 06 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 06</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-06.html">06. Bivariate Relationships &amp; Correlations</a></h3>
+          <p class="tile-desc">
+            Scatter plots with trendlines, Pearson/Spearman correlation matrices, cross-tabulations, and categorical comparisons.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">SCATTER</span>
+              <span class="tag">CORR</span>
+            </div>
+            <a href="assignments/assignment-06.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 07 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 07</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-07.html">07. Multivariate Visualizations &amp; Dimensionality</a></h3>
+          <p class="tile-desc">
+            Parallel coordinates, bubble charts, heatmaps, PCA / t-SNE projections, and multi-axis perceptual encoding.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">MULTIVARIATE</span>
+              <span class="tag">PCA</span>
+            </div>
+            <a href="assignments/assignment-07.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 08 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 08</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-08.html">08. Time-Series &amp; Temporal Analysis</a></h3>
+          <p class="tile-desc">
+            Rolling averages, seasonality decomposition, cyclic trends, event overlays, and temporal horizon forecasting.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">TIME-SERIES</span>
+              <span class="tag">TRENDS</span>
+            </div>
+            <a href="assignments/assignment-08.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 09 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 09</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-09.html">09. Geospatial &amp; Hierarchical Data</a></h3>
+          <p class="tile-desc">
+            Choropleth spatial mapping, dot density distribution, tree maps, sunburst diagrams, or network topology graphs.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">MAPS</span>
+              <span class="tag">HIERARCHY</span>
+            </div>
+            <a href="assignments/assignment-09.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 10 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 10</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-10.html">10. Interactive Visualizations &amp; UI Controls</a></h3>
+          <p class="tile-desc">
+            Dynamic sliders, brush &amp; link interactions, tooltips, responsive filtering, and user-directed exploratory widgets.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">INTERACTIVE</span>
+              <span class="tag">UI/UX</span>
+            </div>
+            <a href="assignments/assignment-10.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 11 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 11</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-11.html">11. Visual Storytelling &amp; Synthesis Dashboard</a></h3>
+          <p class="tile-desc">
+            Scrollytelling structure, visual hierarchy, cognitive load mitigation, and executive summary dashboard composition.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">NARRATIVE</span>
+              <span class="tag">DASHBOARD</span>
+            </div>
+            <a href="assignments/assignment-11.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+        <!-- Assignment 12 -->
+        <article class="assignment-tile">
+          <div class="tile-top">
+            <span class="tile-index">MODULE // 12</span>
+            <span class="card-badge pending">[QUEUED]</span>
+          </div>
+          <h3 class="tile-title"><a href="assignments/assignment-12.html">12. Final Capstone Report &amp; Recommendations</a></h3>
+          <p class="tile-desc">
+            Comprehensive project synthesis, policy/actionable recommendations, peer review notes, and retrospective reflection.
+          </p>
+          <div class="tile-footer">
+            <div class="tile-tags">
+              <span class="tag">CAPSTONE</span>
+              <span class="tag">SYNTHESIS</span>
+            </div>
+            <a href="assignments/assignment-12.html" class="term-btn">ACCESS &gt;</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Embedded Interactive CLI Console Simulation -->
+    <section style="margin-top: 2rem;">
+      <div class="terminal-card">
+        <div class="card-header">
+          <span class="card-title"><span>&gt;_</span> TERMINAL DIRECTORY INTERFACE</span>
+          <span class="tag">SHELL v1.0.4</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Type commands such as <code>goto 1</code> to <code>goto 12</code>, <code>list</code>, <code>info</code>, or <code>clear</code> to navigate via terminal:
+        </p>
+        <div style="background: #020502; border: 1px solid var(--border-dim); padding: 0.85rem; font-family: var(--font-code); font-size: 0.88rem;">
+          <div id="cli-output" style="color: var(--text-main); margin-bottom: 0.5rem; min-height: 48px; max-height: 120px; overflow-y: auto;">
+            ADV-CORE OS [Version 1.0.4]<br>
+            System ready. Type 'help' for command syntax or click any assignment tile above.
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--text-bright); font-weight: bold;">user@dataviz-terminal:~$</span>
+            <input type="text" id="cli-input" style="flex: 1; background: transparent; border: none; outline: none; color: var(--text-bright); font-family: var(--font-code); font-size: 0.88rem;" placeholder="type command..." />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Terminal Footer -->
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>
+        <span>[APPLIED DATA VISUALIZATION // DIGITAL LAB WORKBOOK]</span>
+        <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 0.25rem;">
+          VT100 Green Phosphor Theme • CRT Raster Scanlines • Modern Responsive Grid
+        </div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">[TOP]</a></li>
+        <li><a href="#dossier">[DOSSIER]</a></li>
+        <li><a href="#assignments">[MODULES]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/terminal.js"></script>
+  <script>
+    // Embedded mini-CLI logic for the home terminal widget
+    document.addEventListener('DOMContentLoaded', () => {
+      const cliInput = document.getElementById('cli-input');
+      const cliOutput = document.getElementById('cli-output');
+      if (!cliInput || !cliOutput) return;
+
+      cliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = cliInput.value.trim();
+          cliInput.value = '';
+          if (!val) return;
+
+          const line = document.createElement('div');
+          line.innerHTML = `<span style="color: var(--text-muted);">&gt; ${val}</span>`;
+          cliOutput.appendChild(line);
+
+          const parts = val.toLowerCase().split(' ');
+          const cmd = parts[0];
+          const arg = parts[1];
+
+          let reply = '';
+          if (cmd === 'help') {
+            reply = 'Available commands: list, goto &lt;1-12&gt;, info, clear, audio, scanlines';
+          } else if (cmd === 'list') {
+            reply = 'Assignments: A01 through A12 are available in the matrix above.';
+          } else if (cmd === 'clear') {
+            cliOutput.innerHTML = '';
+            return;
+          } else if (cmd === 'goto' || cmd === 'open') {
+            const num = parseInt(arg, 10);
+            if (num >= 1 && num <= 12) {
+              const pad = String(num).padStart(2, '0');
+              reply = `Navigating to Assignment ${pad}...`;
+              setTimeout(() => {
+                window.location.href = `assignments/assignment-${pad}.html`;
+              }, 400);
+            } else {
+              reply = 'Error: Specify a valid assignment number between 1 and 12.';
+            }
+          } else if (cmd === 'info') {
+            reply = 'Applied Data Visualization Research Platform // 12 Milestone Units.';
+          } else {
+            reply = `Command not recognized: "${cmd}". Type 'help' for options.`;
+          }
+
+          const respDiv = document.createElement('div');
+          respDiv.style.color = 'var(--text-bright)';
+          respDiv.innerHTML = reply;
+          cliOutput.appendChild(respDiv);
+          cliOutput.scrollTop = cliOutput.scrollHeight;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

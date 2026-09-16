@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A08: Time-Series & Temporal Analysis // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A08</span>
+        <span>STATUS: SEQUENCED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A08</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-07.html" class="nav-link">[&lt; PREV: A07]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-09.html" class="nav-link">[NEXT: A09 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-07.html" class="nav-btn-link">&lt;&lt; [07] MULTIVARIATE</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 08 OF 12</span>
+      <a href="assignment-09.html" class="nav-btn-link">[09] GEOSPATIAL &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 08</span>
+        <span class="tag">TIME-SERIES</span>
+        <span class="tag">TEMPORAL DYNAMICS</span>
+      </div>
+      <h1>08. TIME-SERIES &amp; TEMPORAL ANALYSIS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Decomposing temporal trajectories into secular trend, seasonality components, rolling window convolutions, and shock perturbations.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Explain your temporal resolution (hourly, daily, monthly), seasonal patterns, and notable historical spikes or anomalies below.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">10 Yrs</div>
+        <div class="metric-label">TIME HORIZON</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">+4.2% / yr</div>
+        <div class="metric-label">SECULAR GROWTH RATE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">12 Months</div>
+        <div class="metric-label">SEASONAL PERIODICITY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.91</div>
+        <div class="metric-label">LAG-1 AUTOCORRELATION</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[8.1]</span> TEMPORAL DECOMPOSITION &amp; SECULAR TRENDS</h2>
+        <span class="card-badge complete">[DIAGNOSTIC]</span>
+      </div>
+      <p>
+        The temporal signal reveals clear sinusoidal seasonality with recurring Q3 peaks, superimposed on a steady upward secular trend. 
+        Smoothing via a 30-day moving average attenuates high-frequency noise while preserving macro inflection points.
+      </p>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[8.2]</span> VISUALIZATION: LONGITUDINAL TRAJECTORY &amp; MOVING AVERAGE</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Observed values vs smoothed moving baseline over temporal horizon</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">TIME GLOW LINE</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a08"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[8.3]</span> TIME-SERIES DECOMPOSITION SCRIPT</h2>
+        <span class="tag">PYTHON / STATSMODELS</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/08_time_series.py</span>
+          <span>SHA-256: 1f0e4b...</span>
+        </div>
+        <pre class="code-content"><code>import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+df = pd.read_csv("./data/clean.csv", parse_dates=['timestamp_utc'], index_col='timestamp_utc')
+ts = df['primary_metric'].resample('M').mean()
+
+# Classical additive decomposition
+decomposition = seasonal_decompose(ts, model='additive', period=12)
+print("Decomposition completed: Trend, Seasonal, and Residual components extracted.")</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-07.html" class="nav-btn-link">&lt;&lt; [07] RETURN TO ASSIGNMENT 07</a>
+      <a href="assignment-09.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 09 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A08: TIME-SERIES]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-07.html">[PREV]</a></li>
+        <li><a href="assignment-09.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a08');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+          datasets: [
+            {
+              label: 'Raw Empirical Observed Series',
+              data: [142, 168, 155, 189, 210, 195, 240, 265, 258, 295],
+              borderColor: 'rgba(66, 255, 146, 0.4)',
+              borderWidth: 1.5,
+              backgroundColor: 'transparent',
+              pointRadius: 3
+            },
+            {
+              label: 'Smoothed Trend (Long-Term Drift)',
+              data: [145, 160, 172, 188, 202, 215, 235, 252, 270, 290],
+              borderColor: '#00e5ff',
+              borderWidth: 2.5,
+              backgroundColor: 'rgba(0, 229, 255, 0.08)',
+              fill: true,
+              pointRadius: 4,
+              pointBackgroundColor: '#00e5ff'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } },
+            y: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

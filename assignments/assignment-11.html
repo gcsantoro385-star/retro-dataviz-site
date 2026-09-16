@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A11: Data Storytelling & Dashboard Synthesis // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A11</span>
+        <span>STATUS: SYNTHESIZED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A11</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-10.html" class="nav-link">[&lt; PREV: A10]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-12.html" class="nav-link">[NEXT: A12 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-10.html" class="nav-btn-link">&lt;&lt; [10] INTERACTIVE CONTROLS</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 11 OF 12</span>
+      <a href="assignment-12.html" class="nav-btn-link">[12] CAPSTONE REPORT &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 11</span>
+        <span class="tag">STORYTELLING</span>
+        <span class="tag">DASHBOARD SYNTHESIS</span>
+      </div>
+      <h1>11. DATA STORYTELLING &amp; DASHBOARD SYNTHESIS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Orchestrating visual narrative flow, reducing cognitive friction, and composing a unified analytical dashboard for executive decision-makers.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Articulate your data narrative arc (exposition, conflict/anomaly, climax, resolution) and explain dashboard card layout decisions.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">3 Acts</div>
+        <div class="metric-label">NARRATIVE STRUCTURE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">4 Core KPIs</div>
+        <div class="metric-label">EXECUTIVE INDICATORS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.92</div>
+        <div class="metric-label">INFORMATION DENSITY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">&lt; 5 sec</div>
+        <div class="metric-label">TIME-TO-INSIGHT</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[11.1]</span> THE VISUAL STORYTELLING ARC</h2>
+        <span class="card-badge complete">[NARRATIVE]</span>
+      </div>
+      <p>
+        Data without narrative context fails to persuade. By adopting the Martini Glass narrative paradigm, 
+        we first anchor the reader with a curated explanatory progression before releasing them into free-form exploratory filtering.
+      </p>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[11.2]</span> COMPOSITE EXECUTIVE KPI SYNTHESIS</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Unified multi-metric dashboard stream across key milestones</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">MULTI-SERIES DUAL AXIS</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a11"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[11.3]</span> DASHBOARD LAYOUT &amp; DESIGN SYSTEM SPECIFICATION</h2>
+        <span class="tag">ARCHITECTURE</span>
+      </div>
+      <p>
+        The dashboard follows a strict 3-tier visual hierarchy: Primary Tier (high-contrast KPI stat cards), Secondary Tier 
+        (dynamic multi-series time &amp; category charts), and Tertiary Tier (contextual footnotes, data lineage, and raw export links).
+      </p>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-10.html" class="nav-btn-link">&lt;&lt; [10] RETURN TO ASSIGNMENT 10</a>
+      <a href="assignment-12.html" class="nav-btn-link primary">PROCEED TO FINAL CAPSTONE A12 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A11: DATA STORYTELLING]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-10.html">[PREV]</a></li>
+        <li><a href="assignment-12.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a11');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Phase 1: Ingestion', 'Phase 2: Wrangling', 'Phase 3: Exploratory', 'Phase 4: Modeling', 'Phase 5: Synthesis'],
+          datasets: [
+            {
+              type: 'bar',
+              label: 'Observed Volume (k)',
+              data: [124, 124, 120, 118, 124],
+              backgroundColor: 'rgba(32, 224, 112, 0.4)',
+              borderColor: '#20e070',
+              borderWidth: 1
+            },
+            {
+              type: 'line',
+              label: 'Data Integrity Confidence Index (%)',
+              data: [82, 89, 94, 97, 99],
+              borderColor: '#ffb000',
+              backgroundColor: 'rgba(255, 176, 0, 0.15)',
+              borderWidth: 2,
+              pointRadius: 5,
+              pointBackgroundColor: '#ffb000',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } },
+            y: { grid: { color: 'rgba(25, 106, 54, 0.4)' }, ticks: { color: '#128243' } }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

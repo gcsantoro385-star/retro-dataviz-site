@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A06: Bivariate Relationships & Correlations // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A06</span>
+        <span>STATUS: EVALUATED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A06</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-05.html" class="nav-link">[&lt; PREV: A05]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-07.html" class="nav-link">[NEXT: A07 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-05.html" class="nav-btn-link">&lt;&lt; [05] DISTRIBUTIONS</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 06 OF 12</span>
+      <a href="assignment-07.html" class="nav-btn-link">[07] MULTIVARIATE &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 06</span>
+        <span class="tag">BIVARIATE</span>
+        <span class="tag">CORRELATION</span>
+      </div>
+      <h1>06. BIVARIATE RELATIONSHIPS &amp; CORRELATIONS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Measuring linear and monotonic relationships, computing Pearson/Spearman coefficients, and analyzing scatter plot heteroscedasticity.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Explain your bivariate pairings, correlation coefficients (r), and whether observed relationships are causal or spurious.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">+0.78</div>
+        <div class="metric-label">PEARSON (r)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">+0.82</div>
+        <div class="metric-label">SPEARMAN (ρ)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.61</div>
+        <div class="metric-label">COEFF OF DET (R²)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">&lt; 0.0001</div>
+        <div class="metric-label">P-VALUE SIGNIFICANCE</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[6.1]</span> CORRELATION MATRIX &amp; ASSOCIATION REPORT</h2>
+        <span class="card-badge complete">[ANALYSIS]</span>
+      </div>
+      <p>
+        A strong positive monotonic relationship is observed between feature predictor Alpha and the response metric (r = +0.78, p &lt; 0.0001). 
+        Residual inspection confirms homoscedastic dispersion across mid-range values, with minor fanning at higher bounds.
+      </p>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[6.2]</span> VISUALIZATION: BIVARIATE SCATTER &amp; TREND REGRESSION</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Scatter plot sample overlaying empirical coordinate points</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">SCATTER MATRIX</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a06"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[6.3]</span> CORRELATION &amp; REGRESSION PIPELINE CODE</h2>
+        <span class="tag">PYTHON / PANDAS</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/06_bivariate_analysis.py</span>
+          <span>SHA-256: d241ac...</span>
+        </div>
+        <pre class="code-content"><code>import pandas as pd
+from scipy import stats
+
+df = pd.read_csv("./data/clean.csv")
+x = df['feature_alpha']
+y = df['primary_metric']
+
+# Pearson r and regression slope
+r, p_val = stats.pearsonr(x, y)
+slope, intercept, r_val, p_val, std_err = stats.linregress(x, y)
+
+print(f"Regression Line: y = {slope:.3f}x + {intercept:.3f} (r={r:.3f}, R²={r_val**2:.3f})")</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-05.html" class="nav-btn-link">&lt;&lt; [05] RETURN TO ASSIGNMENT 05</a>
+      <a href="assignment-07.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 07 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A06: BIVARIATE CORRELATION]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-05.html">[PREV]</a></li>
+        <li><a href="assignment-07.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chart-a06');
+      // Generate synthetic scatter points following positive linear trend
+      const scatterPoints = [];
+      for (let i = 0; i < 40; i++) {
+        const x = 10 + i * 2.2 + (Math.random() * 4 - 2);
+        const y = 30 + (x * 1.6) + (Math.random() * 24 - 12);
+        scatterPoints.push({ x: parseFloat(x.toFixed(1)), y: parseFloat(y.toFixed(1)) });
+      }
+
+      new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Paired Sample Coordinates (X vs Y)',
+            data: scatterPoints,
+            backgroundColor: 'rgba(66, 255, 146, 0.75)',
+            borderColor: '#42ff92',
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              title: { display: true, text: 'Predictor Variable (Alpha)', color: '#128243' },
+              grid: { color: 'rgba(25, 106, 54, 0.4)' },
+              ticks: { color: '#128243' }
+            },
+            y: {
+              title: { display: true, text: 'Response Metric (Observed)', color: '#128243' },
+              grid: { color: 'rgba(25, 106, 54, 0.4)' },
+              ticks: { color: '#128243' }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

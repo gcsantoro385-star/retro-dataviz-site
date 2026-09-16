@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A05: Univariate Distributions & Outliers // ADV Terminal</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="terminal-header">
+    <div class="system-status-bar">
+      <div class="status-group">
+        <span class="status-indicator"><span class="status-dot"></span>MODULE: A05</span>
+        <span>STATUS: ANALYZED</span>
+        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+      </div>
+      <div class="status-group">
+        <span id="terminal-clock">00:00:00 LOC</span>
+        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
+        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
+        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+      </div>
+    </div>
+
+    <nav class="navbar container">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">■</span>
+        <span>ADV-CORE // MODULE A05</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="assignment-04.html" class="nav-link">[&lt; PREV: A04]</a></li>
+        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
+        <li><a href="assignment-06.html" class="nav-link">[NEXT: A06 &gt;]</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
+    
+    <nav class="assignment-nav-bar">
+      <a href="assignment-04.html" class="nav-btn-link">&lt;&lt; [04] DATA CLEANING</a>
+      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 05 OF 12</span>
+      <a href="assignment-06.html" class="nav-btn-link">[06] CORRELATIONS &gt;&gt;</a>
+    </nav>
+
+    <section style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+        <span class="card-badge complete">STAGE 05</span>
+        <span class="tag">DISTRIBUTIONS</span>
+        <span class="tag">OUTLIER DETECTION</span>
+      </div>
+      <h1>05. UNIVARIATE DISTRIBUTIONS &amp; OUTLIER ANALYSIS<span class="cursor-blink">_</span></h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Examining probability density functions, histogram bin optimization, modality tests, and extreme value boundaries using Tukey fences.
+      </p>
+    </section>
+
+    <div class="edit-prompt-callout">
+      <strong>EDITING GUIDE:</strong> Insert your variable histogram observations, bin selection rationale (e.g. Freedman-Diaconis rule), and outlier diagnoses below.
+    </div>
+
+    <div class="stat-metric-strip">
+      <div class="metric-card">
+        <div class="metric-val">12 Bins</div>
+        <div class="metric-label">OPTIMAL BINNING</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">1.4%</div>
+        <div class="metric-label">OUTLIERS (TUKEY)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">Bimodal</div>
+        <div class="metric-label">DISTRIBUTION SHAPE</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0.001</div>
+        <div class="metric-label">SHAPIRO-WILK P-VAL</div>
+      </div>
+    </div>
+
+    <article class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[5.1]</span> DISTRIBUTION PROFILE &amp; DENSITY ESTIMATION</h2>
+        <span class="card-badge complete">[DIAGNOSTIC]</span>
+      </div>
+      <p>
+        The frequency distribution exhibits a distinct primary peak centered around 360-400 units, followed by a secondary plateau 
+        indicative of a distinct sub-population. Outlier analysis via Tukey fences (1.5 × IQR) flags points exceeding 680 units as extreme.
+      </p>
+    </article>
+
+    <section class="chart-container-box">
+      <div class="chart-header">
+        <div>
+          <h2 class="card-title" style="font-size: 1.1rem;"><span>[5.2]</span> VISUALIZATION: EMPIRICAL FREQUENCY HISTOGRAM</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Frequency counts partitioned into 10-unit bins across feature span</span>
+        </div>
+        <div class="chart-controls">
+          <span class="tag">HISTOGRAM FREQUENCY</span>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-a05"></canvas>
+      </div>
+    </section>
+
+    <section class="terminal-card">
+      <div class="card-header">
+        <h2 class="card-title"><span>[5.3]</span> TUKEY OUTLIER DETECTION SCRIPT</h2>
+        <span class="tag">PYTHON / NUMPY</span>
+      </div>
+      <div class="code-block-container">
+        <div class="code-header">
+          <span>pipeline/05_outlier_detection.py</span>
+          <span>SHA-256: e81b23...</span>
+        </div>
+        <pre class="code-content"><code>import numpy as np
+import pandas as pd
+
+df = pd.read_csv("./data/clean.csv")
+data = df['primary_metric']
+
+# Compute Tukey Fences
+q25, q75 = np.percentile(data, [25, 75])
+iqr = q75 - q25
+lower_fence = q25 - (1.5 * iqr)
+upper_fence = q75 + (1.5 * iqr)
+
+outliers = df[(data < lower_fence) | (data > upper_fence)]
+print(f"[OUTLIERS] Flagged {len(outliers):,} records outside [{lower_fence:.1f}, {upper_fence:.1f}]")</code></pre>
+      </div>
+    </section>
+
+    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
+      <a href="assignment-04.html" class="nav-btn-link">&lt;&lt; [04] RETURN TO ASSIGNMENT 04</a>
+      <a href="assignment-06.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 06 &gt;&gt;</a>
+    </nav>
+
+  </main>
+
+  <footer class="terminal-footer">
+    <div class="container footer-content">
+      <div>[ADV-CORE // MODULE A05: UNIVARIATE DISTRIBUTIONS]</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">[COVER]</a></li>
+        <li><a href="assignment-04.html">[PREV]</a></li>
+        <li><a href="assignment-06.html">[NEXT]</a></li>
+        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/terminal.js"></script>
+  <script src="../assets/js/retro-charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      RetroCharts.createRetroBarChart('chart-a05', {
+        labels: ['100-150', '150-200', '200-250', '250-300', '300-350', '350-400', '400-450', '450-500', '500-550', '550-600', '600+ [OUTLIER]'],
+        data: [1200, 3400, 7800, 15400, 28900, 34500, 19200, 8900, 3100, 1100, 615],
+        label: 'Observation Frequency'
+      });
+    });
+  </script>
+</body>
+</html>
