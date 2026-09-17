@@ -1,226 +1,2071 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>A02: Data Acquisition & Schema Profiling // ADV Terminal</title>
+
   <link rel="stylesheet" href="../assets/css/terminal.css">
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
+
 <body>
+
   <div class="crt-overlay"></div>
 
-  <!-- Terminal Header & Status Bar -->
+
+  <!-- =========================================================
+       TERMINAL HEADER
+  ========================================================== -->
+
   <header class="terminal-header">
+
     <div class="system-status-bar">
+
       <div class="status-group">
-        <span class="status-indicator"><span class="status-dot"></span>MODULE: A02</span>
+
+        <span class="status-indicator">
+          <span class="status-dot"></span>
+          MODULE: A02
+        </span>
+
         <span>STATUS: AUDITED</span>
-        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
+
+        <span>
+          SESSION:
+          <span id="terminal-uptime">UP 00:00</span>
+        </span>
+
       </div>
+
+
       <div class="status-group">
+
         <span id="terminal-clock">00:00:00 LOC</span>
-        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
-        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
-        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
-        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
+
+        <button
+          type="button"
+          class="term-btn"
+          id="btn-toggle-audio">
+          [AUDIO: OFF]
+        </button>
+
+        <button
+          type="button"
+          class="term-btn"
+          id="btn-toggle-scanlines">
+          [SCANLINES: ON]
+        </button>
+
+        <button
+          type="button"
+          class="term-btn"
+          id="btn-toggle-glow">
+          [GLOW: ON]
+        </button>
+
+        <button
+          type="button"
+          class="term-btn amber"
+          id="btn-open-cmd">
+          [^K JUMP]
+        </button>
+
       </div>
+
     </div>
+
 
     <nav class="navbar container">
+
       <a href="../index.html" class="brand">
+
         <span class="brand-icon">■</span>
-        <span>ADV-CORE // MODULE A02</span>
+
+        <span>
+          ADV-CORE // MODULE A02
+        </span>
+
       </a>
+
+
       <ul class="nav-links">
-        <li><a href="assignment-01.html" class="nav-link">[&lt; PREV: A01]</a></li>
-        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
-        <li><a href="assignment-03.html" class="nav-link">[NEXT: A03 &gt;]</a></li>
+
+        <li>
+          <a href="assignment-01.html" class="nav-link">
+            [&lt; PREV: A01]
+          </a>
+        </li>
+
+        <li>
+          <a href="../index.html" class="nav-link">
+            [COVER]
+          </a>
+        </li>
+
+        <li>
+          <a href="assignment-03.html" class="nav-link">
+            [NEXT: A03 &gt;]
+          </a>
+        </li>
+
       </ul>
+
     </nav>
+
   </header>
 
-  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
-    
+
+
+  <!-- =========================================================
+       MAIN PAGE
+  ========================================================== -->
+
+  <main
+    class="container"
+    style="flex: 1; padding: 2rem 1.5rem 3rem;">
+
+
+    <!-- Assignment Navigation -->
+
     <nav class="assignment-nav-bar">
-      <a href="assignment-01.html" class="nav-btn-link">&lt;&lt; [01] DATASET SELECTION</a>
-      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 02 OF 12</span>
-      <a href="assignment-03.html" class="nav-btn-link">[03] SUMMARY STATS &gt;&gt;</a>
+
+      <a
+        href="assignment-01.html"
+        class="nav-btn-link">
+
+        &lt;&lt; [01] DATASET SELECTION
+
+      </a>
+
+
+      <span
+        style="font-weight: 600; color: var(--text-bright);">
+
+        ASSIGNMENT 02 OF 12
+
+      </span>
+
+
+      <a
+        href="assignment-03.html"
+        class="nav-btn-link">
+
+        [03] SUMMARY STATS &gt;&gt;
+
+      </a>
+
     </nav>
 
+
+
+    <!-- =========================================================
+         PAGE TITLE
+    ========================================================== -->
+
     <section style="margin-bottom: 2rem;">
-      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
-        <span class="card-badge complete">STAGE 02</span>
-        <span class="tag">DATA INGESTION</span>
-        <span class="tag">SCHEMA PROFILING</span>
+
+      <div
+        style="
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          margin-bottom: 0.5rem;
+        ">
+
+        <span class="card-badge complete">
+          STAGE 02
+        </span>
+
+        <span class="tag">
+          DATA INGESTION
+        </span>
+
+        <span class="tag">
+          SCHEMA PROFILING
+        </span>
+
       </div>
-      <h1>02. DATA ACQUISITION &amp; SCHEMA PROFILING<span class="cursor-blink">_</span></h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">
-        Executing ingestion protocols, auditing data types, validating null constraints, and constructing formal data dictionaries.
+
+
+      <h1>
+
+        02. DATA ACQUISITION &amp; SCHEMA PROFILING
+
+        <span class="cursor-blink">_</span>
+
+      </h1>
+
+
+      <p
+        style="
+          color: var(--text-muted);
+          font-size: 0.95rem;
+        ">
+
+        Analysis of an online food delivery dataset examining
+        demographic characteristics, social status, household size,
+        customer behavior, and ordering outcomes.
+
       </p>
+
     </section>
+
+
+
+    <!-- =========================================================
+         EDITING GUIDE
+    ========================================================== -->
 
     <div class="edit-prompt-callout">
-      <strong>EDITING GUIDE:</strong> Document your ingestion pipeline, API endpoints or flat file structures, and describe the schema dictionary of your real-world dataset.
+
+      <strong>DATASET:</strong>
+
+      Online Food Delivery Dataset — CSV data containing demographic,
+      socioeconomic, household, geographic, customer, and ordering
+      information.
+
     </div>
 
-    <!-- Quick Metrics Strip -->
+
+
+    <!-- =========================================================
+         QUICK METRICS
+    ========================================================== -->
+
     <div class="stat-metric-strip">
+
       <div class="metric-card">
-        <div class="metric-val">124,800</div>
-        <div class="metric-label">PARSED ROWS</div>
+
+        <div
+          class="metric-val"
+          id="metric-rows">
+          ---
+        </div>
+
+        <div class="metric-label">
+          PARSED ROWS
+        </div>
+
       </div>
+
+
       <div class="metric-card">
-        <div class="metric-val">0.6%</div>
-        <div class="metric-label">NULL RATE</div>
+
+        <div
+          class="metric-val"
+          id="metric-columns">
+          ---
+        </div>
+
+        <div class="metric-label">
+          DATA COLUMNS
+        </div>
+
       </div>
+
+
       <div class="metric-card">
-        <div class="metric-val">0</div>
-        <div class="metric-label">DUPLICATE KEYS</div>
+
+        <div
+          class="metric-val"
+          id="metric-age">
+          ---
+        </div>
+
+        <div class="metric-label">
+          AVG AGE
+        </div>
+
       </div>
+
+
       <div class="metric-card">
-        <div class="metric-val">18.4 MB</div>
-        <div class="metric-label">IN-MEMORY FOOTPRINT</div>
+
+        <div
+          class="metric-val"
+          id="metric-family">
+          ---
+        </div>
+
+        <div class="metric-label">
+          AVG FAMILY SIZE
+        </div>
+
       </div>
+
     </div>
+
+
+
+    <!-- =========================================================
+         2.1 DATA DICTIONARY
+    ========================================================== -->
 
     <article class="terminal-card">
+
       <div class="card-header">
-        <h2 class="card-title"><span>[2.1]</span> DATA DICTIONARY &amp; ATTRIBUTE TYPOLOGY</h2>
-        <span class="card-badge complete">[VERIFIED]</span>
+
+        <h2 class="card-title">
+
+          <span>[2.1]</span>
+
+          DATA DICTIONARY &amp; ATTRIBUTE TYPOLOGY
+
+        </h2>
+
+        <span class="card-badge complete">
+          [VERIFIED]
+        </span>
+
       </div>
-      
+
+
       <p>
-        Reliable data visualization requires a disciplined type taxonomy. Every feature in the ingested corpus has been typed 
-        into discrete quantitative, continuous ratio, categorical nominal, or temporal ordinal classes:
+
+        The dataset contains demographic, socioeconomic,
+        household, geographic, and behavioral attributes.
+        These variables can be used to investigate relationships
+        between social status and online food ordering behavior.
+
       </p>
 
+
       <div class="table-responsive">
+
         <table class="terminal-table">
+
           <thead>
+
             <tr>
+
               <th>FIELD NAME</th>
               <th>DATA TYPE</th>
-              <th>CONSTRAINTS</th>
-              <th>SAMPLE RANGE / VALUES</th>
-              <th>VISUAL ENCODING ROLE</th>
+              <th>DESCRIPTION</th>
+              <th>SAMPLE VALUES</th>
+              <th>VISUAL ROLE</th>
+
             </tr>
+
           </thead>
+
+
           <tbody>
+
             <tr>
-              <td><code>record_id</code></td>
-              <td>UUID / String</td>
-              <td>Primary Key, Non-Null</td>
-              <td><code>rec_84820a...</code></td>
-              <td>Unique Identifier</td>
+
+              <td><code>Age</code></td>
+
+              <td>Integer</td>
+
+              <td>
+                Age of respondent
+              </td>
+
+              <td>
+                20, 24, 22, 27
+              </td>
+
+              <td>
+                Quantitative Axis
+              </td>
+
             </tr>
+
+
             <tr>
-              <td><code>timestamp_utc</code></td>
-              <td>Datetime64[ns]</td>
-              <td>ISO-8601 Valid</td>
-              <td>2015-01-01 to 2024-12-31</td>
-              <td>Temporal Axis (X-Axis)</td>
+
+              <td><code>Gender</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Gender classification
+              </td>
+
+              <td>
+                Male, Female
+              </td>
+
+              <td>
+                Category / Group
+              </td>
+
             </tr>
+
+
             <tr>
-              <td><code>region_code</code></td>
-              <td>Categorical Nominal</td>
-              <td>5 Distinct Codes</td>
-              <td><code>NORTH, SOUTH, EAST, WEST, CENT</code></td>
-              <td>Faceted Color Hue</td>
+
+              <td><code>Marital Status</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Respondent marital status
+              </td>
+
+              <td>
+                Single, Married
+              </td>
+
+              <td>
+                Bar Chart Category
+              </td>
+
             </tr>
+
+
             <tr>
-              <td><code>primary_metric</code></td>
-              <td>Float64 Continuous</td>
-              <td>&gt;= 0.0</td>
-              <td>[12.40 — 894.15]</td>
-              <td>Spatial Position (Y-Axis)</td>
+
+              <td><code>Occupation</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Employment classification
+              </td>
+
+              <td>
+                Student, Employee
+              </td>
+
+              <td>
+                Category / Group
+              </td>
+
             </tr>
+
+
             <tr>
-              <td><code>confidence_score</code></td>
-              <td>Float32 Continuous</td>
-              <td>0.00 to 1.00</td>
-              <td>Mean: 0.94</td>
-              <td>Alpha Opacity / Error Bounds</td>
+
+              <td><code>Monthly Income</code></td>
+
+              <td>Ordinal / Categorical</td>
+
+              <td>
+                Reported income range
+              </td>
+
+              <td>
+                No Income, Below Rs.10000
+              </td>
+
+              <td>
+                Socioeconomic Category
+              </td>
+
             </tr>
+
+
+            <tr>
+
+              <td><code>Educational Qualifications</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Highest education level
+              </td>
+
+              <td>
+                Graduate, Post Graduate
+              </td>
+
+              <td>
+                Category
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>Family size</code></td>
+
+              <td>Integer</td>
+
+              <td>
+                Number of household members
+              </td>
+
+              <td>
+                2, 3, 4, 6
+              </td>
+
+              <td>
+                Quantitative Axis
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>Customer type</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Customer ordering-frequency classification
+              </td>
+
+              <td>
+                Frequent, Regular
+              </td>
+
+              <td>
+                Pie Chart Category
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>latitude</code></td>
+
+              <td>Float</td>
+
+              <td>
+                Geographic latitude
+              </td>
+
+              <td>
+                12.9766
+              </td>
+
+              <td>
+                Geographic Coordinate
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>longitude</code></td>
+
+              <td>Float</td>
+
+              <td>
+                Geographic longitude
+              </td>
+
+              <td>
+                77.5993
+              </td>
+
+              <td>
+                Geographic Coordinate
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>Pin code</code></td>
+
+              <td>Categorical / Integer</td>
+
+              <td>
+                Geographic postal code
+              </td>
+
+              <td>
+                560001, 560009
+              </td>
+
+              <td>
+                Geographic Category
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>Output</code></td>
+
+              <td>Binary Categorical</td>
+
+              <td>
+                Ordering outcome
+              </td>
+
+              <td>
+                Yes, No
+              </td>
+
+              <td>
+                Outcome Variable
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td><code>Feedback</code></td>
+
+              <td>Categorical</td>
+
+              <td>
+                Customer feedback
+              </td>
+
+              <td>
+                Positive, Negative
+              </td>
+
+              <td>
+                Outcome Category
+              </td>
+
+            </tr>
+
           </tbody>
+
         </table>
+
       </div>
+
     </article>
 
+
+
+    <!-- =========================================================
+         2.2 BAR CHART
+    ========================================================== -->
+
     <section class="chart-container-box">
+
       <div class="chart-header">
+
         <div>
-          <h2 class="card-title" style="font-size: 1.1rem;"><span>[2.2]</span> VISUALIZATION: MISSING DATA AUDIT (% COMPLETENESS)</h2>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">Inspection of null percentage across primary feature columns</span>
+
+          <h2
+            class="card-title"
+            style="font-size: 1.1rem;">
+
+            <span>[2.2]</span>
+
+            VISUALIZATION: RESPONDENTS BY MARITAL STATUS
+
+          </h2>
+
+
+          <span
+            style="
+              font-size: 0.78rem;
+              color: var(--text-muted);
+            ">
+
+            Distribution of respondents according to marital status
+
+          </span>
+
         </div>
+
+
         <div class="chart-controls">
-          <span class="tag">COMPLETENESS METRIC</span>
+
+          <span class="tag">
+            BAR CHART
+          </span>
+
         </div>
+
       </div>
+
+
       <div class="chart-canvas-wrapper">
+
         <canvas id="chart-a02"></canvas>
+
       </div>
+
     </section>
+
+
+
+    <!-- =========================================================
+         2.3 LINE GRAPH
+    ========================================================== -->
+
+    <section class="chart-container-box">
+
+      <div class="chart-header">
+
+        <div>
+
+          <h2
+            class="card-title"
+            style="font-size: 1.1rem;">
+
+            <span>[2.3]</span>
+
+            VISUALIZATION: RESPONDENTS BY AGE
+
+          </h2>
+
+
+          <span
+            style="
+              font-size: 0.78rem;
+              color: var(--text-muted);
+            ">
+
+            Frequency distribution of respondents across age
+
+          </span>
+
+        </div>
+
+
+        <div class="chart-controls">
+
+          <span class="tag">
+            LINE GRAPH
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="chart-canvas-wrapper">
+
+        <canvas id="chart-age"></canvas>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         2.4 PIE CHART
+    ========================================================== -->
+
+    <section class="chart-container-box">
+
+      <div class="chart-header">
+
+        <div>
+
+          <h2
+            class="card-title"
+            style="font-size: 1.1rem;">
+
+            <span>[2.4]</span>
+
+            VISUALIZATION: CUSTOMER TYPE DISTRIBUTION
+
+          </h2>
+
+
+          <span
+            style="
+              font-size: 0.78rem;
+              color: var(--text-muted);
+            ">
+
+            Proportion of customer ordering-frequency classifications
+
+          </span>
+
+        </div>
+
+
+        <div class="chart-controls">
+
+          <span class="tag">
+            PIE CHART
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="chart-canvas-wrapper">
+
+        <canvas id="chart-customer"></canvas>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         2.5 DOT / SCATTER PLOT
+    ========================================================== -->
+
+    <section class="chart-container-box">
+
+      <div class="chart-header">
+
+        <div>
+
+          <h2
+            class="card-title"
+            style="font-size: 1.1rem;">
+
+            <span>[2.5]</span>
+
+            VISUALIZATION: AGE VS FAMILY SIZE
+
+          </h2>
+
+
+          <span
+            style="
+              font-size: 0.78rem;
+              color: var(--text-muted);
+            ">
+
+            Relationship between respondent age and household size
+
+          </span>
+
+        </div>
+
+
+        <div class="chart-controls">
+
+          <span class="tag">
+            DOT PLOT
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="chart-canvas-wrapper">
+
+        <canvas id="chart-family"></canvas>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         2.6 DATA INGESTION SCRIPT
+    ========================================================== -->
 
     <section class="terminal-card">
+
       <div class="card-header">
-        <h2 class="card-title"><span>[2.3]</span> SCHEMA VALIDATION SCRIPT</h2>
-        <span class="tag">PYTHON / PYDANTIC / PANDAS</span>
+
+        <h2 class="card-title">
+
+          <span>[2.6]</span>
+
+          DATA INGESTION PIPELINE
+
+        </h2>
+
+
+        <span class="tag">
+          JAVASCRIPT / CSV / CHART.JS
+        </span>
+
       </div>
+
+
+      <p>
+
+        The dashboard retrieves the CSV file directly from the
+        project data directory. JavaScript parses each record,
+        converts quantitative attributes to numeric values, and
+        aggregates categorical attributes before visualization.
+
+      </p>
+
+
       <div class="code-block-container">
+
         <div class="code-header">
-          <span>pipeline/02_schema_validator.py</span>
-          <span>SHA-256: 91fa02...</span>
+
+          <span>
+            data/online_food_delivery_dataset.csv
+          </span>
+
+          <span>
+            SOURCE: LOCAL CSV
+          </span>
+
         </div>
-        <pre class="code-content"><code>import pandas as pd
 
-def audit_schema(csv_path: str):
-    df = pd.read_csv(csv_path, parse_dates=['timestamp_utc'])
-    
-    # Missing value evaluation
-    null_summary = df.isnull().sum()
-    null_pct = (null_summary / len(df)) * 100
-    
-    # Deduplication integrity
-    dupes = df.duplicated(subset=['record_id']).sum()
-    print(f"[AUDIT] Duplicate record_id count: {dupes}")
-    
-    return pd.DataFrame({'null_count': null_summary, 'null_percent': null_pct})
 
-report = audit_schema("./data/raw_empirical_records.csv")
-print(report[report['null_count'] > 0])</code></pre>
+        <pre class="code-content"><code>const response =
+    await fetch('../data/online_food_delivery_dataset.csv');
+
+const csvText = await response.text();
+
+const rows = parseCSV(csvText);
+
+console.log("[DATASET] Rows loaded:", rows.length);
+console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
+
       </div>
+
     </section>
 
-    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
-      <a href="assignment-01.html" class="nav-btn-link">&lt;&lt; [01] RETURN TO ASSIGNMENT 01</a>
-      <a href="assignment-03.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 03 &gt;&gt;</a>
+
+
+    <!-- =========================================================
+         BOTTOM NAVIGATION
+    ========================================================== -->
+
+    <nav
+      class="assignment-nav-bar"
+      style="margin-top: 2rem;">
+
+
+      <a
+        href="assignment-01.html"
+        class="nav-btn-link">
+
+        &lt;&lt; [01] RETURN TO ASSIGNMENT 01
+
+      </a>
+
+
+      <a
+        href="assignment-03.html"
+        class="nav-btn-link primary">
+
+        PROCEED TO ASSIGNMENT 03 &gt;&gt;
+
+      </a>
+
     </nav>
 
   </main>
 
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
   <footer class="terminal-footer">
+
     <div class="container footer-content">
-      <div>[ADV-CORE // MODULE A02: SCHEMA PROFILING]</div>
+
+      <div>
+        [ADV-CORE // MODULE A02: SCHEMA PROFILING]
+      </div>
+
+
       <ul class="footer-links">
-        <li><a href="../index.html">[COVER]</a></li>
-        <li><a href="assignment-01.html">[PREV]</a></li>
-        <li><a href="assignment-03.html">[NEXT]</a></li>
-        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
+
+        <li>
+          <a href="../index.html">
+            [COVER]
+          </a>
+        </li>
+
+        <li>
+          <a href="assignment-01.html">
+            [PREV]
+          </a>
+        </li>
+
+        <li>
+          <a href="assignment-03.html">
+            [NEXT]
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="javascript:void(0)"
+            onclick="RetroTerminal.openCommandPalette()">
+
+            [^K COMMANDS]
+
+          </a>
+        </li>
+
       </ul>
+
     </div>
+
   </footer>
 
+
+
+  <!-- =========================================================
+       EXISTING PROJECT JAVASCRIPT
+  ========================================================== -->
+
   <script src="../assets/js/terminal.js"></script>
+
   <script src="../assets/js/retro-charts.js"></script>
+
+
+
+  <!-- =========================================================
+       DATASET + VISUALIZATION JAVASCRIPT
+  ========================================================== -->
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      RetroCharts.createRetroBarChart('chart-a02', {
-        labels: ['record_id', 'timestamp', 'region_code', 'primary_metric', 'secondary_metric', 'status_flag'],
-        data: [100.0, 100.0, 99.8, 98.4, 94.2, 99.9],
-        label: 'Feature Completeness Rate (%)'
-      });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+
+      try {
+
+        // =====================================================
+        // LOAD CSV
+        // =====================================================
+
+        const response =
+          await fetch('../data/online_food_delivery_dataset.csv');
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `CSV load failed: ${response.status}`
+          );
+
+        }
+
+
+        const csvText =
+          await response.text();
+
+
+        const rows =
+          parseCSV(csvText);
+
+
+        if (rows.length === 0) {
+
+          throw new Error(
+            'CSV loaded successfully, but no data rows were found.'
+          );
+
+        }
+
+
+        console.log(
+          "[DATASET] Rows loaded:",
+          rows.length
+        );
+
+
+        console.log(
+          "[DATASET] First row:",
+          rows[0]
+        );
+
+
+        console.log(
+          "[DATASET] Columns:",
+          Object.keys(rows[0])
+        );
+
+
+
+        // =====================================================
+        // QUICK METRICS
+        // =====================================================
+
+        document.getElementById(
+          'metric-rows'
+        ).textContent =
+          rows.length.toLocaleString();
+
+
+        document.getElementById(
+          'metric-columns'
+        ).textContent =
+          Object.keys(rows[0]).length;
+
+
+
+        // Average Age
+
+        const validAges =
+          rows
+            .map(row => Number(row['Age']))
+            .filter(age => Number.isFinite(age));
+
+
+        const averageAge =
+          validAges.length
+            ? validAges.reduce(
+                (sum, age) => sum + age,
+                0
+              ) / validAges.length
+            : 0;
+
+
+        document.getElementById(
+          'metric-age'
+        ).textContent =
+          averageAge.toFixed(1);
+
+
+
+        // Average Family Size
+
+        const validFamilySizes =
+          rows
+            .map(
+              row =>
+                Number(row['Family size'])
+            )
+            .filter(
+              size =>
+                Number.isFinite(size)
+            );
+
+
+        const averageFamily =
+          validFamilySizes.length
+            ? validFamilySizes.reduce(
+                (sum, size) => sum + size,
+                0
+              ) / validFamilySizes.length
+            : 0;
+
+
+        document.getElementById(
+          'metric-family'
+        ).textContent =
+          averageFamily.toFixed(1);
+
+
+
+        // =====================================================
+        // CHART 1
+        // RESPONDENTS BY MARITAL STATUS
+        // =====================================================
+
+        const maritalCounts =
+          countValues(
+            rows,
+            'Marital Status'
+          );
+
+
+        RetroCharts.createRetroBarChart(
+          'chart-a02',
+          {
+
+            labels:
+              Object.keys(maritalCounts),
+
+            data:
+              Object.values(maritalCounts),
+
+            label:
+              'Number of Respondents'
+
+          }
+        );
+
+
+
+        // =====================================================
+        // CHART 2
+        // RESPONDENTS BY AGE
+        // =====================================================
+
+        const ageCounts = {};
+
+
+        rows.forEach(row => {
+
+          const age =
+            Number(row['Age']);
+
+
+          if (Number.isFinite(age)) {
+
+            ageCounts[age] =
+              (ageCounts[age] || 0) + 1;
+
+          }
+
+        });
+
+
+        const sortedAges =
+          Object.keys(ageCounts)
+            .map(Number)
+            .sort(
+              (a, b) => a - b
+            );
+
+
+        const ageFrequency =
+          sortedAges.map(
+            age => ageCounts[age]
+          );
+
+
+        createLineChart(
+          'chart-age',
+          sortedAges,
+          ageFrequency
+        );
+
+
+
+        // =====================================================
+        // CHART 3
+        // CUSTOMER TYPE PIE CHART
+        // =====================================================
+
+        // Find the exact Customer Type column name
+const customerTypeColumn = Object.keys(rows[0]).find(
+  key => key.trim().toLowerCase() === 'customer type'
+);
+
+console.log(
+  "[PIE CHART] Customer type column:",
+  customerTypeColumn
+);
+
+if (!customerTypeColumn) {
+  console.error(
+    "[PIE CHART] Could not find Customer type column.",
+    Object.keys(rows[0])
+  );
+} else {
+
+  const customerCounts =
+    countValues(
+      rows,
+      customerTypeColumn
+    );
+
+  console.log(
+    "[PIE CHART] Customer counts:",
+    customerCounts
+  );
+
+  createPieChart(
+    'chart-customer',
+    Object.keys(customerCounts),
+    Object.values(customerCounts)
+  );
+}
+
+
+
+        // =====================================================
+        // CHART 4
+        // AGE VS FAMILY SIZE
+        // =====================================================
+
+        const familyData =
+          rows
+            .map(row => ({
+
+              x:
+                Number(row['Age']),
+
+              y:
+                Number(
+                  row['Family size']
+                )
+
+            }))
+            .filter(
+              point =>
+                Number.isFinite(point.x) &&
+                Number.isFinite(point.y)
+            );
+
+
+        createDotPlot(
+          'chart-family',
+          familyData
+        );
+
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "[DATASET ERROR]",
+          error
+        );
+
+      }
+
     });
+
+
+
+    // =========================================================
+    // CSV PARSER
+    // =========================================================
+
+    function parseCSV(text) {
+
+      const lines =
+        text
+          .replace(/^\uFEFF/, '')
+          .trim()
+          .split(/\r?\n/);
+
+
+      if (lines.length < 2) {
+
+        return [];
+
+      }
+
+
+      const headers =
+        parseCSVLine(lines[0])
+          .map(
+            header =>
+              header.trim()
+          );
+
+
+      return lines
+        .slice(1)
+        .filter(
+          line =>
+            line.trim() !== ''
+        )
+        .map(line => {
+
+          const values =
+            parseCSVLine(line);
+
+
+          const row = {};
+
+
+          headers.forEach(
+            (header, index) => {
+
+              row[header] =
+                values[index]
+                  ?.trim() ?? '';
+
+            }
+          );
+
+
+          return row;
+
+        });
+
+    }
+
+
+
+    // =========================================================
+    // HANDLE COMMAS / QUOTED CSV VALUES
+    // =========================================================
+
+    function parseCSVLine(line) {
+
+      const values = [];
+
+      let current = '';
+
+      let insideQuotes = false;
+
+
+      for (
+        let i = 0;
+        i < line.length;
+        i++
+      ) {
+
+        const char =
+          line[i];
+
+
+        if (char === '"') {
+
+          if (
+            insideQuotes &&
+            line[i + 1] === '"'
+          ) {
+
+            current += '"';
+
+            i++;
+
+          }
+
+          else {
+
+            insideQuotes =
+              !insideQuotes;
+
+          }
+
+        }
+
+
+        else if (
+          char === ',' &&
+          !insideQuotes
+        ) {
+
+          values.push(current);
+
+          current = '';
+
+        }
+
+
+        else {
+
+          current += char;
+
+        }
+
+      }
+
+
+      values.push(current);
+
+
+      return values;
+
+    }
+
+
+
+    // =========================================================
+    // COUNT CATEGORICAL VALUES
+    // =========================================================
+
+    function countValues(
+      rows,
+      column
+    ) {
+
+      const counts = {};
+
+
+      rows.forEach(row => {
+
+        const value =
+          row[column]
+            ?.trim();
+
+
+        if (value) {
+
+          counts[value] =
+            (counts[value] || 0) + 1;
+
+        }
+
+      });
+
+
+      return counts;
+
+    }
+
+
+
+    // =========================================================
+    // TERMINAL CHART COLORS
+    // =========================================================
+
+    const terminalGreen =
+      '#00ff88';
+
+
+    const terminalGreenTransparent =
+      'rgba(0, 255, 136, 0.15)';
+
+
+    const gridGreen =
+      'rgba(0, 255, 136, 0.15)';
+
+
+    const textGreen =
+      '#00cc66';
+
+
+
+    // =========================================================
+    // LINE GRAPH
+    // =========================================================
+
+    function createLineChart(
+      canvasId,
+      labels,
+      data
+    ) {
+
+      new Chart(
+
+        document.getElementById(
+          canvasId
+        ),
+
+        {
+
+          type: 'line',
+
+
+          data: {
+
+            labels: labels,
+
+
+            datasets: [{
+
+              label:
+                'Number of Respondents',
+
+              data:
+                data,
+
+              borderColor:
+                terminalGreen,
+
+              backgroundColor:
+                terminalGreenTransparent,
+
+              pointBackgroundColor:
+                terminalGreen,
+
+              pointBorderColor:
+                terminalGreen,
+
+              pointRadius:
+                4,
+
+              pointHoverRadius:
+                7,
+
+              borderWidth:
+                2,
+
+              fill:
+                true,
+
+              tension:
+                0.2
+
+            }]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend: {
+
+                labels: {
+
+                  color:
+                    terminalGreen,
+
+                  font: {
+                    family:
+                      'monospace'
+                  }
+
+                }
+
+              },
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  title:
+                    function(context) {
+
+                      return `Age: ${context[0].label}`;
+
+                    },
+
+
+                  label:
+                    function(context) {
+
+                      return `Respondents: ${context.raw}`;
+
+                    }
+
+                }
+
+              }
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Age',
+
+                  color:
+                    terminalGreen
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    textGreen
+
+                },
+
+
+                grid: {
+
+                  color:
+                    gridGreen
+
+                }
+
+              },
+
+
+              y: {
+
+                beginAtZero:
+                  true,
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Number of Respondents',
+
+                  color:
+                    terminalGreen
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    textGreen,
+
+                  precision:
+                    0
+
+                },
+
+
+                grid: {
+
+                  color:
+                    gridGreen
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+    }
+
+
+
+    // =========================================================
+    // PIE CHART
+    // =========================================================
+
+    function createPieChart(
+      canvasId,
+      labels,
+      data
+    ) {
+
+      const greenPalette = [
+
+        '#00ff88',
+        '#00cc66',
+        '#00994d',
+        '#66ffaa',
+        '#006633',
+        '#33ff99'
+
+      ];
+
+
+      new Chart(
+
+        document.getElementById(
+          canvasId
+        ),
+
+        {
+
+          type:
+            'pie',
+
+
+          data: {
+
+            labels:
+              labels,
+
+
+            datasets: [{
+
+              label:
+                'Customers',
+
+              data:
+                data,
+
+              backgroundColor:
+                greenPalette,
+
+              borderColor:
+                '#001a0d',
+
+              borderWidth:
+                3
+
+            }]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend: {
+
+                position:
+                  'top',
+
+
+                labels: {
+
+                  color:
+                    terminalGreen,
+
+
+                  font: {
+
+                    family:
+                      'monospace'
+
+                  }
+
+                }
+
+              },
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    function(context) {
+
+                      const values =
+                        context.dataset.data;
+
+
+                      const total =
+                        values.reduce(
+
+                          (sum, value) =>
+                            sum + Number(value),
+
+                          0
+
+                        );
+
+
+                      const percentage =
+                        total > 0
+                          ? (
+                              (
+                                Number(context.raw) /
+                                total
+                              ) * 100
+                            ).toFixed(1)
+                          : '0.0';
+
+
+                      return (
+                        `${context.label}: ` +
+                        `${context.raw} ` +
+                        `(${percentage}%)`
+                      );
+
+                    }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+    }
+
+
+
+    // =========================================================
+    // DOT / SCATTER PLOT
+    // =========================================================
+
+    function createDotPlot(
+      canvasId,
+      data
+    ) {
+
+      new Chart(
+
+        document.getElementById(
+          canvasId
+        ),
+
+        {
+
+          type:
+            'scatter',
+
+
+          data: {
+
+            datasets: [{
+
+              label:
+                'Respondents',
+
+              data:
+                data,
+
+              backgroundColor:
+                terminalGreen,
+
+              borderColor:
+                terminalGreen,
+
+              pointRadius:
+                4,
+
+              pointHoverRadius:
+                7
+
+            }]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend: {
+
+                labels: {
+
+                  color:
+                    terminalGreen,
+
+
+                  font: {
+
+                    family:
+                      'monospace'
+
+                  }
+
+                }
+
+              },
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    function(context) {
+
+                      return (
+                        `Age: ${context.raw.x}, ` +
+                        `Family Size: ${context.raw.y}`
+                      );
+
+                    }
+
+                }
+
+              }
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                type:
+                  'linear',
+
+                position:
+                  'bottom',
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Age',
+
+                  color:
+                    terminalGreen
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    textGreen
+
+                },
+
+
+                grid: {
+
+                  color:
+                    gridGreen
+
+                }
+
+              },
+
+
+              y: {
+
+                beginAtZero:
+                  true,
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Family Size',
+
+                  color:
+                    terminalGreen
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    textGreen,
+
+                  stepSize:
+                    1
+
+                },
+
+
+                grid: {
+
+                  color:
+                    gridGreen
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+    }
+
   </script>
+
 </body>
+
 </html>
