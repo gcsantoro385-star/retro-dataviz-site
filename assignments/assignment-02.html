@@ -5,12 +5,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>A02: Data Acquisition & Schema Profiling // ADV Terminal</title>
+  <title>A02: Data Acquisition & Exploratory Analysis // ADV Terminal</title>
 
   <link rel="stylesheet" href="../assets/css/terminal.css">
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Chart.js Boxplot Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot"></script>
+
+  <style>
+    /* =========================================================
+       ASSIGNMENT 02 RESULT PANELS
+    ========================================================== */
+
+    .chart-result-panel {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      background: rgba(0, 255, 136, 0.025);
+      font-family: monospace;
+    }
+
+    .chart-result-title {
+      color: var(--text-bright);
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      letter-spacing: 0.04em;
+    }
+
+    .chart-result-text {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .chart-result-text strong {
+      color: var(--text-bright);
+    }
+
+    .research-question-list {
+      margin: 1rem 0 0;
+      padding-left: 1.5rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .research-question-list strong {
+      color: var(--text-bright);
+    }
+  </style>
 </head>
 
 
@@ -20,7 +65,7 @@
 
 
   <!-- =========================================================
-       TERMINAL HEADER
+       HEADER
   ========================================================== -->
 
   <header class="terminal-header">
@@ -34,7 +79,7 @@
           MODULE: A02
         </span>
 
-        <span>STATUS: AUDITED</span>
+        <span>STATUS: ANALYSIS ACTIVE</span>
 
         <span>
           SESSION:
@@ -123,7 +168,7 @@
 
 
   <!-- =========================================================
-       MAIN PAGE
+       MAIN
   ========================================================== -->
 
   <main
@@ -176,6 +221,7 @@
           gap: 0.75rem;
           align-items: center;
           margin-bottom: 0.5rem;
+          flex-wrap: wrap;
         ">
 
         <span class="card-badge complete">
@@ -183,11 +229,15 @@
         </span>
 
         <span class="tag">
-          DATA INGESTION
+          EXPLORATORY ANALYSIS
         </span>
 
         <span class="tag">
-          SCHEMA PROFILING
+          SOCIAL STATUS
+        </span>
+
+        <span class="tag">
+          ORDERING BEHAVIOR
         </span>
 
       </div>
@@ -195,7 +245,7 @@
 
       <h1>
 
-        02. DATA ACQUISITION &amp; SCHEMA PROFILING
+        02. ONLINE FOOD ORDERING: EXPLORATORY ANALYSIS
 
         <span class="cursor-blink">_</span>
 
@@ -208,9 +258,8 @@
           font-size: 0.95rem;
         ">
 
-        Analysis of an online food delivery dataset examining
-        demographic characteristics, social status, household size,
-        customer behavior, and ordering outcomes.
+        Comparative analysis of demographic, socioeconomic, and
+        behavioral factors associated with online food-ordering outcomes.
 
       </p>
 
@@ -219,18 +268,72 @@
 
 
     <!-- =========================================================
-         EDITING GUIDE
+         RESEARCH QUESTIONS
     ========================================================== -->
 
-    <div class="edit-prompt-callout">
+    <article class="terminal-card">
 
-      <strong>DATASET:</strong>
+      <div class="card-header">
 
-      Online Food Delivery Dataset — CSV data containing demographic,
-      socioeconomic, household, geographic, customer, and ordering
-      information.
+        <h2 class="card-title">
 
-    </div>
+          <span>[RQ]</span>
+
+          RESEARCH QUESTIONS
+
+        </h2>
+
+        <span class="card-badge complete">
+          [ACTIVE]
+        </span>
+
+      </div>
+
+
+      <p style="color: var(--text-bright);">
+
+        <strong>
+          CORE RQ:
+        </strong>
+
+        How is social status associated with a person's
+        ordering habits for online food delivery?
+
+      </p>
+
+
+      <ul class="research-question-list">
+
+        <li>
+
+          <strong>SQ1:</strong>
+
+          Do online food-ordering patterns differ between
+          single and married individuals?
+
+        </li>
+
+        <li>
+
+          <strong>SQ2:</strong>
+
+          Which demographic and socioeconomic factors show
+          the strongest differences in food-ordering behavior?
+
+        </li>
+
+        <li>
+
+          <strong>SQ3:</strong>
+
+          How do feedback and customer-behavior patterns
+          differ across social groups?
+
+        </li>
+
+      </ul>
+
+    </article>
 
 
 
@@ -249,7 +352,7 @@
         </div>
 
         <div class="metric-label">
-          PARSED ROWS
+          RESPONDENTS
         </div>
 
       </div>
@@ -259,12 +362,12 @@
 
         <div
           class="metric-val"
-          id="metric-columns">
+          id="metric-order-rate">
           ---
         </div>
 
         <div class="metric-label">
-          DATA COLUMNS
+          ORDERING RATE
         </div>
 
       </div>
@@ -304,7 +407,7 @@
 
 
     <!-- =========================================================
-         2.1 DATA DICTIONARY
+         2.1 ANALYTICAL VARIABLES
     ========================================================== -->
 
     <article class="terminal-card">
@@ -315,7 +418,7 @@
 
           <span>[2.1]</span>
 
-          DATA DICTIONARY &amp; ATTRIBUTE TYPOLOGY
+          ANALYTICAL VARIABLES
 
         </h2>
 
@@ -328,10 +431,10 @@
 
       <p>
 
-        The dataset contains demographic, socioeconomic,
-        household, geographic, and behavioral attributes.
-        These variables can be used to investigate relationships
-        between social status and online food ordering behavior.
+        The visualizations use the ordering outcome together with
+        demographic, socioeconomic, and behavioral variables.
+        Percentages are used where group sizes differ so comparisons
+        are not driven only by the number of respondents in each group.
 
       </p>
 
@@ -344,11 +447,10 @@
 
             <tr>
 
-              <th>FIELD NAME</th>
-              <th>DATA TYPE</th>
-              <th>DESCRIPTION</th>
-              <th>SAMPLE VALUES</th>
-              <th>VISUAL ROLE</th>
+              <th>VARIABLE</th>
+              <th>TYPE</th>
+              <th>ROLE</th>
+              <th>RESEARCH PURPOSE</th>
 
             </tr>
 
@@ -359,41 +461,20 @@
 
             <tr>
 
-              <td><code>Age</code></td>
-
-              <td>Integer</td>
-
               <td>
-                Age of respondent
+                <code>Marital Status</code>
               </td>
 
               <td>
-                20, 24, 22, 27
+                Categorical
               </td>
 
               <td>
-                Quantitative Axis
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Gender</code></td>
-
-              <td>Categorical</td>
-
-              <td>
-                Gender classification
+                Social Factor
               </td>
 
               <td>
-                Male, Female
-              </td>
-
-              <td>
-                Category / Group
+                Compares ordering behavior by marital status
               </td>
 
             </tr>
@@ -401,41 +482,20 @@
 
             <tr>
 
-              <td><code>Marital Status</code></td>
-
-              <td>Categorical</td>
-
               <td>
-                Respondent marital status
+                <code>Occupation</code>
               </td>
 
               <td>
-                Single, Married
+                Categorical
               </td>
 
               <td>
-                Bar Chart Category
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Occupation</code></td>
-
-              <td>Categorical</td>
-
-              <td>
-                Employment classification
+                Socioeconomic Factor
               </td>
 
               <td>
-                Student, Employee
-              </td>
-
-              <td>
-                Category / Group
+                Compares occupational groups
               </td>
 
             </tr>
@@ -443,41 +503,20 @@
 
             <tr>
 
-              <td><code>Monthly Income</code></td>
-
-              <td>Ordinal / Categorical</td>
-
               <td>
-                Reported income range
+                <code>Monthly Income</code>
               </td>
 
               <td>
-                No Income, Below Rs.10000
+                Ordinal / Categorical
               </td>
 
               <td>
-                Socioeconomic Category
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Educational Qualifications</code></td>
-
-              <td>Categorical</td>
-
-              <td>
-                Highest education level
+                Economic Factor
               </td>
 
               <td>
-                Graduate, Post Graduate
-              </td>
-
-              <td>
-                Category
+                Compares ordering behavior across income groups
               </td>
 
             </tr>
@@ -485,41 +524,20 @@
 
             <tr>
 
-              <td><code>Family size</code></td>
-
-              <td>Integer</td>
-
               <td>
-                Number of household members
+                <code>Age</code>
               </td>
 
               <td>
-                2, 3, 4, 6
+                Quantitative
               </td>
 
               <td>
-                Quantitative Axis
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Customer type</code></td>
-
-              <td>Categorical</td>
-
-              <td>
-                Customer ordering-frequency classification
+                Distribution Variable
               </td>
 
               <td>
-                Frequent, Regular
-              </td>
-
-              <td>
-                Pie Chart Category
+                Measures age distributions within social groups
               </td>
 
             </tr>
@@ -527,41 +545,20 @@
 
             <tr>
 
-              <td><code>latitude</code></td>
-
-              <td>Float</td>
-
               <td>
-                Geographic latitude
+                <code>Feedback</code>
               </td>
 
               <td>
-                12.9766
+                Categorical
               </td>
 
               <td>
-                Geographic Coordinate
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>longitude</code></td>
-
-              <td>Float</td>
-
-              <td>
-                Geographic longitude
+                Behavioral / Experience Factor
               </td>
 
               <td>
-                77.5993
-              </td>
-
-              <td>
-                Geographic Coordinate
+                Compares feedback patterns across social groups
               </td>
 
             </tr>
@@ -569,62 +566,20 @@
 
             <tr>
 
-              <td><code>Pin code</code></td>
-
-              <td>Categorical / Integer</td>
-
               <td>
-                Geographic postal code
+                <code>Output</code>
               </td>
 
               <td>
-                560001, 560009
+                Binary Categorical
               </td>
 
               <td>
-                Geographic Category
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Output</code></td>
-
-              <td>Binary Categorical</td>
-
-              <td>
-                Ordering outcome
+                Ordering Outcome
               </td>
 
               <td>
-                Yes, No
-              </td>
-
-              <td>
-                Outcome Variable
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td><code>Feedback</code></td>
-
-              <td>Categorical</td>
-
-              <td>
-                Customer feedback
-              </td>
-
-              <td>
-                Positive, Negative
-              </td>
-
-              <td>
-                Outcome Category
+                Identifies Yes / No ordering outcomes
               </td>
 
             </tr>
@@ -640,7 +595,7 @@
 
 
     <!-- =========================================================
-         2.2 BAR CHART
+         2.2 MARITAL STATUS STACKED BAR
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -655,7 +610,7 @@
 
             <span>[2.2]</span>
 
-            VISUALIZATION: RESPONDENTS BY MARITAL STATUS
+            ONLINE ORDERING RATE BY MARITAL STATUS
 
           </h2>
 
@@ -666,7 +621,8 @@
               color: var(--text-muted);
             ">
 
-            Distribution of respondents according to marital status
+            Percentage of each marital-status group reporting
+            Yes or No for the ordering outcome
 
           </span>
 
@@ -676,7 +632,7 @@
         <div class="chart-controls">
 
           <span class="tag">
-            BAR CHART
+            100% STACKED BAR
           </span>
 
         </div>
@@ -686,7 +642,26 @@
 
       <div class="chart-canvas-wrapper">
 
-        <canvas id="chart-a02"></canvas>
+        <canvas id="chart-marital"></canvas>
+
+      </div>
+
+
+      <div class="chart-result-panel">
+
+        <div class="chart-result-title">
+
+          &gt; RESULT // SQ1
+
+        </div>
+
+        <p
+          class="chart-result-text"
+          id="result-marital">
+
+          Calculating marital-status ordering rates...
+
+        </p>
 
       </div>
 
@@ -695,7 +670,7 @@
 
 
     <!-- =========================================================
-         2.3 LINE GRAPH
+         2.3 OCCUPATION BOXPLOT
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -710,7 +685,7 @@
 
             <span>[2.3]</span>
 
-            VISUALIZATION: RESPONDENTS BY AGE
+            AGE BY OCCUPATION AND ONLINE FOOD ORDERING
 
           </h2>
 
@@ -721,7 +696,8 @@
               color: var(--text-muted);
             ">
 
-            Frequency distribution of respondents across age
+            Age distributions across occupational groups,
+            separated by online ordering outcome
 
           </span>
 
@@ -731,7 +707,7 @@
         <div class="chart-controls">
 
           <span class="tag">
-            LINE GRAPH
+            BOX PLOT
           </span>
 
         </div>
@@ -741,7 +717,26 @@
 
       <div class="chart-canvas-wrapper">
 
-        <canvas id="chart-age"></canvas>
+        <canvas id="chart-occupation"></canvas>
+
+      </div>
+
+
+      <div class="chart-result-panel">
+
+        <div class="chart-result-title">
+
+          &gt; RESULT // SQ2
+
+        </div>
+
+        <p
+          class="chart-result-text"
+          id="result-occupation">
+
+          Calculating occupational age distributions...
+
+        </p>
 
       </div>
 
@@ -750,7 +745,7 @@
 
 
     <!-- =========================================================
-         2.4 PIE CHART
+         2.4 INCOME ORDERING RATE
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -765,7 +760,7 @@
 
             <span>[2.4]</span>
 
-            VISUALIZATION: CUSTOMER TYPE DISTRIBUTION
+            ONLINE ORDERING RATE BY MONTHLY INCOME
 
           </h2>
 
@@ -776,7 +771,8 @@
               color: var(--text-muted);
             ">
 
-            Proportion of customer ordering-frequency classifications
+            Ordering outcomes compared across socioeconomic
+            income categories
 
           </span>
 
@@ -786,7 +782,7 @@
         <div class="chart-controls">
 
           <span class="tag">
-            PIE CHART
+            GROUPED BAR
           </span>
 
         </div>
@@ -796,7 +792,26 @@
 
       <div class="chart-canvas-wrapper">
 
-        <canvas id="chart-customer"></canvas>
+        <canvas id="chart-income"></canvas>
+
+      </div>
+
+
+      <div class="chart-result-panel">
+
+        <div class="chart-result-title">
+
+          &gt; RESULT // SQ2
+
+        </div>
+
+        <p
+          class="chart-result-text"
+          id="result-income">
+
+          Calculating income-group ordering rates...
+
+        </p>
 
       </div>
 
@@ -805,7 +820,7 @@
 
 
     <!-- =========================================================
-         2.5 DOT / SCATTER PLOT
+         2.5 FEEDBACK BY MARITAL STATUS
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -820,7 +835,7 @@
 
             <span>[2.5]</span>
 
-            VISUALIZATION: AGE VS FAMILY SIZE
+            FEEDBACK PATTERNS BY MARITAL STATUS
 
           </h2>
 
@@ -831,7 +846,8 @@
               color: var(--text-muted);
             ">
 
-            Relationship between respondent age and household size
+            Positive and negative feedback rates within each
+            marital-status group
 
           </span>
 
@@ -841,7 +857,7 @@
         <div class="chart-controls">
 
           <span class="tag">
-            DOT PLOT
+            GROUPED BAR
           </span>
 
         </div>
@@ -851,7 +867,26 @@
 
       <div class="chart-canvas-wrapper">
 
-        <canvas id="chart-family"></canvas>
+        <canvas id="chart-feedback"></canvas>
+
+      </div>
+
+
+      <div class="chart-result-panel">
+
+        <div class="chart-result-title">
+
+          &gt; RESULT // SQ3
+
+        </div>
+
+        <p
+          class="chart-result-text"
+          id="result-feedback">
+
+          Calculating feedback patterns...
+
+        </p>
 
       </div>
 
@@ -860,10 +895,10 @@
 
 
     <!-- =========================================================
-         2.6 DATA INGESTION SCRIPT
+         2.6 INTERPRETATION
     ========================================================== -->
 
-    <section class="terminal-card">
+    <article class="terminal-card">
 
       <div class="card-header">
 
@@ -871,13 +906,12 @@
 
           <span>[2.6]</span>
 
-          DATA INGESTION PIPELINE
+          ANALYTICAL INTERPRETATION
 
         </h2>
 
-
         <span class="tag">
-          JAVASCRIPT / CSV / CHART.JS
+          RESULTS
         </span>
 
       </div>
@@ -885,53 +919,35 @@
 
       <p>
 
-        The dashboard retrieves the CSV file directly from the
-        project data directory. JavaScript parses each record,
-        converts quantitative attributes to numeric values, and
-        aggregates categorical attributes before visualization.
+        These visualizations emphasize comparisons rather than
+        simple frequency counts. Ordering percentages allow groups
+        of different sizes to be compared directly, while the
+        boxplot displays the median, quartiles, spread, and
+        potential age outliers within occupational groups.
 
       </p>
 
 
-      <div class="code-block-container">
+      <p>
 
-        <div class="code-header">
+        The results should be interpreted as associations in this
+        dataset. Differences between demographic or socioeconomic
+        groups do not by themselves demonstrate that those
+        characteristics caused an individual to order food online.
 
-          <span>
-            data/online_food_delivery_dataset.csv
-          </span>
+      </p>
 
-          <span>
-            SOURCE: LOCAL CSV
-          </span>
-
-        </div>
-
-
-        <pre class="code-content"><code>const response =
-    await fetch('../data/online_food_delivery_dataset.csv');
-
-const csvText = await response.text();
-
-const rows = parseCSV(csvText);
-
-console.log("[DATASET] Rows loaded:", rows.length);
-console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
-
-      </div>
-
-    </section>
+    </article>
 
 
 
     <!-- =========================================================
-         BOTTOM NAVIGATION
+         NAVIGATION
     ========================================================== -->
 
     <nav
       class="assignment-nav-bar"
       style="margin-top: 2rem;">
-
 
       <a
         href="assignment-01.html"
@@ -965,7 +981,7 @@ console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
     <div class="container footer-content">
 
       <div>
-        [ADV-CORE // MODULE A02: SCHEMA PROFILING]
+        [ADV-CORE // MODULE A02: EXPLORATORY ANALYSIS]
       </div>
 
 
@@ -990,6 +1006,7 @@ console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
         </li>
 
         <li>
+
           <a
             href="javascript:void(0)"
             onclick="RetroTerminal.openCommandPalette()">
@@ -997,6 +1014,7 @@ console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
             [^K COMMANDS]
 
           </a>
+
         </li>
 
       </ul>
@@ -1008,310 +1026,2053 @@ console.log("[DATASET] Columns:", Object.keys(rows[0]));</code></pre>
 
 
   <!-- =========================================================
-       EXISTING PROJECT JAVASCRIPT
+       PROJECT JAVASCRIPT
   ========================================================== -->
 
   <script src="../assets/js/terminal.js"></script>
 
-  <script src="../assets/js/retro-charts.js"></script>
-
 
 
   <!-- =========================================================
-       DATASET + VISUALIZATION JAVASCRIPT
+       DATA ANALYSIS JAVASCRIPT
   ========================================================== -->
 
   <script>
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    // =========================================================
+    // TERMINAL COLORS
+    // =========================================================
 
-      try {
+    const GREEN =
+      '#00ff88';
 
-        // =====================================================
-        // LOAD CSV
-        // =====================================================
+    const GREEN_2 =
+      '#00cc66';
 
-        const response =
-          await fetch('../data/online_food_delivery_dataset.csv');
+    const BLUE =
+      '#00aaff';
+
+    const AMBER =
+      '#ffbf00';
+
+    const RED =
+      '#ff5f56';
+
+    const GRID =
+      'rgba(0, 255, 136, 0.15)';
+
+    const GREEN_FILL =
+      'rgba(0, 255, 136, 0.28)';
+
+    const BLUE_FILL =
+      'rgba(0, 170, 255, 0.28)';
+
+    const AMBER_FILL =
+      'rgba(255, 191, 0, 0.28)';
+
+    const RED_FILL =
+      'rgba(255, 95, 86, 0.28)';
 
 
-        if (!response.ok) {
 
-          throw new Error(
-            `CSV load failed: ${response.status}`
+    // =========================================================
+    // PAGE LOAD
+    // =========================================================
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      async () => {
+
+        try {
+
+          // =====================================================
+          // LOAD CSV
+          // =====================================================
+
+          const response =
+            await fetch(
+              '../data/online_food_delivery_dataset.csv'
+            );
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              `CSV load failed: ${response.status}`
+            );
+
+          }
+
+
+          const csvText =
+            await response.text();
+
+
+          const rows =
+            parseCSV(csvText);
+
+
+          if (!rows.length) {
+
+            throw new Error(
+              'CSV contains no data rows.'
+            );
+
+          }
+
+
+          console.log(
+            '[DATASET] Rows:',
+            rows.length
+          );
+
+
+          console.log(
+            '[DATASET] Columns:',
+            Object.keys(rows[0])
+          );
+
+
+
+          // =====================================================
+          // FIND EXACT CSV COLUMN NAMES
+          // =====================================================
+
+          const ageColumn =
+            findColumn(
+              rows,
+              'Age'
+            );
+
+
+          const maritalColumn =
+            findColumn(
+              rows,
+              'Marital Status'
+            );
+
+
+          const occupationColumn =
+            findColumn(
+              rows,
+              'Occupation'
+            );
+
+
+          const incomeColumn =
+            findColumn(
+              rows,
+              'Monthly Income'
+            );
+
+
+          const familyColumn =
+            findColumn(
+              rows,
+              'Family size'
+            );
+
+
+          const feedbackColumn =
+            findColumn(
+              rows,
+              'Feedback'
+            );
+
+
+          const outputColumn =
+            findColumn(
+              rows,
+              'Output'
+            );
+
+
+
+          // =====================================================
+          // QUICK METRICS
+          // =====================================================
+
+          document.getElementById(
+            'metric-rows'
+          ).textContent =
+            rows.length.toLocaleString();
+
+
+
+          const yesCount =
+            rows.filter(
+              row =>
+                normalize(
+                  row[outputColumn]
+                ) === 'yes'
+            ).length;
+
+
+          const validOutputCount =
+            rows.filter(
+              row => {
+
+                const output =
+                  normalize(
+                    row[outputColumn]
+                  );
+
+                return (
+                  output === 'yes' ||
+                  output === 'no'
+                );
+
+              }
+            ).length;
+
+
+          const overallOrderingRate =
+            validOutputCount
+              ? (
+                  yesCount /
+                  validOutputCount
+                ) * 100
+              : 0;
+
+
+          document.getElementById(
+            'metric-order-rate'
+          ).textContent =
+            `${overallOrderingRate.toFixed(1)}%`;
+
+
+
+          const ages =
+            rows
+              .map(
+                row =>
+                  Number(
+                    row[ageColumn]
+                  )
+              )
+              .filter(
+                Number.isFinite
+              );
+
+
+          const avgAge =
+            average(ages);
+
+
+          document.getElementById(
+            'metric-age'
+          ).textContent =
+            avgAge.toFixed(1);
+
+
+
+          const familySizes =
+            rows
+              .map(
+                row =>
+                  Number(
+                    row[familyColumn]
+                  )
+              )
+              .filter(
+                Number.isFinite
+              );
+
+
+          document.getElementById(
+            'metric-family'
+          ).textContent =
+            average(
+              familySizes
+            ).toFixed(1);
+
+
+
+          // =====================================================
+          // CHART 1
+          // MARITAL STATUS × OUTPUT
+          // =====================================================
+
+          createMaritalOrderingChart(
+
+            rows,
+
+            maritalColumn,
+
+            outputColumn
+
+          );
+
+
+
+          // =====================================================
+          // CHART 2
+          // AGE × OCCUPATION × OUTPUT
+          // =====================================================
+
+          createOccupationBoxPlot(
+
+            rows,
+
+            occupationColumn,
+
+            ageColumn,
+
+            outputColumn
+
+          );
+
+
+
+          // =====================================================
+          // CHART 3
+          // INCOME × OUTPUT
+          // =====================================================
+
+          createIncomeChart(
+
+            rows,
+
+            incomeColumn,
+
+            outputColumn
+
+          );
+
+
+
+          // =====================================================
+          // CHART 4
+          // MARITAL STATUS × FEEDBACK
+          // =====================================================
+
+          createFeedbackChart(
+
+            rows,
+
+            maritalColumn,
+
+            feedbackColumn
+
+          );
+
+
+        }
+
+        catch (error) {
+
+          console.error(
+            '[ANALYSIS ERROR]',
+            error
           );
 
         }
 
-
-        const csvText =
-          await response.text();
-
-
-        const rows =
-          parseCSV(csvText);
+      }
+    );
 
 
-        if (rows.length === 0) {
 
-          throw new Error(
-            'CSV loaded successfully, but no data rows were found.'
-          );
+    // =========================================================
+    // CHART 1
+    // 100% STACKED BAR:
+    // MARITAL STATUS × OUTPUT
+    // =========================================================
 
-        }
+    function createMaritalOrderingChart(
+      rows,
+      maritalColumn,
+      outputColumn
+    ) {
 
-
-        console.log(
-          "[DATASET] Rows loaded:",
-          rows.length
+      const categories =
+        uniqueValues(
+          rows,
+          maritalColumn
         );
 
 
-        console.log(
-          "[DATASET] First row:",
+      const yesRates = [];
+
+      const noRates = [];
+
+      const results = [];
+
+
+      categories.forEach(
+        category => {
+
+          const group =
+            rows.filter(
+              row =>
+                clean(
+                  row[maritalColumn]
+                ) === category
+            );
+
+
+          const yes =
+            group.filter(
+              row =>
+                normalize(
+                  row[outputColumn]
+                ) === 'yes'
+            ).length;
+
+
+          const no =
+            group.filter(
+              row =>
+                normalize(
+                  row[outputColumn]
+                ) === 'no'
+            ).length;
+
+
+          const total =
+            yes + no;
+
+
+          const yesRate =
+            total
+              ? (yes / total) * 100
+              : 0;
+
+
+          const noRate =
+            total
+              ? (no / total) * 100
+              : 0;
+
+
+          yesRates.push(
+            yesRate
+          );
+
+
+          noRates.push(
+            noRate
+          );
+
+
+          results.push({
+
+            category,
+            yes,
+            no,
+            total,
+            yesRate,
+            noRate
+
+          });
+
+        }
+      );
+
+
+      new Chart(
+
+        document.getElementById(
+          'chart-marital'
+        ),
+
+        {
+
+          type:
+            'bar',
+
+
+          data: {
+
+            labels:
+              categories,
+
+
+            datasets: [
+
+              {
+
+                label:
+                  'Output: Yes',
+
+                data:
+                  yesRates,
+
+                backgroundColor:
+                  GREEN_FILL,
+
+                borderColor:
+                  GREEN,
+
+                borderWidth:
+                  2
+
+              },
+
+              {
+
+                label:
+                  'Output: No',
+
+                data:
+                  noRates,
+
+                backgroundColor:
+                  RED_FILL,
+
+                borderColor:
+                  RED,
+
+                borderWidth:
+                  2
+
+              }
+
+            ]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend:
+                terminalLegend(),
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    context => {
+
+                      return (
+                        `${context.dataset.label}: ` +
+                        `${context.raw.toFixed(1)}%`
+                      );
+
+                    }
+
+                }
+
+              }
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                stacked:
+                  true,
+
+                ticks:
+                  terminalTicks(),
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              },
+
+
+              y: {
+
+                stacked:
+                  true,
+
+                beginAtZero:
+                  true,
+
+                max:
+                  100,
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Percentage of Group (%)',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    GREEN_2,
+
+                  callback:
+                    value =>
+                      `${value}%`
+
+                },
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+
+
+      // -------------------------------------------------------
+      // AUTOMATIC RESULT TEXT
+      // -------------------------------------------------------
+
+      const sorted =
+        [...results].sort(
+          (a, b) =>
+            b.yesRate -
+            a.yesRate
+        );
+
+
+      if (sorted.length) {
+
+        const highest =
+          sorted[0];
+
+
+        const lowest =
+          sorted[
+            sorted.length - 1
+          ];
+
+
+        const difference =
+          highest.yesRate -
+          lowest.yesRate;
+
+
+        document.getElementById(
+          'result-marital'
+        ).innerHTML =
+
+          `<strong>${escapeHTML(highest.category)}</strong> ` +
+
+          `has the highest observed ordering rate at ` +
+
+          `<strong>${highest.yesRate.toFixed(1)}%</strong> ` +
+
+          `(${highest.yes} of ${highest.total}). ` +
+
+          `<strong>${escapeHTML(lowest.category)}</strong> ` +
+
+          `has an ordering rate of ` +
+
+          `<strong>${lowest.yesRate.toFixed(1)}%</strong>. ` +
+
+          `The observed difference between the highest and ` +
+
+          `lowest marital-status groups is ` +
+
+          `<strong>${difference.toFixed(1)} percentage points</strong>.`;
+
+      }
+
+    }
+
+
+
+    // =========================================================
+    // CHART 2
+    // BOX PLOT:
+    // AGE × OCCUPATION × OUTPUT
+    // =========================================================
+
+    function createOccupationBoxPlot(
+      rows,
+      occupationColumn,
+      ageColumn,
+      outputColumn
+    ) {
+
+      const categories =
+        uniqueValues(
+          rows,
+          occupationColumn
+        );
+
+
+      const outputValues =
+        ['Yes', 'No'];
+
+
+      const colors = {
+
+        Yes: {
+
+          background:
+            GREEN_FILL,
+
+          border:
+            GREEN
+
+        },
+
+        No: {
+
+          background:
+            BLUE_FILL,
+
+          border:
+            BLUE
+
+        }
+
+      };
+
+
+      const datasets =
+        outputValues.map(
+          outputValue => {
+
+            const data =
+              categories.map(
+                category => {
+
+                  return rows
+
+                    .filter(
+                      row =>
+
+                        clean(
+                          row[occupationColumn]
+                        ) === category
+
+                        &&
+
+                        normalize(
+                          row[outputColumn]
+                        ) ===
+                        normalize(
+                          outputValue
+                        )
+
+                    )
+
+                    .map(
+                      row =>
+                        Number(
+                          row[ageColumn]
+                        )
+                    )
+
+                    .filter(
+                      Number.isFinite
+                    );
+
+                }
+              );
+
+
+            return {
+
+              label:
+                `Output: ${outputValue}`,
+
+              data,
+
+              backgroundColor:
+                colors[
+                  outputValue
+                ].background,
+
+              borderColor:
+                colors[
+                  outputValue
+                ].border,
+
+              borderWidth:
+                2,
+
+              outlierColor:
+                colors[
+                  outputValue
+                ].border,
+
+              itemRadius:
+                2,
+
+              itemBackgroundColor:
+                colors[
+                  outputValue
+                ].border
+
+            };
+
+          }
+        );
+
+
+      new Chart(
+
+        document.getElementById(
+          'chart-occupation'
+        ),
+
+        {
+
+          type:
+            'boxplot',
+
+
+          data: {
+
+            labels:
+              categories,
+
+            datasets:
+              datasets
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend:
+                terminalLegend()
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Occupation',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks:
+                  terminalTicks(),
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              },
+
+
+              y: {
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Age',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks:
+                  terminalTicks(),
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+
+
+      // -------------------------------------------------------
+      // CALCULATE MEDIAN AGE RESULTS
+      // -------------------------------------------------------
+
+      const occupationResults =
+        categories.map(
+          category => {
+
+            const group =
+              rows.filter(
+                row =>
+                  clean(
+                    row[occupationColumn]
+                  ) === category
+              );
+
+
+            const yesAges =
+              group
+
+                .filter(
+                  row =>
+                    normalize(
+                      row[outputColumn]
+                    ) === 'yes'
+                )
+
+                .map(
+                  row =>
+                    Number(
+                      row[ageColumn]
+                    )
+                )
+
+                .filter(
+                  Number.isFinite
+                );
+
+
+            const noAges =
+              group
+
+                .filter(
+                  row =>
+                    normalize(
+                      row[outputColumn]
+                    ) === 'no'
+                )
+
+                .map(
+                  row =>
+                    Number(
+                      row[ageColumn]
+                    )
+                )
+
+                .filter(
+                  Number.isFinite
+                );
+
+
+            return {
+
+              category,
+
+              yesMedian:
+                median(
+                  yesAges
+                ),
+
+              noMedian:
+                median(
+                  noAges
+                ),
+
+              yesCount:
+                yesAges.length,
+
+              noCount:
+                noAges.length
+
+            };
+
+          }
+        );
+
+
+      const validResults =
+        occupationResults.filter(
+          result =>
+            Number.isFinite(
+              result.yesMedian
+            ) ||
+            Number.isFinite(
+              result.noMedian
+            )
+        );
+
+
+      const descriptions =
+        validResults.map(
+          result => {
+
+            const yesText =
+              Number.isFinite(
+                result.yesMedian
+              )
+                ? `Yes median ${result.yesMedian.toFixed(1)}`
+                : 'Yes: no observations';
+
+
+            const noText =
+              Number.isFinite(
+                result.noMedian
+              )
+                ? `No median ${result.noMedian.toFixed(1)}`
+                : 'No: no observations';
+
+
+            return (
+              `<strong>${escapeHTML(result.category)}</strong>: ` +
+              `${yesText}; ${noText}`
+            );
+
+          }
+        );
+
+
+      document.getElementById(
+        'result-occupation'
+      ).innerHTML =
+
+        `Median age by occupation and ordering outcome — ` +
+
+        descriptions.join(' | ') +
+
+        `. The box widths and whiskers additionally show ` +
+
+        `the spread of ages within each subgroup.`;
+
+    }
+
+
+
+    // =========================================================
+    // CHART 3
+    // GROUPED BAR:
+    // MONTHLY INCOME × OUTPUT
+    // =========================================================
+
+    function createIncomeChart(
+      rows,
+      incomeColumn,
+      outputColumn
+    ) {
+
+      let categories =
+        uniqueValues(
+          rows,
+          incomeColumn
+        );
+
+
+      // Attempt to place common income categories
+      // in meaningful ordinal order.
+
+      const preferredOrder = [
+
+        'No Income',
+        'Below Rs.10000',
+        '10001 to 25000',
+        '25001 to 50000',
+        'More than 50000'
+
+      ];
+
+
+      categories.sort(
+        (a, b) => {
+
+          const indexA =
+            preferredOrder.findIndex(
+              value =>
+                normalize(value) ===
+                normalize(a)
+            );
+
+
+          const indexB =
+            preferredOrder.findIndex(
+              value =>
+                normalize(value) ===
+                normalize(b)
+            );
+
+
+          if (
+            indexA !== -1 &&
+            indexB !== -1
+          ) {
+
+            return indexA - indexB;
+
+          }
+
+
+          if (indexA !== -1) {
+
+            return -1;
+
+          }
+
+
+          if (indexB !== -1) {
+
+            return 1;
+
+          }
+
+
+          return a.localeCompare(b);
+
+        }
+      );
+
+
+      const yesRates = [];
+
+      const noRates = [];
+
+      const results = [];
+
+
+      categories.forEach(
+        category => {
+
+          const group =
+            rows.filter(
+              row =>
+                clean(
+                  row[incomeColumn]
+                ) === category
+            );
+
+
+          const yes =
+            group.filter(
+              row =>
+                normalize(
+                  row[outputColumn]
+                ) === 'yes'
+            ).length;
+
+
+          const no =
+            group.filter(
+              row =>
+                normalize(
+                  row[outputColumn]
+                ) === 'no'
+            ).length;
+
+
+          const total =
+            yes + no;
+
+
+          const yesRate =
+            total
+              ? (yes / total) * 100
+              : 0;
+
+
+          const noRate =
+            total
+              ? (no / total) * 100
+              : 0;
+
+
+          yesRates.push(
+            yesRate
+          );
+
+
+          noRates.push(
+            noRate
+          );
+
+
+          results.push({
+
+            category,
+            yes,
+            no,
+            total,
+            yesRate,
+            noRate
+
+          });
+
+        }
+      );
+
+
+      new Chart(
+
+        document.getElementById(
+          'chart-income'
+        ),
+
+        {
+
+          type:
+            'bar',
+
+
+          data: {
+
+            labels:
+              categories,
+
+
+            datasets: [
+
+              {
+
+                label:
+                  'Output: Yes',
+
+                data:
+                  yesRates,
+
+                backgroundColor:
+                  GREEN_FILL,
+
+                borderColor:
+                  GREEN,
+
+                borderWidth:
+                  2
+
+              },
+
+
+              {
+
+                label:
+                  'Output: No',
+
+                data:
+                  noRates,
+
+                backgroundColor:
+                  BLUE_FILL,
+
+                borderColor:
+                  BLUE,
+
+                borderWidth:
+                  2
+
+              }
+
+            ]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend:
+                terminalLegend(),
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    context =>
+                      `${context.dataset.label}: ` +
+                      `${context.raw.toFixed(1)}%`
+
+                }
+
+              }
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Monthly Income',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    GREEN_2,
+
+                  maxRotation:
+                    25,
+
+                  minRotation:
+                    0
+
+                },
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              },
+
+
+              y: {
+
+                beginAtZero:
+                  true,
+
+                max:
+                  100,
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Percentage of Group (%)',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    GREEN_2,
+
+                  callback:
+                    value =>
+                      `${value}%`
+
+                },
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+
+
+      // -------------------------------------------------------
+      // RESULT
+      // -------------------------------------------------------
+
+      const sorted =
+        [...results].sort(
+          (a, b) =>
+            b.yesRate -
+            a.yesRate
+        );
+
+
+      if (sorted.length) {
+
+        const highest =
+          sorted[0];
+
+
+        const lowest =
+          sorted[
+            sorted.length - 1
+          ];
+
+
+        const range =
+          highest.yesRate -
+          lowest.yesRate;
+
+
+        document.getElementById(
+          'result-income'
+        ).innerHTML =
+
+          `The highest observed ordering rate occurs in ` +
+
+          `<strong>${escapeHTML(highest.category)}</strong> ` +
+
+          `at <strong>${highest.yesRate.toFixed(1)}%</strong> ` +
+
+          `(${highest.yes} of ${highest.total}). ` +
+
+          `The lowest occurs in ` +
+
+          `<strong>${escapeHTML(lowest.category)}</strong> ` +
+
+          `at <strong>${lowest.yesRate.toFixed(1)}%</strong>. ` +
+
+          `The range across income categories is ` +
+
+          `<strong>${range.toFixed(1)} percentage points</strong>.`;
+
+      }
+
+    }
+
+
+
+    // =========================================================
+    // CHART 4
+    // GROUPED BAR:
+    // MARITAL STATUS × FEEDBACK
+    // =========================================================
+
+    function createFeedbackChart(
+      rows,
+      maritalColumn,
+      feedbackColumn
+    ) {
+
+      const categories =
+        uniqueValues(
+          rows,
+          maritalColumn
+        );
+
+
+      const positiveRates = [];
+
+      const negativeRates = [];
+
+      const results = [];
+
+
+      categories.forEach(
+        category => {
+
+          const group =
+            rows.filter(
+              row =>
+                clean(
+                  row[maritalColumn]
+                ) === category
+            );
+
+
+          const positive =
+            group.filter(
+              row =>
+                normalize(
+                  row[feedbackColumn]
+                ).includes(
+                  'positive'
+                )
+            ).length;
+
+
+          const negative =
+            group.filter(
+              row =>
+                normalize(
+                  row[feedbackColumn]
+                ).includes(
+                  'negative'
+                )
+            ).length;
+
+
+          const total =
+            positive +
+            negative;
+
+
+          const positiveRate =
+            total
+              ? (
+                  positive /
+                  total
+                ) * 100
+              : 0;
+
+
+          const negativeRate =
+            total
+              ? (
+                  negative /
+                  total
+                ) * 100
+              : 0;
+
+
+          positiveRates.push(
+            positiveRate
+          );
+
+
+          negativeRates.push(
+            negativeRate
+          );
+
+
+          results.push({
+
+            category,
+            positive,
+            negative,
+            total,
+            positiveRate,
+            negativeRate
+
+          });
+
+        }
+      );
+
+
+      new Chart(
+
+        document.getElementById(
+          'chart-feedback'
+        ),
+
+        {
+
+          type:
+            'bar',
+
+
+          data: {
+
+            labels:
+              categories,
+
+
+            datasets: [
+
+              {
+
+                label:
+                  'Positive Feedback',
+
+                data:
+                  positiveRates,
+
+                backgroundColor:
+                  GREEN_FILL,
+
+                borderColor:
+                  GREEN,
+
+                borderWidth:
+                  2
+
+              },
+
+
+              {
+
+                label:
+                  'Negative Feedback',
+
+                data:
+                  negativeRates,
+
+                backgroundColor:
+                  AMBER_FILL,
+
+                borderColor:
+                  AMBER,
+
+                borderWidth:
+                  2
+
+              }
+
+            ]
+
+          },
+
+
+          options: {
+
+            responsive:
+              true,
+
+            maintainAspectRatio:
+              false,
+
+
+            plugins: {
+
+              legend:
+                terminalLegend(),
+
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    context =>
+                      `${context.dataset.label}: ` +
+                      `${context.raw.toFixed(1)}%`
+
+                }
+
+              }
+
+            },
+
+
+            scales: {
+
+              x: {
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Marital Status',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks:
+                  terminalTicks(),
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              },
+
+
+              y: {
+
+                beginAtZero:
+                  true,
+
+                max:
+                  100,
+
+
+                title: {
+
+                  display:
+                    true,
+
+                  text:
+                    'Feedback Rate (%)',
+
+                  color:
+                    GREEN
+
+                },
+
+
+                ticks: {
+
+                  color:
+                    GREEN_2,
+
+                  callback:
+                    value =>
+                      `${value}%`
+
+                },
+
+
+                grid: {
+
+                  color:
+                    GRID
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      );
+
+
+
+      // -------------------------------------------------------
+      // RESULT
+      // -------------------------------------------------------
+
+      const descriptions =
+        results.map(
+          result =>
+
+            `<strong>${escapeHTML(result.category)}</strong>: ` +
+
+            `${result.positiveRate.toFixed(1)}% positive ` +
+
+            `(${result.positive}/${result.total})`
+
+        );
+
+
+      document.getElementById(
+        'result-feedback'
+      ).innerHTML =
+
+        `Positive feedback rates by marital status — ` +
+
+        descriptions.join(' | ') +
+
+        `. These results describe observed customer feedback; ` +
+
+        `they should not be interpreted as direct evidence of ` +
+
+        `a respondent's personal motivation for ordering.`;
+
+    }
+
+
+
+    // =========================================================
+    // COMMON CHART OPTIONS
+    // =========================================================
+
+    function terminalLegend() {
+
+      return {
+
+        position:
+          'top',
+
+
+        labels: {
+
+          color:
+            GREEN,
+
+
+          font: {
+
+            family:
+              'monospace',
+
+            size:
+              12
+
+          }
+
+        }
+
+      };
+
+    }
+
+
+
+    function terminalTicks() {
+
+      return {
+
+        color:
+          GREEN_2,
+
+
+        font: {
+
+          family:
+            'monospace'
+
+        }
+
+      };
+
+    }
+
+
+
+    // =========================================================
+    // COLUMN LOOKUP
+    // =========================================================
+
+    function findColumn(
+      rows,
+      wanted
+    ) {
+
+      const columns =
+        Object.keys(
           rows[0]
         );
 
 
-        console.log(
-          "[DATASET] Columns:",
-          Object.keys(rows[0])
+      const match =
+        columns.find(
+          column =>
+            normalize(column) ===
+            normalize(wanted)
         );
 
 
+      if (!match) {
 
-        // =====================================================
-        // QUICK METRICS
-        // =====================================================
+        throw new Error(
 
-        document.getElementById(
-          'metric-rows'
-        ).textContent =
-          rows.length.toLocaleString();
+          `Column "${wanted}" was not found. ` +
 
+          `Available columns: ${columns.join(', ')}`
 
-        document.getElementById(
-          'metric-columns'
-        ).textContent =
-          Object.keys(rows[0]).length;
+        );
+
+      }
 
 
+      return match;
 
-        // Average Age
+    }
 
-        const validAges =
+
+
+    // =========================================================
+    // UNIQUE CATEGORY VALUES
+    // =========================================================
+
+    function uniqueValues(
+      rows,
+      column
+    ) {
+
+      return [
+
+        ...new Set(
+
           rows
-            .map(row => Number(row['Age']))
-            .filter(age => Number.isFinite(age));
 
-
-        const averageAge =
-          validAges.length
-            ? validAges.reduce(
-                (sum, age) => sum + age,
-                0
-              ) / validAges.length
-            : 0;
-
-
-        document.getElementById(
-          'metric-age'
-        ).textContent =
-          averageAge.toFixed(1);
-
-
-
-        // Average Family Size
-
-        const validFamilySizes =
-          rows
             .map(
               row =>
-                Number(row['Family size'])
-            )
-            .filter(
-              size =>
-                Number.isFinite(size)
-            );
-
-
-        const averageFamily =
-          validFamilySizes.length
-            ? validFamilySizes.reduce(
-                (sum, size) => sum + size,
-                0
-              ) / validFamilySizes.length
-            : 0;
-
-
-        document.getElementById(
-          'metric-family'
-        ).textContent =
-          averageFamily.toFixed(1);
-
-
-
-        // =====================================================
-        // CHART 1
-        // RESPONDENTS BY MARITAL STATUS
-        // =====================================================
-
-        const maritalCounts =
-          countValues(
-            rows,
-            'Marital Status'
-          );
-
-
-        RetroCharts.createRetroBarChart(
-          'chart-a02',
-          {
-
-            labels:
-              Object.keys(maritalCounts),
-
-            data:
-              Object.values(maritalCounts),
-
-            label:
-              'Number of Respondents'
-
-          }
-        );
-
-
-
-        // =====================================================
-        // CHART 2
-        // RESPONDENTS BY AGE
-        // =====================================================
-
-        const ageCounts = {};
-
-
-        rows.forEach(row => {
-
-          const age =
-            Number(row['Age']);
-
-
-          if (Number.isFinite(age)) {
-
-            ageCounts[age] =
-              (ageCounts[age] || 0) + 1;
-
-          }
-
-        });
-
-
-        const sortedAges =
-          Object.keys(ageCounts)
-            .map(Number)
-            .sort(
-              (a, b) => a - b
-            );
-
-
-        const ageFrequency =
-          sortedAges.map(
-            age => ageCounts[age]
-          );
-
-
-        createLineChart(
-          'chart-age',
-          sortedAges,
-          ageFrequency
-        );
-
-
-
-        // =====================================================
-        // CHART 3
-        // CUSTOMER TYPE PIE CHART
-        // =====================================================
-
-        // Find the exact Customer Type column name
-const customerTypeColumn = Object.keys(rows[0]).find(
-  key => key.trim().toLowerCase() === 'customer type'
-);
-
-console.log(
-  "[PIE CHART] Customer type column:",
-  customerTypeColumn
-);
-
-if (!customerTypeColumn) {
-  console.error(
-    "[PIE CHART] Could not find Customer type column.",
-    Object.keys(rows[0])
-  );
-} else {
-
-  const customerCounts =
-    countValues(
-      rows,
-      customerTypeColumn
-    );
-
-  console.log(
-    "[PIE CHART] Customer counts:",
-    customerCounts
-  );
-
-  createPieChart(
-    'chart-customer',
-    Object.keys(customerCounts),
-    Object.values(customerCounts)
-  );
-}
-
-
-
-        // =====================================================
-        // CHART 4
-        // AGE VS FAMILY SIZE
-        // =====================================================
-
-        const familyData =
-          rows
-            .map(row => ({
-
-              x:
-                Number(row['Age']),
-
-              y:
-                Number(
-                  row['Family size']
+                clean(
+                  row[column]
                 )
+            )
 
-            }))
-            .filter(
-              point =>
-                Number.isFinite(point.x) &&
-                Number.isFinite(point.y)
-            );
+            .filter(Boolean)
+
+        )
+
+      ];
+
+    }
 
 
-        createDotPlot(
-          'chart-family',
-          familyData
+
+    // =========================================================
+    // STRING HELPERS
+    // =========================================================
+
+    function clean(value) {
+
+      return String(
+        value ?? ''
+      ).trim();
+
+    }
+
+
+
+    function normalize(value) {
+
+      return clean(
+        value
+      ).toLowerCase();
+
+    }
+
+
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ''
+      )
+
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+
+        .replaceAll(
+          "'",
+          '&#039;'
         );
 
+    }
+
+
+
+    // =========================================================
+    // STATISTICAL HELPERS
+    // =========================================================
+
+    function average(values) {
+
+      if (!values.length) {
+
+        return 0;
 
       }
 
-      catch (error) {
 
-        console.error(
-          "[DATASET ERROR]",
-          error
-        );
+      return values.reduce(
+        (sum, value) =>
+          sum + value,
+        0
+      ) / values.length;
+
+    }
+
+
+
+    function median(values) {
+
+      if (!values.length) {
+
+        return NaN;
 
       }
 
-    });
+
+      const sorted =
+        [...values].sort(
+          (a, b) =>
+            a - b
+        );
+
+
+      const middle =
+        Math.floor(
+          sorted.length / 2
+        );
+
+
+      if (
+        sorted.length % 2 === 0
+      ) {
+
+        return (
+          sorted[middle - 1] +
+          sorted[middle]
+        ) / 2;
+
+      }
+
+
+      return sorted[middle];
+
+    }
 
 
 
@@ -1323,12 +3084,22 @@ if (!customerTypeColumn) {
 
       const lines =
         text
-          .replace(/^\uFEFF/, '')
+
+          .replace(
+            /^\uFEFF/,
+            ''
+          )
+
           .trim()
-          .split(/\r?\n/);
+
+          .split(
+            /\r?\n/
+          );
 
 
-      if (lines.length < 2) {
+      if (
+        lines.length < 2
+      ) {
 
         return [];
 
@@ -1336,49 +3107,58 @@ if (!customerTypeColumn) {
 
 
       const headers =
-        parseCSVLine(lines[0])
-          .map(
-            header =>
-              header.trim()
-          );
+        parseCSVLine(
+          lines[0]
+        ).map(
+          header =>
+            header.trim()
+        );
 
 
       return lines
+
         .slice(1)
+
         .filter(
           line =>
             line.trim() !== ''
         )
-        .map(line => {
 
-          const values =
-            parseCSVLine(line);
+        .map(
+          line => {
 
-
-          const row = {};
-
-
-          headers.forEach(
-            (header, index) => {
-
-              row[header] =
-                values[index]
-                  ?.trim() ?? '';
-
-            }
-          );
+            const values =
+              parseCSVLine(
+                line
+              );
 
 
-          return row;
+            const row = {};
 
-        });
+
+            headers.forEach(
+              (header, index) => {
+
+                row[header] =
+                  values[index]
+                    ?.trim() ?? '';
+
+              }
+            );
+
+
+            return row;
+
+          }
+        );
 
     }
 
 
 
     // =========================================================
-    // HANDLE COMMAS / QUOTED CSV VALUES
+    // CSV LINE PARSER
+    // Handles commas inside quoted values
     // =========================================================
 
     function parseCSVLine(line) {
@@ -1387,7 +3167,8 @@ if (!customerTypeColumn) {
 
       let current = '';
 
-      let insideQuotes = false;
+      let insideQuotes =
+        false;
 
 
       for (
@@ -1400,7 +3181,9 @@ if (!customerTypeColumn) {
           line[i];
 
 
-        if (char === '"') {
+        if (
+          char === '"'
+        ) {
 
           if (
             insideQuotes &&
@@ -1428,7 +3211,9 @@ if (!customerTypeColumn) {
           !insideQuotes
         ) {
 
-          values.push(current);
+          values.push(
+            current
+          );
 
           current = '';
 
@@ -1437,630 +3222,20 @@ if (!customerTypeColumn) {
 
         else {
 
-          current += char;
+          current +=
+            char;
 
         }
 
       }
 
 
-      values.push(current);
+      values.push(
+        current
+      );
 
 
       return values;
-
-    }
-
-
-
-    // =========================================================
-    // COUNT CATEGORICAL VALUES
-    // =========================================================
-
-    function countValues(
-      rows,
-      column
-    ) {
-
-      const counts = {};
-
-
-      rows.forEach(row => {
-
-        const value =
-          row[column]
-            ?.trim();
-
-
-        if (value) {
-
-          counts[value] =
-            (counts[value] || 0) + 1;
-
-        }
-
-      });
-
-
-      return counts;
-
-    }
-
-
-
-    // =========================================================
-    // TERMINAL CHART COLORS
-    // =========================================================
-
-    const terminalGreen =
-      '#00ff88';
-
-
-    const terminalGreenTransparent =
-      'rgba(0, 255, 136, 0.15)';
-
-
-    const gridGreen =
-      'rgba(0, 255, 136, 0.15)';
-
-
-    const textGreen =
-      '#00cc66';
-
-
-
-    // =========================================================
-    // LINE GRAPH
-    // =========================================================
-
-    function createLineChart(
-      canvasId,
-      labels,
-      data
-    ) {
-
-      new Chart(
-
-        document.getElementById(
-          canvasId
-        ),
-
-        {
-
-          type: 'line',
-
-
-          data: {
-
-            labels: labels,
-
-
-            datasets: [{
-
-              label:
-                'Number of Respondents',
-
-              data:
-                data,
-
-              borderColor:
-                terminalGreen,
-
-              backgroundColor:
-                terminalGreenTransparent,
-
-              pointBackgroundColor:
-                terminalGreen,
-
-              pointBorderColor:
-                terminalGreen,
-
-              pointRadius:
-                4,
-
-              pointHoverRadius:
-                7,
-
-              borderWidth:
-                2,
-
-              fill:
-                true,
-
-              tension:
-                0.2
-
-            }]
-
-          },
-
-
-          options: {
-
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
-
-            plugins: {
-
-              legend: {
-
-                labels: {
-
-                  color:
-                    terminalGreen,
-
-                  font: {
-                    family:
-                      'monospace'
-                  }
-
-                }
-
-              },
-
-
-              tooltip: {
-
-                callbacks: {
-
-                  title:
-                    function(context) {
-
-                      return `Age: ${context[0].label}`;
-
-                    },
-
-
-                  label:
-                    function(context) {
-
-                      return `Respondents: ${context.raw}`;
-
-                    }
-
-                }
-
-              }
-
-            },
-
-
-            scales: {
-
-              x: {
-
-                title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Age',
-
-                  color:
-                    terminalGreen
-
-                },
-
-
-                ticks: {
-
-                  color:
-                    textGreen
-
-                },
-
-
-                grid: {
-
-                  color:
-                    gridGreen
-
-                }
-
-              },
-
-
-              y: {
-
-                beginAtZero:
-                  true,
-
-
-                title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Number of Respondents',
-
-                  color:
-                    terminalGreen
-
-                },
-
-
-                ticks: {
-
-                  color:
-                    textGreen,
-
-                  precision:
-                    0
-
-                },
-
-
-                grid: {
-
-                  color:
-                    gridGreen
-
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
-      );
-
-    }
-
-
-
-    // =========================================================
-    // PIE CHART
-    // =========================================================
-
-    function createPieChart(
-      canvasId,
-      labels,
-      data
-    ) {
-
-      const greenPalette = [
-
-        '#00ff88',
-        '#00cc66',
-        '#00994d',
-        '#66ffaa',
-        '#006633',
-        '#33ff99'
-
-      ];
-
-
-      new Chart(
-
-        document.getElementById(
-          canvasId
-        ),
-
-        {
-
-          type:
-            'pie',
-
-
-          data: {
-
-            labels:
-              labels,
-
-
-            datasets: [{
-
-              label:
-                'Customers',
-
-              data:
-                data,
-
-              backgroundColor:
-                greenPalette,
-
-              borderColor:
-                '#001a0d',
-
-              borderWidth:
-                3
-
-            }]
-
-          },
-
-
-          options: {
-
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
-
-            plugins: {
-
-              legend: {
-
-                position:
-                  'top',
-
-
-                labels: {
-
-                  color:
-                    terminalGreen,
-
-
-                  font: {
-
-                    family:
-                      'monospace'
-
-                  }
-
-                }
-
-              },
-
-
-              tooltip: {
-
-                callbacks: {
-
-                  label:
-                    function(context) {
-
-                      const values =
-                        context.dataset.data;
-
-
-                      const total =
-                        values.reduce(
-
-                          (sum, value) =>
-                            sum + Number(value),
-
-                          0
-
-                        );
-
-
-                      const percentage =
-                        total > 0
-                          ? (
-                              (
-                                Number(context.raw) /
-                                total
-                              ) * 100
-                            ).toFixed(1)
-                          : '0.0';
-
-
-                      return (
-                        `${context.label}: ` +
-                        `${context.raw} ` +
-                        `(${percentage}%)`
-                      );
-
-                    }
-
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
-      );
-
-    }
-
-
-
-    // =========================================================
-    // DOT / SCATTER PLOT
-    // =========================================================
-
-    function createDotPlot(
-      canvasId,
-      data
-    ) {
-
-      new Chart(
-
-        document.getElementById(
-          canvasId
-        ),
-
-        {
-
-          type:
-            'scatter',
-
-
-          data: {
-
-            datasets: [{
-
-              label:
-                'Respondents',
-
-              data:
-                data,
-
-              backgroundColor:
-                terminalGreen,
-
-              borderColor:
-                terminalGreen,
-
-              pointRadius:
-                4,
-
-              pointHoverRadius:
-                7
-
-            }]
-
-          },
-
-
-          options: {
-
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
-
-            plugins: {
-
-              legend: {
-
-                labels: {
-
-                  color:
-                    terminalGreen,
-
-
-                  font: {
-
-                    family:
-                      'monospace'
-
-                  }
-
-                }
-
-              },
-
-
-              tooltip: {
-
-                callbacks: {
-
-                  label:
-                    function(context) {
-
-                      return (
-                        `Age: ${context.raw.x}, ` +
-                        `Family Size: ${context.raw.y}`
-                      );
-
-                    }
-
-                }
-
-              }
-
-            },
-
-
-            scales: {
-
-              x: {
-
-                type:
-                  'linear',
-
-                position:
-                  'bottom',
-
-
-                title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Age',
-
-                  color:
-                    terminalGreen
-
-                },
-
-
-                ticks: {
-
-                  color:
-                    textGreen
-
-                },
-
-
-                grid: {
-
-                  color:
-                    gridGreen
-
-                }
-
-              },
-
-
-              y: {
-
-                beginAtZero:
-                  true,
-
-
-                title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Family Size',
-
-                  color:
-                    terminalGreen
-
-                },
-
-
-                ticks: {
-
-                  color:
-                    textGreen,
-
-                  stepSize:
-                    1
-
-                },
-
-
-                grid: {
-
-                  color:
-                    gridGreen
-
-                }
-
-              }
-
-            }
-
-          }
-
-        }
-
-      );
 
     }
 
