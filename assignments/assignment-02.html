@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>A02: Data Acquisition & Exploratory Analysis // ADV Terminal</title>
+  <title>A02: Food Ordering Analysis // ADV Terminal</title>
 
   <link rel="stylesheet" href="../assets/css/terminal.css">
 
@@ -16,11 +16,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot"></script>
 
   <style>
-    /* =========================================================
-       ASSIGNMENT 02 RESULT PANELS
-    ========================================================== */
-
-    .chart-result-panel {
+    .chart-result-panel,
+    .model-result-panel {
       margin-top: 1rem;
       padding: 1rem 1.25rem;
       border: 1px solid rgba(0, 255, 136, 0.25);
@@ -55,6 +52,68 @@
     .research-question-list strong {
       color: var(--text-bright);
     }
+
+    .model-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .model-metric {
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      padding: 1rem;
+      text-align: center;
+      background: rgba(0, 255, 136, 0.02);
+    }
+
+    .model-metric-value {
+      color: var(--text-bright);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .model-metric-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+    }
+
+    .model-status {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .model-status.success {
+      color: var(--text-bright);
+    }
+
+    .model-status.error {
+      color: #ff6b6b;
+    }
+
+    .model-explanation {
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .model-explanation strong {
+      color: var(--text-bright);
+    }
+
+    @media (max-width: 1000px) {
+      .model-metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .model-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
 
@@ -79,7 +138,7 @@
           MODULE: A02
         </span>
 
-        <span>STATUS: ANALYSIS ACTIVE</span>
+        <span>STATUS: MODEL ACTIVE</span>
 
         <span>
           SESSION:
@@ -93,31 +152,19 @@
 
         <span id="terminal-clock">00:00:00 LOC</span>
 
-        <button
-          type="button"
-          class="term-btn"
-          id="btn-toggle-audio">
+        <button type="button" class="term-btn" id="btn-toggle-audio">
           [AUDIO: OFF]
         </button>
 
-        <button
-          type="button"
-          class="term-btn"
-          id="btn-toggle-scanlines">
+        <button type="button" class="term-btn" id="btn-toggle-scanlines">
           [SCANLINES: ON]
         </button>
 
-        <button
-          type="button"
-          class="term-btn"
-          id="btn-toggle-glow">
+        <button type="button" class="term-btn" id="btn-toggle-glow">
           [GLOW: ON]
         </button>
 
-        <button
-          type="button"
-          class="term-btn amber"
-          id="btn-open-cmd">
+        <button type="button" class="term-btn amber" id="btn-open-cmd">
           [^K JUMP]
         </button>
 
@@ -132,9 +179,7 @@
 
         <span class="brand-icon">■</span>
 
-        <span>
-          ADV-CORE // MODULE A02
-        </span>
+        <span>ADV-CORE // MODULE A02</span>
 
       </a>
 
@@ -171,38 +216,22 @@
        MAIN
   ========================================================== -->
 
-  <main
-    class="container"
-    style="flex: 1; padding: 2rem 1.5rem 3rem;">
+  <main class="container"
+        style="flex:1; padding:2rem 1.5rem 3rem;">
 
-
-    <!-- Assignment Navigation -->
 
     <nav class="assignment-nav-bar">
 
-      <a
-        href="assignment-01.html"
-        class="nav-btn-link">
-
+      <a href="assignment-01.html" class="nav-btn-link">
         &lt;&lt; [01] DATASET SELECTION
-
       </a>
 
-
-      <span
-        style="font-weight: 600; color: var(--text-bright);">
-
+      <span style="font-weight:600; color:var(--text-bright);">
         ASSIGNMENT 02 OF 12
-
       </span>
 
-
-      <a
-        href="assignment-03.html"
-        class="nav-btn-link">
-
+      <a href="assignment-03.html" class="nav-btn-link">
         [03] SUMMARY STATS &gt;&gt;
-
       </a>
 
     </nav>
@@ -210,19 +239,18 @@
 
 
     <!-- =========================================================
-         PAGE TITLE
+         TITLE
     ========================================================== -->
 
-    <section style="margin-bottom: 2rem;">
+    <section style="margin-bottom:2rem;">
 
-      <div
-        style="
-          display: flex;
-          gap: 0.75rem;
-          align-items: center;
-          margin-bottom: 0.5rem;
-          flex-wrap: wrap;
-        ">
+      <div style="
+        display:flex;
+        gap:0.75rem;
+        align-items:center;
+        margin-bottom:0.5rem;
+        flex-wrap:wrap;
+      ">
 
         <span class="card-badge complete">
           STAGE 02
@@ -233,33 +261,27 @@
         </span>
 
         <span class="tag">
-          SOCIAL STATUS
+          CLASSIFICATION
         </span>
 
         <span class="tag">
-          ORDERING BEHAVIOR
+          LOGISTIC REGRESSION
         </span>
 
       </div>
 
 
       <h1>
-
-        02. ONLINE FOOD ORDERING: EXPLORATORY ANALYSIS
-
+        02. ONLINE FOOD ORDERING: ANALYSIS &amp; CLASSIFICATION
         <span class="cursor-blink">_</span>
-
       </h1>
 
 
-      <p
-        style="
-          color: var(--text-muted);
-          font-size: 0.95rem;
-        ">
+      <p style="color:var(--text-muted); font-size:0.95rem;">
 
-        Comparative analysis of demographic, socioeconomic, and
-        behavioral factors associated with online food-ordering outcomes.
+        Exploratory and predictive analysis of demographic,
+        socioeconomic, and behavioral factors associated with
+        online food-ordering outcomes.
 
       </p>
 
@@ -276,11 +298,8 @@
       <div class="card-header">
 
         <h2 class="card-title">
-
           <span>[RQ]</span>
-
           RESEARCH QUESTIONS
-
         </h2>
 
         <span class="card-badge complete">
@@ -290,11 +309,9 @@
       </div>
 
 
-      <p style="color: var(--text-bright);">
+      <p style="color:var(--text-bright);">
 
-        <strong>
-          CORE RQ:
-        </strong>
+        <strong>CORE RQ:</strong>
 
         How is social status associated with a person's
         ordering habits for online food delivery?
@@ -305,30 +322,21 @@
       <ul class="research-question-list">
 
         <li>
-
           <strong>SQ1:</strong>
-
           Do online food-ordering patterns differ between
           single and married individuals?
-
         </li>
 
         <li>
-
           <strong>SQ2:</strong>
-
           Which demographic and socioeconomic factors show
-          the strongest differences in food-ordering behavior?
-
+          the strongest relationships with food-ordering behavior?
         </li>
 
         <li>
-
           <strong>SQ3:</strong>
-
           How do feedback and customer-behavior patterns
           differ across social groups?
-
         </li>
 
       </ul>
@@ -344,62 +352,23 @@
     <div class="stat-metric-strip">
 
       <div class="metric-card">
-
-        <div
-          class="metric-val"
-          id="metric-rows">
-          ---
-        </div>
-
-        <div class="metric-label">
-          RESPONDENTS
-        </div>
-
+        <div class="metric-val" id="metric-rows">---</div>
+        <div class="metric-label">RESPONDENTS</div>
       </div>
 
-
       <div class="metric-card">
-
-        <div
-          class="metric-val"
-          id="metric-order-rate">
-          ---
-        </div>
-
-        <div class="metric-label">
-          ORDERING RATE
-        </div>
-
+        <div class="metric-val" id="metric-order-rate">---</div>
+        <div class="metric-label">ORDERING RATE</div>
       </div>
 
-
       <div class="metric-card">
-
-        <div
-          class="metric-val"
-          id="metric-age">
-          ---
-        </div>
-
-        <div class="metric-label">
-          AVG AGE
-        </div>
-
+        <div class="metric-val" id="metric-age">---</div>
+        <div class="metric-label">AVG AGE</div>
       </div>
 
-
       <div class="metric-card">
-
-        <div
-          class="metric-val"
-          id="metric-family">
-          ---
-        </div>
-
-        <div class="metric-label">
-          AVG FAMILY SIZE
-        </div>
-
+        <div class="metric-val" id="metric-family">---</div>
+        <div class="metric-label">AVG FAMILY SIZE</div>
       </div>
 
     </div>
@@ -407,7 +376,7 @@
 
 
     <!-- =========================================================
-         2.1 ANALYTICAL VARIABLES
+         ANALYTICAL VARIABLES
     ========================================================== -->
 
     <article class="terminal-card">
@@ -415,11 +384,8 @@
       <div class="card-header">
 
         <h2 class="card-title">
-
           <span>[2.1]</span>
-
           ANALYTICAL VARIABLES
-
         </h2>
 
         <span class="card-badge complete">
@@ -431,10 +397,10 @@
 
       <p>
 
-        The visualizations use the ordering outcome together with
-        demographic, socioeconomic, and behavioral variables.
-        Percentages are used where group sizes differ so comparisons
-        are not driven only by the number of respondents in each group.
+        The analysis combines descriptive visualizations with a
+        binary logistic regression classifier. The classifier
+        predicts whether <code>Output = Yes</code> using demographic
+        and socioeconomic characteristics.
 
       </p>
 
@@ -446,12 +412,10 @@
           <thead>
 
             <tr>
-
               <th>VARIABLE</th>
               <th>TYPE</th>
-              <th>ROLE</th>
+              <th>MODEL ROLE</th>
               <th>RESEARCH PURPOSE</th>
-
             </tr>
 
           </thead>
@@ -460,128 +424,66 @@
           <tbody>
 
             <tr>
-
-              <td>
-                <code>Marital Status</code>
-              </td>
-
-              <td>
-                Categorical
-              </td>
-
-              <td>
-                Social Factor
-              </td>
-
-              <td>
-                Compares ordering behavior by marital status
-              </td>
-
+              <td><code>Age</code></td>
+              <td>Numeric</td>
+              <td>Predictor</td>
+              <td>Age-related ordering patterns</td>
             </tr>
 
-
             <tr>
-
-              <td>
-                <code>Occupation</code>
-              </td>
-
-              <td>
-                Categorical
-              </td>
-
-              <td>
-                Socioeconomic Factor
-              </td>
-
-              <td>
-                Compares occupational groups
-              </td>
-
+              <td><code>Gender</code></td>
+              <td>Categorical</td>
+              <td>Predictor</td>
+              <td>Demographic comparison</td>
             </tr>
 
-
             <tr>
-
-              <td>
-                <code>Monthly Income</code>
-              </td>
-
-              <td>
-                Ordinal / Categorical
-              </td>
-
-              <td>
-                Economic Factor
-              </td>
-
-              <td>
-                Compares ordering behavior across income groups
-              </td>
-
+              <td><code>Marital Status</code></td>
+              <td>Categorical</td>
+              <td>Predictor</td>
+              <td>Primary social-status comparison</td>
             </tr>
 
-
             <tr>
-
-              <td>
-                <code>Age</code>
-              </td>
-
-              <td>
-                Quantitative
-              </td>
-
-              <td>
-                Distribution Variable
-              </td>
-
-              <td>
-                Measures age distributions within social groups
-              </td>
-
+              <td><code>Occupation</code></td>
+              <td>Categorical</td>
+              <td>Predictor</td>
+              <td>Occupational/social comparison</td>
             </tr>
 
-
             <tr>
-
-              <td>
-                <code>Feedback</code>
-              </td>
-
-              <td>
-                Categorical
-              </td>
-
-              <td>
-                Behavioral / Experience Factor
-              </td>
-
-              <td>
-                Compares feedback patterns across social groups
-              </td>
-
+              <td><code>Monthly Income</code></td>
+              <td>Categorical</td>
+              <td>Predictor</td>
+              <td>Economic comparison</td>
             </tr>
 
+            <tr>
+              <td><code>Family size</code></td>
+              <td>Numeric</td>
+              <td>Predictor</td>
+              <td>Household comparison</td>
+            </tr>
 
             <tr>
+              <td><code>Customer type</code></td>
+              <td>Categorical</td>
+              <td>Predictor if available</td>
+              <td>Ordering-frequency behavior</td>
+            </tr>
 
-              <td>
-                <code>Output</code>
-              </td>
+            <tr>
+              <td><code>Output</code></td>
+              <td>Binary</td>
+              <td>Target</td>
+              <td>Yes = 1 / No = 0</td>
+            </tr>
 
-              <td>
-                Binary Categorical
-              </td>
-
-              <td>
-                Ordering Outcome
-              </td>
-
-              <td>
-                Identifies Yes / No ordering outcomes
-              </td>
-
+            <tr>
+              <td><code>Feedback</code></td>
+              <td>Categorical</td>
+              <td>Excluded from classifier</td>
+              <td>Analyzed separately to reduce target leakage risk</td>
             </tr>
 
           </tbody>
@@ -595,7 +497,7 @@
 
 
     <!-- =========================================================
-         2.2 MARITAL STATUS STACKED BAR
+         CHART 1
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -604,63 +506,38 @@
 
         <div>
 
-          <h2
-            class="card-title"
-            style="font-size: 1.1rem;">
-
+          <h2 class="card-title" style="font-size:1.1rem;">
             <span>[2.2]</span>
-
             ONLINE ORDERING RATE BY MARITAL STATUS
-
           </h2>
 
-
-          <span
-            style="
-              font-size: 0.78rem;
-              color: var(--text-muted);
-            ">
-
+          <span style="font-size:0.78rem; color:var(--text-muted);">
             Percentage of each marital-status group reporting
             Yes or No for the ordering outcome
-
           </span>
 
         </div>
 
-
         <div class="chart-controls">
-
-          <span class="tag">
-            100% STACKED BAR
-          </span>
-
+          <span class="tag">100% STACKED BAR</span>
         </div>
 
       </div>
 
 
       <div class="chart-canvas-wrapper">
-
         <canvas id="chart-marital"></canvas>
-
       </div>
 
 
       <div class="chart-result-panel">
 
         <div class="chart-result-title">
-
           &gt; RESULT // SQ1
-
         </div>
 
-        <p
-          class="chart-result-text"
-          id="result-marital">
-
-          Calculating marital-status ordering rates...
-
+        <p class="chart-result-text" id="result-marital">
+          Calculating results...
         </p>
 
       </div>
@@ -670,7 +547,7 @@
 
 
     <!-- =========================================================
-         2.3 OCCUPATION BOXPLOT
+         CHART 2
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -679,63 +556,38 @@
 
         <div>
 
-          <h2
-            class="card-title"
-            style="font-size: 1.1rem;">
-
+          <h2 class="card-title" style="font-size:1.1rem;">
             <span>[2.3]</span>
-
             AGE BY OCCUPATION AND ONLINE FOOD ORDERING
-
           </h2>
 
-
-          <span
-            style="
-              font-size: 0.78rem;
-              color: var(--text-muted);
-            ">
-
+          <span style="font-size:0.78rem; color:var(--text-muted);">
             Age distributions across occupational groups,
-            separated by online ordering outcome
-
+            separated by ordering outcome
           </span>
 
         </div>
 
-
         <div class="chart-controls">
-
-          <span class="tag">
-            BOX PLOT
-          </span>
-
+          <span class="tag">BOX PLOT</span>
         </div>
 
       </div>
 
 
       <div class="chart-canvas-wrapper">
-
         <canvas id="chart-occupation"></canvas>
-
       </div>
 
 
       <div class="chart-result-panel">
 
         <div class="chart-result-title">
-
           &gt; RESULT // SQ2
-
         </div>
 
-        <p
-          class="chart-result-text"
-          id="result-occupation">
-
-          Calculating occupational age distributions...
-
+        <p class="chart-result-text" id="result-occupation">
+          Calculating results...
         </p>
 
       </div>
@@ -745,7 +597,7 @@
 
 
     <!-- =========================================================
-         2.4 INCOME ORDERING RATE
+         CHART 3
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -754,63 +606,38 @@
 
         <div>
 
-          <h2
-            class="card-title"
-            style="font-size: 1.1rem;">
-
+          <h2 class="card-title" style="font-size:1.1rem;">
             <span>[2.4]</span>
-
             ONLINE ORDERING RATE BY MONTHLY INCOME
-
           </h2>
 
-
-          <span
-            style="
-              font-size: 0.78rem;
-              color: var(--text-muted);
-            ">
-
+          <span style="font-size:0.78rem; color:var(--text-muted);">
             Ordering outcomes compared across socioeconomic
             income categories
-
           </span>
 
         </div>
 
-
         <div class="chart-controls">
-
-          <span class="tag">
-            GROUPED BAR
-          </span>
-
+          <span class="tag">GROUPED BAR</span>
         </div>
 
       </div>
 
 
       <div class="chart-canvas-wrapper">
-
         <canvas id="chart-income"></canvas>
-
       </div>
 
 
       <div class="chart-result-panel">
 
         <div class="chart-result-title">
-
           &gt; RESULT // SQ2
-
         </div>
 
-        <p
-          class="chart-result-text"
-          id="result-income">
-
-          Calculating income-group ordering rates...
-
+        <p class="chart-result-text" id="result-income">
+          Calculating results...
         </p>
 
       </div>
@@ -820,7 +647,7 @@
 
 
     <!-- =========================================================
-         2.5 FEEDBACK BY MARITAL STATUS
+         CHART 4
     ========================================================== -->
 
     <section class="chart-container-box">
@@ -829,63 +656,38 @@
 
         <div>
 
-          <h2
-            class="card-title"
-            style="font-size: 1.1rem;">
-
+          <h2 class="card-title" style="font-size:1.1rem;">
             <span>[2.5]</span>
-
             FEEDBACK PATTERNS BY MARITAL STATUS
-
           </h2>
 
-
-          <span
-            style="
-              font-size: 0.78rem;
-              color: var(--text-muted);
-            ">
-
-            Positive and negative feedback rates within each
-            marital-status group
-
+          <span style="font-size:0.78rem; color:var(--text-muted);">
+            Positive and negative feedback rates within
+            marital-status groups
           </span>
 
         </div>
 
-
         <div class="chart-controls">
-
-          <span class="tag">
-            GROUPED BAR
-          </span>
-
+          <span class="tag">GROUPED BAR</span>
         </div>
 
       </div>
 
 
       <div class="chart-canvas-wrapper">
-
         <canvas id="chart-feedback"></canvas>
-
       </div>
 
 
       <div class="chart-result-panel">
 
         <div class="chart-result-title">
-
           &gt; RESULT // SQ3
-
         </div>
 
-        <p
-          class="chart-result-text"
-          id="result-feedback">
-
-          Calculating feedback patterns...
-
+        <p class="chart-result-text" id="result-feedback">
+          Calculating results...
         </p>
 
       </div>
@@ -895,7 +697,7 @@
 
 
     <!-- =========================================================
-         2.6 INTERPRETATION
+         CLASSIFICATION MODEL
     ========================================================== -->
 
     <article class="terminal-card">
@@ -903,15 +705,216 @@
       <div class="card-header">
 
         <h2 class="card-title">
-
           <span>[2.6]</span>
-
-          ANALYTICAL INTERPRETATION
-
+          BINARY CLASSIFICATION MODEL
         </h2>
 
         <span class="tag">
-          RESULTS
+          LOGISTIC REGRESSION
+        </span>
+
+      </div>
+
+
+      <p class="model-explanation">
+
+        A <strong>binary logistic regression</strong> classifier
+        is used because the target variable,
+        <code>Output</code>, contains two outcomes:
+        <strong>Yes</strong> and <strong>No</strong>.
+
+        The model estimates the probability that a respondent
+        belongs to the <code>Output = Yes</code> class.
+
+      </p>
+
+
+      <p class="model-explanation">
+
+        Numeric predictors are standardized and categorical
+        predictors are one-hot encoded. The data is divided into
+        an <strong>80% training set</strong> and a
+        <strong>20% test set</strong> using a deterministic
+        stratified split.
+
+      </p>
+
+
+      <div class="model-metrics-grid">
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-accuracy">---</div>
+          <div class="model-metric-label">TEST ACCURACY</div>
+        </div>
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-precision">---</div>
+          <div class="model-metric-label">PRECISION</div>
+        </div>
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-recall">---</div>
+          <div class="model-metric-label">RECALL</div>
+        </div>
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-f1">---</div>
+          <div class="model-metric-label">F1 SCORE</div>
+        </div>
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-baseline">---</div>
+          <div class="model-metric-label">BASELINE ACCURACY</div>
+        </div>
+
+        <div class="model-metric">
+          <div class="model-metric-value" id="model-test-size">---</div>
+          <div class="model-metric-label">TEST RECORDS</div>
+        </div>
+
+      </div>
+
+
+      <p id="model-status" class="model-status">
+        &gt; MODEL STATUS: WAITING FOR DATA...
+      </p>
+
+    </article>
+
+
+
+    <!-- =========================================================
+         FEATURE IMPORTANCE
+    ========================================================== -->
+
+    <section class="chart-container-box">
+
+      <div class="chart-header">
+
+        <div>
+
+          <h2 class="card-title" style="font-size:1.1rem;">
+            <span>[2.7]</span>
+            LOGISTIC REGRESSION FEATURE COEFFICIENTS
+          </h2>
+
+          <span style="font-size:0.78rem; color:var(--text-muted);">
+            Largest standardized model coefficients by absolute magnitude
+          </span>
+
+        </div>
+
+        <div class="chart-controls">
+          <span class="tag">MODEL INTERPRETATION</span>
+        </div>
+
+      </div>
+
+
+      <div class="chart-canvas-wrapper">
+        <canvas id="chart-features"></canvas>
+      </div>
+
+
+      <div class="model-result-panel">
+
+        <div class="chart-result-title">
+          &gt; MODEL RESULT // FEATURE ANALYSIS
+        </div>
+
+        <p class="chart-result-text" id="result-model">
+          Training logistic regression...
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CONFUSION MATRIX
+    ========================================================== -->
+
+    <article class="terminal-card">
+
+      <div class="card-header">
+
+        <h2 class="card-title">
+          <span>[2.8]</span>
+          TEST-SET CONFUSION MATRIX
+        </h2>
+
+        <span class="tag">
+          MODEL VALIDATION
+        </span>
+
+      </div>
+
+
+      <div class="table-responsive">
+
+        <table class="terminal-table">
+
+          <thead>
+
+            <tr>
+              <th></th>
+              <th>PREDICTED NO</th>
+              <th>PREDICTED YES</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><strong>ACTUAL NO</strong></td>
+              <td id="cm-tn">---</td>
+              <td id="cm-fp">---</td>
+            </tr>
+
+            <tr>
+              <td><strong>ACTUAL YES</strong></td>
+              <td id="cm-fn">---</td>
+              <td id="cm-tp">---</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <p class="model-explanation">
+
+        Accuracy alone can be misleading when one outcome occurs
+        much more frequently than another. Precision, recall,
+        F1 score, the confusion matrix, and the majority-class
+        baseline are therefore reported alongside accuracy.
+
+      </p>
+
+    </article>
+
+
+
+    <!-- =========================================================
+         INTERPRETATION
+    ========================================================== -->
+
+    <article class="terminal-card">
+
+      <div class="card-header">
+
+        <h2 class="card-title">
+          <span>[2.9]</span>
+          MODEL INTERPRETATION &amp; LIMITATIONS
+        </h2>
+
+        <span class="tag">
+          RESEARCH VALIDITY
         </span>
 
       </div>
@@ -919,21 +922,36 @@
 
       <p>
 
-        These visualizations emphasize comparisons rather than
-        simple frequency counts. Ordering percentages allow groups
-        of different sizes to be compared directly, while the
-        boxplot displays the median, quartiles, spread, and
-        potential age outliers within occupational groups.
+        Logistic regression is useful for this project because it
+        connects the research questions to a binary outcome while
+        remaining relatively interpretable. Positive coefficients
+        are associated with a higher modeled probability of
+        <code>Output = Yes</code>, while negative coefficients are
+        associated with a lower modeled probability, holding the
+        other encoded predictors constant.
 
       </p>
 
 
       <p>
 
-        The results should be interpreted as associations in this
-        dataset. Differences between demographic or socioeconomic
-        groups do not by themselves demonstrate that those
-        characteristics caused an individual to order food online.
+        A large coefficient should not automatically be described
+        as a cause or as the "most important cause." The dataset is
+        observational, categorical coefficients are relative to
+        reference categories, and relationships between predictors
+        can affect coefficient magnitude.
+
+      </p>
+
+
+      <p>
+
+        <code>Feedback</code> is intentionally excluded from the
+        prediction model because it may represent information
+        observed after the customer's ordering experience. It
+        remains useful as a descriptive variable in Visualization
+        4 without being allowed to leak post-outcome information
+        into the classifier.
 
       </p>
 
@@ -945,25 +963,14 @@
          NAVIGATION
     ========================================================== -->
 
-    <nav
-      class="assignment-nav-bar"
-      style="margin-top: 2rem;">
+    <nav class="assignment-nav-bar" style="margin-top:2rem;">
 
-      <a
-        href="assignment-01.html"
-        class="nav-btn-link">
-
+      <a href="assignment-01.html" class="nav-btn-link">
         &lt;&lt; [01] RETURN TO ASSIGNMENT 01
-
       </a>
 
-
-      <a
-        href="assignment-03.html"
-        class="nav-btn-link primary">
-
+      <a href="assignment-03.html" class="nav-btn-link primary">
         PROCEED TO ASSIGNMENT 03 &gt;&gt;
-
       </a>
 
     </nav>
@@ -981,40 +988,28 @@
     <div class="container footer-content">
 
       <div>
-        [ADV-CORE // MODULE A02: EXPLORATORY ANALYSIS]
+        [ADV-CORE // MODULE A02: CLASSIFICATION ANALYSIS]
       </div>
-
 
       <ul class="footer-links">
 
         <li>
-          <a href="../index.html">
-            [COVER]
-          </a>
+          <a href="../index.html">[COVER]</a>
         </li>
 
         <li>
-          <a href="assignment-01.html">
-            [PREV]
-          </a>
+          <a href="assignment-01.html">[PREV]</a>
         </li>
 
         <li>
-          <a href="assignment-03.html">
-            [NEXT]
-          </a>
+          <a href="assignment-03.html">[NEXT]</a>
         </li>
 
         <li>
-
-          <a
-            href="javascript:void(0)"
-            onclick="RetroTerminal.openCommandPalette()">
-
+          <a href="javascript:void(0)"
+             onclick="RetroTerminal.openCommandPalette()">
             [^K COMMANDS]
-
           </a>
-
         </li>
 
       </ul>
@@ -1026,7 +1021,7 @@
 
 
   <!-- =========================================================
-       PROJECT JAVASCRIPT
+       PROJECT JS
   ========================================================== -->
 
   <script src="../assets/js/terminal.js"></script>
@@ -1034,352 +1029,287 @@
 
 
   <!-- =========================================================
-       DATA ANALYSIS JAVASCRIPT
+       ANALYSIS + MACHINE LEARNING
   ========================================================== -->
 
   <script>
 
-    // =========================================================
-    // TERMINAL COLORS
-    // =========================================================
+    const GREEN = '#00ff88';
+    const GREEN_2 = '#00cc66';
+    const BLUE = '#00aaff';
+    const AMBER = '#ffbf00';
+    const RED = '#ff5f56';
 
-    const GREEN =
-      '#00ff88';
+    const GRID = 'rgba(0,255,136,0.15)';
+    const GREEN_FILL = 'rgba(0,255,136,0.28)';
+    const BLUE_FILL = 'rgba(0,170,255,0.28)';
+    const AMBER_FILL = 'rgba(255,191,0,0.28)';
+    const RED_FILL = 'rgba(255,95,86,0.28)';
 
-    const GREEN_2 =
-      '#00cc66';
 
-    const BLUE =
-      '#00aaff';
 
-    const AMBER =
-      '#ffbf00';
+    document.addEventListener('DOMContentLoaded', async () => {
 
-    const RED =
-      '#ff5f56';
+      try {
 
-    const GRID =
-      'rgba(0, 255, 136, 0.15)';
+        // =====================================================
+        // LOAD CSV
+        // =====================================================
 
-    const GREEN_FILL =
-      'rgba(0, 255, 136, 0.28)';
+        const response =
+          await fetch('../data/online_food_delivery_dataset.csv');
 
-    const BLUE_FILL =
-      'rgba(0, 170, 255, 0.28)';
 
-    const AMBER_FILL =
-      'rgba(255, 191, 0, 0.28)';
+        if (!response.ok) {
 
-    const RED_FILL =
-      'rgba(255, 95, 86, 0.28)';
-
-
-
-    // =========================================================
-    // PAGE LOAD
-    // =========================================================
-
-    document.addEventListener(
-      'DOMContentLoaded',
-      async () => {
-
-        try {
-
-          // =====================================================
-          // LOAD CSV
-          // =====================================================
-
-          const response =
-            await fetch(
-              '../data/online_food_delivery_dataset.csv'
-            );
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              `CSV load failed: ${response.status}`
-            );
-
-          }
-
-
-          const csvText =
-            await response.text();
-
-
-          const rows =
-            parseCSV(csvText);
-
-
-          if (!rows.length) {
-
-            throw new Error(
-              'CSV contains no data rows.'
-            );
-
-          }
-
-
-          console.log(
-            '[DATASET] Rows:',
-            rows.length
-          );
-
-
-          console.log(
-            '[DATASET] Columns:',
-            Object.keys(rows[0])
-          );
-
-
-
-          // =====================================================
-          // FIND EXACT CSV COLUMN NAMES
-          // =====================================================
-
-          const ageColumn =
-            findColumn(
-              rows,
-              'Age'
-            );
-
-
-          const maritalColumn =
-            findColumn(
-              rows,
-              'Marital Status'
-            );
-
-
-          const occupationColumn =
-            findColumn(
-              rows,
-              'Occupation'
-            );
-
-
-          const incomeColumn =
-            findColumn(
-              rows,
-              'Monthly Income'
-            );
-
-
-          const familyColumn =
-            findColumn(
-              rows,
-              'Family size'
-            );
-
-
-          const feedbackColumn =
-            findColumn(
-              rows,
-              'Feedback'
-            );
-
-
-          const outputColumn =
-            findColumn(
-              rows,
-              'Output'
-            );
-
-
-
-          // =====================================================
-          // QUICK METRICS
-          // =====================================================
-
-          document.getElementById(
-            'metric-rows'
-          ).textContent =
-            rows.length.toLocaleString();
-
-
-
-          const yesCount =
-            rows.filter(
-              row =>
-                normalize(
-                  row[outputColumn]
-                ) === 'yes'
-            ).length;
-
-
-          const validOutputCount =
-            rows.filter(
-              row => {
-
-                const output =
-                  normalize(
-                    row[outputColumn]
-                  );
-
-                return (
-                  output === 'yes' ||
-                  output === 'no'
-                );
-
-              }
-            ).length;
-
-
-          const overallOrderingRate =
-            validOutputCount
-              ? (
-                  yesCount /
-                  validOutputCount
-                ) * 100
-              : 0;
-
-
-          document.getElementById(
-            'metric-order-rate'
-          ).textContent =
-            `${overallOrderingRate.toFixed(1)}%`;
-
-
-
-          const ages =
-            rows
-              .map(
-                row =>
-                  Number(
-                    row[ageColumn]
-                  )
-              )
-              .filter(
-                Number.isFinite
-              );
-
-
-          const avgAge =
-            average(ages);
-
-
-          document.getElementById(
-            'metric-age'
-          ).textContent =
-            avgAge.toFixed(1);
-
-
-
-          const familySizes =
-            rows
-              .map(
-                row =>
-                  Number(
-                    row[familyColumn]
-                  )
-              )
-              .filter(
-                Number.isFinite
-              );
-
-
-          document.getElementById(
-            'metric-family'
-          ).textContent =
-            average(
-              familySizes
-            ).toFixed(1);
-
-
-
-          // =====================================================
-          // CHART 1
-          // MARITAL STATUS × OUTPUT
-          // =====================================================
-
-          createMaritalOrderingChart(
-
-            rows,
-
-            maritalColumn,
-
-            outputColumn
-
-          );
-
-
-
-          // =====================================================
-          // CHART 2
-          // AGE × OCCUPATION × OUTPUT
-          // =====================================================
-
-          createOccupationBoxPlot(
-
-            rows,
-
-            occupationColumn,
-
-            ageColumn,
-
-            outputColumn
-
-          );
-
-
-
-          // =====================================================
-          // CHART 3
-          // INCOME × OUTPUT
-          // =====================================================
-
-          createIncomeChart(
-
-            rows,
-
-            incomeColumn,
-
-            outputColumn
-
-          );
-
-
-
-          // =====================================================
-          // CHART 4
-          // MARITAL STATUS × FEEDBACK
-          // =====================================================
-
-          createFeedbackChart(
-
-            rows,
-
-            maritalColumn,
-
-            feedbackColumn
-
-          );
-
-
-        }
-
-        catch (error) {
-
-          console.error(
-            '[ANALYSIS ERROR]',
-            error
+          throw new Error(
+            `CSV load failed: ${response.status}`
           );
 
         }
+
+
+        const csvText =
+          await response.text();
+
+
+        const rows =
+          parseCSV(csvText);
+
+
+        if (!rows.length) {
+
+          throw new Error(
+            'Dataset contains no usable records.'
+          );
+
+        }
+
+
+        console.log(
+          '[DATASET] Rows:',
+          rows.length
+        );
+
+
+        console.log(
+          '[DATASET] Columns:',
+          Object.keys(rows[0])
+        );
+
+
+
+        // =====================================================
+        // FIND COLUMNS
+        // =====================================================
+
+        const ageColumn =
+          findColumn(rows, 'Age');
+
+        const genderColumn =
+          findOptionalColumn(rows, 'Gender');
+
+        const maritalColumn =
+          findColumn(rows, 'Marital Status');
+
+        const occupationColumn =
+          findColumn(rows, 'Occupation');
+
+        const incomeColumn =
+          findColumn(rows, 'Monthly Income');
+
+        const familyColumn =
+          findColumn(rows, 'Family size');
+
+        const customerColumn =
+          findOptionalColumn(rows, 'Customer type');
+
+        const feedbackColumn =
+          findColumn(rows, 'Feedback');
+
+        const outputColumn =
+          findColumn(rows, 'Output');
+
+
+
+        // =====================================================
+        // METRICS
+        // =====================================================
+
+        document.getElementById(
+          'metric-rows'
+        ).textContent =
+          rows.length.toLocaleString();
+
+
+        const validOutputs =
+          rows.filter(row => {
+
+            const value =
+              normalize(row[outputColumn]);
+
+            return (
+              value === 'yes' ||
+              value === 'no'
+            );
+
+          });
+
+
+        const yesCount =
+          validOutputs.filter(
+            row =>
+              normalize(
+                row[outputColumn]
+              ) === 'yes'
+          ).length;
+
+
+        const orderRate =
+          validOutputs.length
+            ? yesCount /
+              validOutputs.length *
+              100
+            : 0;
+
+
+        document.getElementById(
+          'metric-order-rate'
+        ).textContent =
+          `${orderRate.toFixed(1)}%`;
+
+
+        const ages =
+          numericValues(
+            rows,
+            ageColumn
+          );
+
+
+        document.getElementById(
+          'metric-age'
+        ).textContent =
+          average(ages).toFixed(1);
+
+
+        const familySizes =
+          numericValues(
+            rows,
+            familyColumn
+          );
+
+
+        document.getElementById(
+          'metric-family'
+        ).textContent =
+          average(
+            familySizes
+          ).toFixed(1);
+
+
+
+        // =====================================================
+        // CREATE FOUR RESEARCH VISUALIZATIONS
+        // =====================================================
+
+        createMaritalChart(
+          rows,
+          maritalColumn,
+          outputColumn
+        );
+
+
+        createOccupationBoxPlot(
+          rows,
+          occupationColumn,
+          ageColumn,
+          outputColumn
+        );
+
+
+        createIncomeChart(
+          rows,
+          incomeColumn,
+          outputColumn
+        );
+
+
+        createFeedbackChart(
+          rows,
+          maritalColumn,
+          feedbackColumn
+        );
+
+
+
+        // =====================================================
+        // MACHINE LEARNING
+        // =====================================================
+
+        const numericFeatures = [
+          ageColumn,
+          familyColumn
+        ].filter(Boolean);
+
+
+        const categoricalFeatures = [
+          genderColumn,
+          maritalColumn,
+          occupationColumn,
+          incomeColumn,
+          customerColumn
+        ].filter(Boolean);
+
+
+        trainLogisticRegressionModel(
+
+          rows,
+
+          numericFeatures,
+
+          categoricalFeatures,
+
+          outputColumn
+
+        );
+
 
       }
-    );
+
+      catch (error) {
+
+        console.error(
+          '[ANALYSIS ERROR]',
+          error
+        );
+
+
+        const status =
+          document.getElementById(
+            'model-status'
+          );
+
+
+        status.textContent =
+          `> MODEL ERROR: ${error.message}`;
+
+
+        status.classList.add(
+          'error'
+        );
+
+      }
+
+    });
 
 
 
     // =========================================================
-    // CHART 1
-    // 100% STACKED BAR:
+    // VISUALIZATION 1
     // MARITAL STATUS × OUTPUT
     // =========================================================
 
-    function createMaritalOrderingChart(
+    function createMaritalChart(
       rows,
       maritalColumn,
       outputColumn
@@ -1393,174 +1323,128 @@
 
 
       const yesRates = [];
-
       const noRates = [];
-
       const results = [];
 
 
-      categories.forEach(
-        category => {
+      categories.forEach(category => {
 
-          const group =
-            rows.filter(
-              row =>
-                clean(
-                  row[maritalColumn]
-                ) === category
-            );
-
-
-          const yes =
-            group.filter(
-              row =>
-                normalize(
-                  row[outputColumn]
-                ) === 'yes'
-            ).length;
-
-
-          const no =
-            group.filter(
-              row =>
-                normalize(
-                  row[outputColumn]
-                ) === 'no'
-            ).length;
-
-
-          const total =
-            yes + no;
-
-
-          const yesRate =
-            total
-              ? (yes / total) * 100
-              : 0;
-
-
-          const noRate =
-            total
-              ? (no / total) * 100
-              : 0;
-
-
-          yesRates.push(
-            yesRate
+        const group =
+          rows.filter(
+            row =>
+              clean(
+                row[maritalColumn]
+              ) === category
           );
 
 
-          noRates.push(
-            noRate
-          );
+        const yes =
+          group.filter(
+            row =>
+              normalize(
+                row[outputColumn]
+              ) === 'yes'
+          ).length;
 
 
-          results.push({
+        const no =
+          group.filter(
+            row =>
+              normalize(
+                row[outputColumn]
+              ) === 'no'
+          ).length;
 
-            category,
-            yes,
-            no,
-            total,
-            yesRate,
-            noRate
 
-          });
+        const total =
+          yes + no;
 
-        }
-      );
+
+        const yesRate =
+          total
+            ? yes / total * 100
+            : 0;
+
+
+        const noRate =
+          total
+            ? no / total * 100
+            : 0;
+
+
+        yesRates.push(
+          yesRate
+        );
+
+
+        noRates.push(
+          noRate
+        );
+
+
+        results.push({
+          category,
+          yes,
+          no,
+          total,
+          yesRate
+        });
+
+      });
 
 
       new Chart(
-
         document.getElementById(
           'chart-marital'
         ),
-
         {
 
-          type:
-            'bar',
-
+          type: 'bar',
 
           data: {
 
-            labels:
-              categories,
-
+            labels: categories,
 
             datasets: [
 
               {
-
-                label:
-                  'Output: Yes',
-
-                data:
-                  yesRates,
-
-                backgroundColor:
-                  GREEN_FILL,
-
-                borderColor:
-                  GREEN,
-
-                borderWidth:
-                  2
-
+                label: 'Output: Yes',
+                data: yesRates,
+                backgroundColor: GREEN_FILL,
+                borderColor: GREEN,
+                borderWidth: 2
               },
 
               {
-
-                label:
-                  'Output: No',
-
-                data:
-                  noRates,
-
-                backgroundColor:
-                  RED_FILL,
-
-                borderColor:
-                  RED,
-
-                borderWidth:
-                  2
-
+                label: 'Output: No',
+                data: noRates,
+                backgroundColor: RED_FILL,
+                borderColor: RED,
+                borderWidth: 2
               }
 
             ]
 
           },
 
-
           options: {
 
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
+            responsive: true,
+            maintainAspectRatio: false,
 
             plugins: {
 
               legend:
                 terminalLegend(),
 
-
               tooltip: {
 
                 callbacks: {
 
                   label:
-                    context => {
-
-                      return (
-                        `${context.dataset.label}: ` +
-                        `${context.raw.toFixed(1)}%`
-                      );
-
-                    }
+                    context =>
+                      `${context.dataset.label}: ` +
+                      `${Number(context.raw).toFixed(1)}%`
 
                 }
 
@@ -1568,57 +1452,39 @@
 
             },
 
-
             scales: {
 
               x: {
 
-                stacked:
-                  true,
+                stacked: true,
 
                 ticks:
                   terminalTicks(),
 
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               },
 
-
               y: {
 
-                stacked:
-                  true,
+                stacked: true,
 
-                beginAtZero:
-                  true,
-
-                max:
-                  100,
-
+                beginAtZero: true,
+                max: 100,
 
                 title: {
 
-                  display:
-                    true,
-
-                  text:
-                    'Percentage of Group (%)',
-
-                  color:
-                    GREEN
+                  display: true,
+                  text: 'Percentage of Group (%)',
+                  color: GREEN
 
                 },
 
-
                 ticks: {
 
-                  color:
-                    GREEN_2,
+                  color: GREEN_2,
 
                   callback:
                     value =>
@@ -1626,12 +1492,8 @@
 
                 },
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               }
@@ -1641,14 +1503,8 @@
           }
 
         }
-
       );
 
-
-
-      // -------------------------------------------------------
-      // AUTOMATIC RESULT TEXT
-      // -------------------------------------------------------
 
       const sorted =
         [...results].sort(
@@ -1663,12 +1519,10 @@
         const highest =
           sorted[0];
 
-
         const lowest =
           sorted[
             sorted.length - 1
           ];
-
 
         const difference =
           highest.yesRate -
@@ -1689,13 +1543,11 @@
 
           `<strong>${escapeHTML(lowest.category)}</strong> ` +
 
-          `has an ordering rate of ` +
+          `has an observed rate of ` +
 
           `<strong>${lowest.yesRate.toFixed(1)}%</strong>. ` +
 
-          `The observed difference between the highest and ` +
-
-          `lowest marital-status groups is ` +
+          `The difference is ` +
 
           `<strong>${difference.toFixed(1)} percentage points</strong>.`;
 
@@ -1706,9 +1558,8 @@
 
 
     // =========================================================
-    // CHART 2
-    // BOX PLOT:
-    // AGE × OCCUPATION × OUTPUT
+    // VISUALIZATION 2
+    // OCCUPATION BOXPLOT
     // =========================================================
 
     function createOccupationBoxPlot(
@@ -1725,148 +1576,138 @@
         );
 
 
-      const outputValues =
-        ['Yes', 'No'];
+      const yesData =
+        categories.map(category => {
+
+          return rows
+
+            .filter(row =>
+
+              clean(
+                row[occupationColumn]
+              ) === category
+
+              &&
+
+              normalize(
+                row[outputColumn]
+              ) === 'yes'
+
+            )
+
+            .map(
+              row =>
+                Number(
+                  row[ageColumn]
+                )
+            )
+
+            .filter(
+              Number.isFinite
+            );
+
+        });
 
 
-      const colors = {
+      const noData =
+        categories.map(category => {
 
-        Yes: {
+          return rows
 
-          background:
-            GREEN_FILL,
+            .filter(row =>
 
-          border:
-            GREEN
+              clean(
+                row[occupationColumn]
+              ) === category
 
-        },
+              &&
 
-        No: {
+              normalize(
+                row[outputColumn]
+              ) === 'no'
 
-          background:
-            BLUE_FILL,
+            )
 
-          border:
-            BLUE
+            .map(
+              row =>
+                Number(
+                  row[ageColumn]
+                )
+            )
 
-        }
+            .filter(
+              Number.isFinite
+            );
 
-      };
-
-
-      const datasets =
-        outputValues.map(
-          outputValue => {
-
-            const data =
-              categories.map(
-                category => {
-
-                  return rows
-
-                    .filter(
-                      row =>
-
-                        clean(
-                          row[occupationColumn]
-                        ) === category
-
-                        &&
-
-                        normalize(
-                          row[outputColumn]
-                        ) ===
-                        normalize(
-                          outputValue
-                        )
-
-                    )
-
-                    .map(
-                      row =>
-                        Number(
-                          row[ageColumn]
-                        )
-                    )
-
-                    .filter(
-                      Number.isFinite
-                    );
-
-                }
-              );
-
-
-            return {
-
-              label:
-                `Output: ${outputValue}`,
-
-              data,
-
-              backgroundColor:
-                colors[
-                  outputValue
-                ].background,
-
-              borderColor:
-                colors[
-                  outputValue
-                ].border,
-
-              borderWidth:
-                2,
-
-              outlierColor:
-                colors[
-                  outputValue
-                ].border,
-
-              itemRadius:
-                2,
-
-              itemBackgroundColor:
-                colors[
-                  outputValue
-                ].border
-
-            };
-
-          }
-        );
+        });
 
 
       new Chart(
-
         document.getElementById(
           'chart-occupation'
         ),
-
         {
 
-          type:
-            'boxplot',
-
+          type: 'boxplot',
 
           data: {
 
-            labels:
-              categories,
+            labels: categories,
 
-            datasets:
-              datasets
+            datasets: [
+
+              {
+
+                label:
+                  'Output: Yes',
+
+                data:
+                  yesData,
+
+                backgroundColor:
+                  GREEN_FILL,
+
+                borderColor:
+                  GREEN,
+
+                borderWidth:
+                  2,
+
+                outlierColor:
+                  GREEN
+
+              },
+
+              {
+
+                label:
+                  'Output: No',
+
+                data:
+                  noData,
+
+                backgroundColor:
+                  BLUE_FILL,
+
+                borderColor:
+                  BLUE,
+
+                borderWidth:
+                  2,
+
+                outlierColor:
+                  BLUE
+
+              }
+
+            ]
 
           },
 
-
           options: {
 
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
+            responsive: true,
+            maintainAspectRatio: false,
 
             plugins: {
 
@@ -1875,64 +1716,38 @@
 
             },
 
-
             scales: {
 
               x: {
 
                 title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Occupation',
-
-                  color:
-                    GREEN
-
+                  display: true,
+                  text: 'Occupation',
+                  color: GREEN
                 },
-
 
                 ticks:
                   terminalTicks(),
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               },
 
-
               y: {
 
                 title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Age',
-
-                  color:
-                    GREEN
-
+                  display: true,
+                  text: 'Age',
+                  color: GREEN
                 },
-
 
                 ticks:
                   terminalTicks(),
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               }
@@ -1942,133 +1757,37 @@
           }
 
         }
-
       );
 
 
-
-      // -------------------------------------------------------
-      // CALCULATE MEDIAN AGE RESULTS
-      // -------------------------------------------------------
-
-      const occupationResults =
+      const descriptions =
         categories.map(
-          category => {
+          (category, index) => {
 
-            const group =
-              rows.filter(
-                row =>
-                  clean(
-                    row[occupationColumn]
-                  ) === category
+            const yesMedian =
+              median(
+                yesData[index]
               );
 
 
-            const yesAges =
-              group
-
-                .filter(
-                  row =>
-                    normalize(
-                      row[outputColumn]
-                    ) === 'yes'
-                )
-
-                .map(
-                  row =>
-                    Number(
-                      row[ageColumn]
-                    )
-                )
-
-                .filter(
-                  Number.isFinite
-                );
-
-
-            const noAges =
-              group
-
-                .filter(
-                  row =>
-                    normalize(
-                      row[outputColumn]
-                    ) === 'no'
-                )
-
-                .map(
-                  row =>
-                    Number(
-                      row[ageColumn]
-                    )
-                )
-
-                .filter(
-                  Number.isFinite
-                );
-
-
-            return {
-
-              category,
-
-              yesMedian:
-                median(
-                  yesAges
-                ),
-
-              noMedian:
-                median(
-                  noAges
-                ),
-
-              yesCount:
-                yesAges.length,
-
-              noCount:
-                noAges.length
-
-            };
-
-          }
-        );
-
-
-      const validResults =
-        occupationResults.filter(
-          result =>
-            Number.isFinite(
-              result.yesMedian
-            ) ||
-            Number.isFinite(
-              result.noMedian
-            )
-        );
-
-
-      const descriptions =
-        validResults.map(
-          result => {
-
-            const yesText =
-              Number.isFinite(
-                result.yesMedian
-              )
-                ? `Yes median ${result.yesMedian.toFixed(1)}`
-                : 'Yes: no observations';
-
-
-            const noText =
-              Number.isFinite(
-                result.noMedian
-              )
-                ? `No median ${result.noMedian.toFixed(1)}`
-                : 'No: no observations';
+            const noMedian =
+              median(
+                noData[index]
+              );
 
 
             return (
-              `<strong>${escapeHTML(result.category)}</strong>: ` +
-              `${yesText}; ${noText}`
+
+              `<strong>${escapeHTML(category)}</strong>: ` +
+
+              `Yes median age ` +
+
+              `${formatNumber(yesMedian)}, ` +
+
+              `No median age ` +
+
+              `${formatNumber(noMedian)}`
+
             );
 
           }
@@ -2079,22 +1798,19 @@
         'result-occupation'
       ).innerHTML =
 
-        `Median age by occupation and ordering outcome — ` +
+        `Median ages by occupation and ordering outcome — ` +
 
         descriptions.join(' | ') +
 
-        `. The box widths and whiskers additionally show ` +
-
-        `the spread of ages within each subgroup.`;
+        `. The boxes additionally show quartiles, spread, and outliers.`;
 
     }
 
 
 
     // =========================================================
-    // CHART 3
-    // GROUPED BAR:
-    // MONTHLY INCOME × OUTPUT
+    // VISUALIZATION 3
+    // INCOME × OUTPUT
     // =========================================================
 
     function createIncomeChart(
@@ -2110,9 +1826,6 @@
         );
 
 
-      // Attempt to place common income categories
-      // in meaningful ordinal order.
-
       const preferredOrder = [
 
         'No Income',
@@ -2127,43 +1840,37 @@
       categories.sort(
         (a, b) => {
 
-          const indexA =
+          const ia =
             preferredOrder.findIndex(
-              value =>
-                normalize(value) ===
+              item =>
+                normalize(item) ===
                 normalize(a)
             );
 
 
-          const indexB =
+          const ib =
             preferredOrder.findIndex(
-              value =>
-                normalize(value) ===
+              item =>
+                normalize(item) ===
                 normalize(b)
             );
 
 
           if (
-            indexA !== -1 &&
-            indexB !== -1
+            ia !== -1 &&
+            ib !== -1
           ) {
-
-            return indexA - indexB;
-
+            return ia - ib;
           }
 
 
-          if (indexA !== -1) {
-
+          if (ia !== -1) {
             return -1;
-
           }
 
 
-          if (indexB !== -1) {
-
+          if (ib !== -1) {
             return 1;
-
           }
 
 
@@ -2174,100 +1881,87 @@
 
 
       const yesRates = [];
-
       const noRates = [];
-
       const results = [];
 
 
-      categories.forEach(
-        category => {
+      categories.forEach(category => {
 
-          const group =
-            rows.filter(
-              row =>
-                clean(
-                  row[incomeColumn]
-                ) === category
-            );
-
-
-          const yes =
-            group.filter(
-              row =>
-                normalize(
-                  row[outputColumn]
-                ) === 'yes'
-            ).length;
-
-
-          const no =
-            group.filter(
-              row =>
-                normalize(
-                  row[outputColumn]
-                ) === 'no'
-            ).length;
-
-
-          const total =
-            yes + no;
-
-
-          const yesRate =
-            total
-              ? (yes / total) * 100
-              : 0;
-
-
-          const noRate =
-            total
-              ? (no / total) * 100
-              : 0;
-
-
-          yesRates.push(
-            yesRate
+        const group =
+          rows.filter(
+            row =>
+              clean(
+                row[incomeColumn]
+              ) === category
           );
 
 
-          noRates.push(
-            noRate
-          );
+        const yes =
+          group.filter(
+            row =>
+              normalize(
+                row[outputColumn]
+              ) === 'yes'
+          ).length;
 
 
-          results.push({
+        const no =
+          group.filter(
+            row =>
+              normalize(
+                row[outputColumn]
+              ) === 'no'
+          ).length;
 
-            category,
-            yes,
-            no,
-            total,
-            yesRate,
-            noRate
 
-          });
+        const total =
+          yes + no;
 
-        }
-      );
+
+        const yesRate =
+          total
+            ? yes / total * 100
+            : 0;
+
+
+        const noRate =
+          total
+            ? no / total * 100
+            : 0;
+
+
+        yesRates.push(
+          yesRate
+        );
+
+
+        noRates.push(
+          noRate
+        );
+
+
+        results.push({
+          category,
+          yes,
+          no,
+          total,
+          yesRate
+        });
+
+      });
 
 
       new Chart(
-
         document.getElementById(
           'chart-income'
         ),
-
         {
 
-          type:
-            'bar',
-
+          type: 'bar',
 
           data: {
 
-            labels:
-              categories,
-
+            labels: categories,
 
             datasets: [
 
@@ -2289,7 +1983,6 @@
                   2
 
               },
-
 
               {
 
@@ -2314,21 +2007,15 @@
 
           },
 
-
           options: {
 
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
+            responsive: true,
+            maintainAspectRatio: false,
 
             plugins: {
 
               legend:
                 terminalLegend(),
-
 
               tooltip: {
 
@@ -2337,7 +2024,7 @@
                   label:
                     context =>
                       `${context.dataset.label}: ` +
-                      `${context.raw.toFixed(1)}%`
+                      `${Number(context.raw).toFixed(1)}%`
 
                 }
 
@@ -2345,76 +2032,41 @@
 
             },
 
-
             scales: {
 
               x: {
 
                 title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Monthly Income',
-
-                  color:
-                    GREEN
-
+                  display: true,
+                  text: 'Monthly Income',
+                  color: GREEN
                 },
-
 
                 ticks: {
-
-                  color:
-                    GREEN_2,
-
-                  maxRotation:
-                    25,
-
-                  minRotation:
-                    0
-
+                  color: GREEN_2,
+                  maxRotation: 25
                 },
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               },
 
-
               y: {
 
-                beginAtZero:
-                  true,
-
-                max:
-                  100,
-
+                beginAtZero: true,
+                max: 100,
 
                 title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Percentage of Group (%)',
-
-                  color:
-                    GREEN
-
+                  display: true,
+                  text: 'Percentage of Group (%)',
+                  color: GREEN
                 },
-
 
                 ticks: {
 
-                  color:
-                    GREEN_2,
+                  color: GREEN_2,
 
                   callback:
                     value =>
@@ -2422,12 +2074,8 @@
 
                 },
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               }
@@ -2437,14 +2085,8 @@
           }
 
         }
-
       );
 
-
-
-      // -------------------------------------------------------
-      // RESULT
-      // -------------------------------------------------------
 
       const sorted =
         [...results].sort(
@@ -2459,39 +2101,33 @@
         const highest =
           sorted[0];
 
-
         const lowest =
           sorted[
             sorted.length - 1
           ];
 
 
-        const range =
-          highest.yesRate -
-          lowest.yesRate;
-
-
         document.getElementById(
           'result-income'
         ).innerHTML =
 
-          `The highest observed ordering rate occurs in ` +
-
           `<strong>${escapeHTML(highest.category)}</strong> ` +
 
-          `at <strong>${highest.yesRate.toFixed(1)}%</strong> ` +
+          `has the highest observed ordering rate at ` +
 
-          `(${highest.yes} of ${highest.total}). ` +
-
-          `The lowest occurs in ` +
+          `<strong>${highest.yesRate.toFixed(1)}%</strong>. ` +
 
           `<strong>${escapeHTML(lowest.category)}</strong> ` +
 
-          `at <strong>${lowest.yesRate.toFixed(1)}%</strong>. ` +
+          `has the lowest at ` +
 
-          `The range across income categories is ` +
+          `<strong>${lowest.yesRate.toFixed(1)}%</strong>. ` +
 
-          `<strong>${range.toFixed(1)} percentage points</strong>.`;
+          `The observed difference is ` +
+
+          `<strong>${(highest.yesRate - lowest.yesRate).toFixed(1)} ` +
+
+          `percentage points</strong>.`;
 
       }
 
@@ -2500,9 +2136,8 @@
 
 
     // =========================================================
-    // CHART 4
-    // GROUPED BAR:
-    // MARITAL STATUS × FEEDBACK
+    // VISUALIZATION 4
+    // FEEDBACK × MARITAL STATUS
     // =========================================================
 
     function createFeedbackChart(
@@ -2519,111 +2154,88 @@
 
 
       const positiveRates = [];
-
       const negativeRates = [];
-
       const results = [];
 
 
-      categories.forEach(
-        category => {
+      categories.forEach(category => {
 
-          const group =
-            rows.filter(
-              row =>
-                clean(
-                  row[maritalColumn]
-                ) === category
-            );
-
-
-          const positive =
-            group.filter(
-              row =>
-                normalize(
-                  row[feedbackColumn]
-                ).includes(
-                  'positive'
-                )
-            ).length;
-
-
-          const negative =
-            group.filter(
-              row =>
-                normalize(
-                  row[feedbackColumn]
-                ).includes(
-                  'negative'
-                )
-            ).length;
-
-
-          const total =
-            positive +
-            negative;
-
-
-          const positiveRate =
-            total
-              ? (
-                  positive /
-                  total
-                ) * 100
-              : 0;
-
-
-          const negativeRate =
-            total
-              ? (
-                  negative /
-                  total
-                ) * 100
-              : 0;
-
-
-          positiveRates.push(
-            positiveRate
+        const group =
+          rows.filter(
+            row =>
+              clean(
+                row[maritalColumn]
+              ) === category
           );
 
 
-          negativeRates.push(
-            negativeRate
-          );
+        const positive =
+          group.filter(
+            row =>
+              normalize(
+                row[feedbackColumn]
+              ).includes('positive')
+          ).length;
 
 
-          results.push({
+        const negative =
+          group.filter(
+            row =>
+              normalize(
+                row[feedbackColumn]
+              ).includes('negative')
+          ).length;
 
-            category,
-            positive,
-            negative,
-            total,
-            positiveRate,
-            negativeRate
 
-          });
+        const total =
+          positive +
+          negative;
 
-        }
-      );
+
+        const positiveRate =
+          total
+            ? positive / total * 100
+            : 0;
+
+
+        const negativeRate =
+          total
+            ? negative / total * 100
+            : 0;
+
+
+        positiveRates.push(
+          positiveRate
+        );
+
+
+        negativeRates.push(
+          negativeRate
+        );
+
+
+        results.push({
+          category,
+          positive,
+          negative,
+          total,
+          positiveRate
+        });
+
+      });
 
 
       new Chart(
-
         document.getElementById(
           'chart-feedback'
         ),
-
         {
 
-          type:
-            'bar',
-
+          type: 'bar',
 
           data: {
 
-            labels:
-              categories,
-
+            labels: categories,
 
             datasets: [
 
@@ -2645,7 +2257,6 @@
                   2
 
               },
-
 
               {
 
@@ -2670,97 +2281,45 @@
 
           },
 
-
           options: {
 
-            responsive:
-              true,
-
-            maintainAspectRatio:
-              false,
-
+            responsive: true,
+            maintainAspectRatio: false,
 
             plugins: {
 
               legend:
-                terminalLegend(),
-
-
-              tooltip: {
-
-                callbacks: {
-
-                  label:
-                    context =>
-                      `${context.dataset.label}: ` +
-                      `${context.raw.toFixed(1)}%`
-
-                }
-
-              }
+                terminalLegend()
 
             },
-
 
             scales: {
 
               x: {
 
-                title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Marital Status',
-
-                  color:
-                    GREEN
-
-                },
-
-
                 ticks:
                   terminalTicks(),
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               },
 
-
               y: {
 
-                beginAtZero:
-                  true,
-
-                max:
-                  100,
-
+                beginAtZero: true,
+                max: 100,
 
                 title: {
-
-                  display:
-                    true,
-
-                  text:
-                    'Feedback Rate (%)',
-
-                  color:
-                    GREEN
-
+                  display: true,
+                  text: 'Feedback Rate (%)',
+                  color: GREEN
                 },
-
 
                 ticks: {
 
-                  color:
-                    GREEN_2,
+                  color: GREEN_2,
 
                   callback:
                     value =>
@@ -2768,12 +2327,8 @@
 
                 },
 
-
                 grid: {
-
-                  color:
-                    GRID
-
+                  color: GRID
                 }
 
               }
@@ -2783,72 +2338,1192 @@
           }
 
         }
-
       );
-
-
-
-      // -------------------------------------------------------
-      // RESULT
-      // -------------------------------------------------------
-
-      const descriptions =
-        results.map(
-          result =>
-
-            `<strong>${escapeHTML(result.category)}</strong>: ` +
-
-            `${result.positiveRate.toFixed(1)}% positive ` +
-
-            `(${result.positive}/${result.total})`
-
-        );
 
 
       document.getElementById(
         'result-feedback'
       ).innerHTML =
 
-        `Positive feedback rates by marital status — ` +
+        results.map(
+          result =>
 
-        descriptions.join(' | ') +
+            `<strong>${escapeHTML(result.category)}</strong>: ` +
 
-        `. These results describe observed customer feedback; ` +
+            `${result.positiveRate.toFixed(1)}% positive feedback ` +
 
-        `they should not be interpreted as direct evidence of ` +
+            `(${result.positive}/${result.total})`
 
-        `a respondent's personal motivation for ordering.`;
+        ).join(' | ') +
+
+        `. Feedback is treated as a descriptive customer-experience ` +
+
+        `measure rather than a predictor of ordering.`;
 
     }
 
 
 
     // =========================================================
-    // COMMON CHART OPTIONS
+    // LOGISTIC REGRESSION MODEL
+    // =========================================================
+
+    function trainLogisticRegressionModel(
+      rows,
+      numericFeatures,
+      categoricalFeatures,
+      outputColumn
+    ) {
+
+      const status =
+        document.getElementById(
+          'model-status'
+        );
+
+
+      status.textContent =
+        '> MODEL STATUS: PREPARING FEATURES...';
+
+
+
+      // =====================================================
+      // VALID TARGET ROWS
+      // =====================================================
+
+      let modelRows =
+        rows.filter(row => {
+
+          const target =
+            normalize(
+              row[outputColumn]
+            );
+
+          return (
+            target === 'yes' ||
+            target === 'no'
+          );
+
+        });
+
+
+
+      // =====================================================
+      // BUILD CATEGORY LEVELS
+      //
+      // First category becomes reference category.
+      // =====================================================
+
+      const categoryLevels = {};
+
+
+      categoricalFeatures.forEach(
+        column => {
+
+          categoryLevels[column] =
+            uniqueValues(
+              modelRows,
+              column
+            );
+
+        }
+      );
+
+
+
+      // =====================================================
+      // NUMERIC MEANS / STANDARD DEVIATIONS
+      // =====================================================
+
+      const numericStats = {};
+
+
+      numericFeatures.forEach(
+        column => {
+
+          const values =
+            numericValues(
+              modelRows,
+              column
+            );
+
+
+          const mean =
+            average(values);
+
+
+          const sd =
+            standardDeviation(
+              values,
+              mean
+            );
+
+
+          numericStats[column] = {
+            mean,
+            sd: sd || 1
+          };
+
+        }
+      );
+
+
+
+      // =====================================================
+      // FEATURE NAMES
+      // =====================================================
+
+      const featureNames = [];
+
+
+      numericFeatures.forEach(
+        column => {
+
+          featureNames.push(
+            column
+          );
+
+        }
+      );
+
+
+      categoricalFeatures.forEach(
+        column => {
+
+          const levels =
+            categoryLevels[column];
+
+
+          // First level = reference category
+
+          levels
+            .slice(1)
+            .forEach(
+              level => {
+
+                featureNames.push(
+                  `${column}: ${level}`
+                );
+
+              }
+            );
+
+        }
+      );
+
+
+
+      // =====================================================
+      // ENCODE ROW
+      // =====================================================
+
+      function encodeRow(row) {
+
+        const vector = [];
+
+
+        numericFeatures.forEach(
+          column => {
+
+            let value =
+              Number(
+                row[column]
+              );
+
+
+            if (
+              !Number.isFinite(value)
+            ) {
+
+              value =
+                numericStats[
+                  column
+                ].mean;
+
+            }
+
+
+            const standardized =
+              (
+                value -
+                numericStats[column].mean
+              ) /
+              numericStats[column].sd;
+
+
+            vector.push(
+              standardized
+            );
+
+          }
+        );
+
+
+        categoricalFeatures.forEach(
+          column => {
+
+            const value =
+              clean(
+                row[column]
+              );
+
+
+            const levels =
+              categoryLevels[
+                column
+              ];
+
+
+            levels
+              .slice(1)
+              .forEach(
+                level => {
+
+                  vector.push(
+                    value === level
+                      ? 1
+                      : 0
+                  );
+
+                }
+              );
+
+          }
+        );
+
+
+        return vector;
+
+      }
+
+
+
+      const samples =
+        modelRows.map(
+          (row, index) => ({
+
+            x:
+              encodeRow(row),
+
+            y:
+              normalize(
+                row[outputColumn]
+              ) === 'yes'
+                ? 1
+                : 0,
+
+            index
+
+          })
+        );
+
+
+
+      // =====================================================
+      // DETERMINISTIC STRATIFIED SPLIT
+      // =====================================================
+
+      const positive =
+        samples.filter(
+          sample =>
+            sample.y === 1
+        );
+
+
+      const negative =
+        samples.filter(
+          sample =>
+            sample.y === 0
+        );
+
+
+      deterministicShuffle(
+        positive,
+        12345
+      );
+
+
+      deterministicShuffle(
+        negative,
+        67890
+      );
+
+
+      const positiveTestCount =
+        Math.max(
+          1,
+          Math.round(
+            positive.length * 0.20
+          )
+        );
+
+
+      const negativeTestCount =
+        Math.max(
+          1,
+          Math.round(
+            negative.length * 0.20
+          )
+        );
+
+
+      const test =
+        [
+
+          ...positive.slice(
+            0,
+            positiveTestCount
+          ),
+
+          ...negative.slice(
+            0,
+            negativeTestCount
+          )
+
+        ];
+
+
+      const train =
+        [
+
+          ...positive.slice(
+            positiveTestCount
+          ),
+
+          ...negative.slice(
+            negativeTestCount
+          )
+
+        ];
+
+
+
+      deterministicShuffle(
+        train,
+        24680
+      );
+
+
+      deterministicShuffle(
+        test,
+        13579
+      );
+
+
+
+      if (
+        train.length < 2 ||
+        test.length < 2
+      ) {
+
+        throw new Error(
+          'Not enough valid rows to create training and test sets.'
+        );
+
+      }
+
+
+
+      status.textContent =
+        `> MODEL STATUS: TRAINING ON ${train.length} RECORDS...`;
+
+
+
+      // =====================================================
+      // GRADIENT DESCENT
+      // =====================================================
+
+      const featureCount =
+        featureNames.length;
+
+
+      let weights =
+        new Array(
+          featureCount
+        ).fill(0);
+
+
+      let intercept = 0;
+
+
+      const learningRate =
+        0.08;
+
+
+      const iterations =
+        2500;
+
+
+      const l2 =
+        0.002;
+
+
+
+      for (
+        let iteration = 0;
+        iteration < iterations;
+        iteration++
+      ) {
+
+        const gradient =
+          new Array(
+            featureCount
+          ).fill(0);
+
+
+        let interceptGradient = 0;
+
+
+        for (
+          const sample of train
+        ) {
+
+          let z =
+            intercept;
+
+
+          for (
+            let j = 0;
+            j < featureCount;
+            j++
+          ) {
+
+            z +=
+              weights[j] *
+              sample.x[j];
+
+          }
+
+
+          const probability =
+            sigmoid(z);
+
+
+          const error =
+            probability -
+            sample.y;
+
+
+          interceptGradient +=
+            error;
+
+
+          for (
+            let j = 0;
+            j < featureCount;
+            j++
+          ) {
+
+            gradient[j] +=
+              error *
+              sample.x[j];
+
+          }
+
+        }
+
+
+        intercept -=
+
+          learningRate *
+
+          (
+            interceptGradient /
+            train.length
+          );
+
+
+        for (
+          let j = 0;
+          j < featureCount;
+          j++
+        ) {
+
+          const averageGradient =
+            gradient[j] /
+            train.length;
+
+
+          const regularization =
+            l2 *
+            weights[j];
+
+
+          weights[j] -=
+
+            learningRate *
+
+            (
+              averageGradient +
+              regularization
+            );
+
+        }
+
+      }
+
+
+
+      // =====================================================
+      // TEST MODEL
+      // =====================================================
+
+      let tp = 0;
+      let tn = 0;
+      let fp = 0;
+      let fn = 0;
+
+
+      test.forEach(
+        sample => {
+
+          let z =
+            intercept;
+
+
+          for (
+            let j = 0;
+            j < featureCount;
+            j++
+          ) {
+
+            z +=
+              weights[j] *
+              sample.x[j];
+
+          }
+
+
+          const probability =
+            sigmoid(z);
+
+
+          const prediction =
+            probability >= 0.5
+              ? 1
+              : 0;
+
+
+          if (
+            sample.y === 1 &&
+            prediction === 1
+          ) {
+
+            tp++;
+
+          }
+
+          else if (
+            sample.y === 0 &&
+            prediction === 0
+          ) {
+
+            tn++;
+
+          }
+
+          else if (
+            sample.y === 0 &&
+            prediction === 1
+          ) {
+
+            fp++;
+
+          }
+
+          else {
+
+            fn++;
+
+          }
+
+        }
+      );
+
+
+
+      // =====================================================
+      // PERFORMANCE METRICS
+      // =====================================================
+
+      const accuracy =
+        safeDivide(
+          tp + tn,
+          test.length
+        );
+
+
+      const precision =
+        safeDivide(
+          tp,
+          tp + fp
+        );
+
+
+      const recall =
+        safeDivide(
+          tp,
+          tp + fn
+        );
+
+
+      const f1 =
+        (
+          precision + recall
+        ) > 0
+
+          ? 2 *
+            precision *
+            recall /
+            (
+              precision +
+              recall
+            )
+
+          : 0;
+
+
+
+      // Majority-class baseline
+
+      const testPositive =
+        test.filter(
+          sample =>
+            sample.y === 1
+        ).length;
+
+
+      const testNegative =
+        test.length -
+        testPositive;
+
+
+      const baseline =
+        Math.max(
+          testPositive,
+          testNegative
+        ) /
+        test.length;
+
+
+
+      // =====================================================
+      // DISPLAY METRICS
+      // =====================================================
+
+      document.getElementById(
+        'model-accuracy'
+      ).textContent =
+        formatPercent(
+          accuracy
+        );
+
+
+      document.getElementById(
+        'model-precision'
+      ).textContent =
+        formatPercent(
+          precision
+        );
+
+
+      document.getElementById(
+        'model-recall'
+      ).textContent =
+        formatPercent(
+          recall
+        );
+
+
+      document.getElementById(
+        'model-f1'
+      ).textContent =
+        f1.toFixed(3);
+
+
+      document.getElementById(
+        'model-baseline'
+      ).textContent =
+        formatPercent(
+          baseline
+        );
+
+
+      document.getElementById(
+        'model-test-size'
+      ).textContent =
+        test.length;
+
+
+
+      // =====================================================
+      // CONFUSION MATRIX
+      // =====================================================
+
+      document.getElementById(
+        'cm-tn'
+      ).textContent =
+        tn;
+
+
+      document.getElementById(
+        'cm-fp'
+      ).textContent =
+        fp;
+
+
+      document.getElementById(
+        'cm-fn'
+      ).textContent =
+        fn;
+
+
+      document.getElementById(
+        'cm-tp'
+      ).textContent =
+        tp;
+
+
+
+      // =====================================================
+      // FEATURE COEFFICIENTS
+      // =====================================================
+
+      const coefficientResults =
+        featureNames.map(
+          (name, index) => ({
+
+            name,
+            coefficient:
+              weights[index],
+
+            magnitude:
+              Math.abs(
+                weights[index]
+              )
+
+          })
+        );
+
+
+      coefficientResults.sort(
+        (a, b) =>
+          b.magnitude -
+          a.magnitude
+      );
+
+
+      const topFeatures =
+        coefficientResults.slice(
+          0,
+          Math.min(
+            10,
+            coefficientResults.length
+          )
+        );
+
+
+
+      createFeatureChart(
+        topFeatures
+      );
+
+
+
+      // =====================================================
+      // MODEL RESULT TEXT
+      // =====================================================
+
+      if (topFeatures.length) {
+
+        const top =
+          topFeatures[0];
+
+
+        const direction =
+          top.coefficient >= 0
+            ? 'higher'
+            : 'lower';
+
+
+        document.getElementById(
+          'result-model'
+        ).innerHTML =
+
+          `The largest absolute coefficient in this fitted model is ` +
+
+          `<strong>${escapeHTML(top.name)}</strong> ` +
+
+          `with coefficient ` +
+
+          `<strong>${top.coefficient.toFixed(3)}</strong>. ` +
+
+          `Its sign is associated with a ` +
+
+          `<strong>${direction}</strong> modeled log-odds of ` +
+
+          `<code>Output = Yes</code> relative to its encoding/reference. ` +
+
+          `The test-set accuracy is ` +
+
+          `<strong>${formatPercent(accuracy)}</strong>, compared with a ` +
+
+          `<strong>${formatPercent(baseline)}</strong> majority-class baseline. ` +
+
+          `Coefficient magnitude describes the fitted model and should not ` +
+
+          `be interpreted as proof that the feature causes ordering behavior.`;
+
+      }
+
+
+
+      status.textContent =
+
+        `> MODEL STATUS: COMPLETE // ` +
+
+        `TRAIN=${train.length} // ` +
+
+        `TEST=${test.length} // ` +
+
+        `FEATURES=${featureCount}`;
+
+
+      status.classList.add(
+        'success'
+      );
+
+
+      console.log(
+        '[MODEL] Accuracy:',
+        accuracy
+      );
+
+
+      console.log(
+        '[MODEL] Precision:',
+        precision
+      );
+
+
+      console.log(
+        '[MODEL] Recall:',
+        recall
+      );
+
+
+      console.log(
+        '[MODEL] F1:',
+        f1
+      );
+
+
+      console.table(
+        coefficientResults
+      );
+
+    }
+
+
+
+    // =========================================================
+    // FEATURE COEFFICIENT CHART
+    // =========================================================
+
+    function createFeatureChart(
+      features
+    ) {
+
+      const ordered =
+        [...features].reverse();
+
+
+      new Chart(
+        document.getElementById(
+          'chart-features'
+        ),
+        {
+
+          type: 'bar',
+
+          data: {
+
+            labels:
+              ordered.map(
+                item =>
+                  item.name
+              ),
+
+            datasets: [
+
+              {
+
+                label:
+                  'Logistic Regression Coefficient',
+
+                data:
+                  ordered.map(
+                    item =>
+                      item.coefficient
+                  ),
+
+                backgroundColor:
+                  ordered.map(
+                    item =>
+                      item.coefficient >= 0
+                        ? GREEN_FILL
+                        : RED_FILL
+                  ),
+
+                borderColor:
+                  ordered.map(
+                    item =>
+                      item.coefficient >= 0
+                        ? GREEN
+                        : RED
+                  ),
+
+                borderWidth: 2
+
+              }
+
+            ]
+
+          },
+
+          options: {
+
+            indexAxis: 'y',
+
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+
+              legend: {
+                display: false
+              },
+
+              tooltip: {
+
+                callbacks: {
+
+                  label:
+                    context =>
+                      `Coefficient: ` +
+                      `${Number(context.raw).toFixed(3)}`
+
+                }
+
+              }
+
+            },
+
+            scales: {
+
+              x: {
+
+                title: {
+
+                  display: true,
+
+                  text:
+                    'Coefficient (log-odds scale)',
+
+                  color:
+                    GREEN
+
+                },
+
+                ticks:
+                  terminalTicks(),
+
+                grid: {
+                  color: GRID
+                }
+
+              },
+
+              y: {
+
+                ticks: {
+                  color: GREEN_2
+                },
+
+                grid: {
+                  color: GRID
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+      );
+
+    }
+
+
+
+    // =========================================================
+    // MACHINE LEARNING HELPERS
+    // =========================================================
+
+    function sigmoid(z) {
+
+      const clipped =
+        Math.max(
+          -35,
+          Math.min(
+            35,
+            z
+          )
+        );
+
+
+      return (
+        1 /
+        (
+          1 +
+          Math.exp(
+            -clipped
+          )
+        )
+      );
+
+    }
+
+
+
+    function deterministicShuffle(
+      array,
+      seed
+    ) {
+
+      let state =
+        seed >>> 0;
+
+
+      function random() {
+
+        state =
+          (
+            state * 1664525 +
+            1013904223
+          ) >>> 0;
+
+
+        return (
+          state /
+          4294967296
+        );
+
+      }
+
+
+      for (
+        let i =
+          array.length - 1;
+
+        i > 0;
+
+        i--
+      ) {
+
+        const j =
+          Math.floor(
+            random() *
+            (i + 1)
+          );
+
+
+        [
+          array[i],
+          array[j]
+        ] =
+        [
+          array[j],
+          array[i]
+        ];
+
+      }
+
+
+      return array;
+
+    }
+
+
+
+    function standardDeviation(
+      values,
+      mean
+    ) {
+
+      if (
+        values.length < 2
+      ) {
+
+        return 1;
+
+      }
+
+
+      const variance =
+        values.reduce(
+          (sum, value) =>
+
+            sum +
+            Math.pow(
+              value - mean,
+              2
+            ),
+
+          0
+
+        ) /
+        values.length;
+
+
+      return Math.sqrt(
+        variance
+      );
+
+    }
+
+
+
+    function safeDivide(
+      numerator,
+      denominator
+    ) {
+
+      return denominator
+        ? numerator / denominator
+        : 0;
+
+    }
+
+
+
+    // =========================================================
+    // GENERAL HELPERS
     // =========================================================
 
     function terminalLegend() {
 
       return {
 
-        position:
-          'top',
-
+        position: 'top',
 
         labels: {
 
-          color:
-            GREEN,
-
+          color: GREEN,
 
           font: {
-
-            family:
-              'monospace',
-
-            size:
-              12
-
+            family: 'monospace',
+            size: 12
           }
 
         }
@@ -2863,15 +3538,10 @@
 
       return {
 
-        color:
-          GREEN_2,
-
+        color: GREEN_2,
 
         font: {
-
-          family:
-            'monospace'
-
+          family: 'monospace'
         }
 
       };
@@ -2879,10 +3549,6 @@
     }
 
 
-
-    // =========================================================
-    // COLUMN LOOKUP
-    // =========================================================
 
     function findColumn(
       rows,
@@ -2907,9 +3573,11 @@
 
         throw new Error(
 
-          `Column "${wanted}" was not found. ` +
+          `Column "${wanted}" not found. ` +
 
-          `Available columns: ${columns.join(', ')}`
+          `Available columns: ` +
+
+          columns.join(', ')
 
         );
 
@@ -2922,14 +3590,42 @@
 
 
 
-    // =========================================================
-    // UNIQUE CATEGORY VALUES
-    // =========================================================
+    function findOptionalColumn(
+      rows,
+      wanted
+    ) {
+
+      const columns =
+        Object.keys(
+          rows[0]
+        );
+
+
+      return (
+
+        columns.find(
+          column =>
+            normalize(column) ===
+            normalize(wanted)
+        )
+
+        || null
+
+      );
+
+    }
+
+
 
     function uniqueValues(
       rows,
       column
     ) {
+
+      if (!column) {
+        return [];
+      }
+
 
       return [
 
@@ -2954,9 +3650,27 @@
 
 
 
-    // =========================================================
-    // STRING HELPERS
-    // =========================================================
+    function numericValues(
+      rows,
+      column
+    ) {
+
+      return rows
+
+        .map(
+          row =>
+            Number(
+              row[column]
+            )
+        )
+
+        .filter(
+          Number.isFinite
+        );
+
+    }
+
+
 
     function clean(value) {
 
@@ -2973,6 +3687,91 @@
       return clean(
         value
       ).toLowerCase();
+
+    }
+
+
+
+    function average(values) {
+
+      if (!values.length) {
+        return 0;
+      }
+
+
+      return (
+
+        values.reduce(
+          (sum, value) =>
+            sum + value,
+          0
+        )
+
+        /
+
+        values.length
+
+      );
+
+    }
+
+
+
+    function median(values) {
+
+      if (!values.length) {
+        return NaN;
+      }
+
+
+      const sorted =
+        [...values].sort(
+          (a, b) =>
+            a - b
+        );
+
+
+      const middle =
+        Math.floor(
+          sorted.length / 2
+        );
+
+
+      if (
+        sorted.length % 2 === 0
+      ) {
+
+        return (
+
+          sorted[middle - 1] +
+          sorted[middle]
+
+        ) / 2;
+
+      }
+
+
+      return sorted[middle];
+
+    }
+
+
+
+    function formatNumber(value) {
+
+      return Number.isFinite(value)
+        ? value.toFixed(1)
+        : 'N/A';
+
+    }
+
+
+
+    function formatPercent(value) {
+
+      return (
+        `${(value * 100).toFixed(1)}%`
+      );
 
     }
 
@@ -3008,69 +3807,6 @@
           "'",
           '&#039;'
         );
-
-    }
-
-
-
-    // =========================================================
-    // STATISTICAL HELPERS
-    // =========================================================
-
-    function average(values) {
-
-      if (!values.length) {
-
-        return 0;
-
-      }
-
-
-      return values.reduce(
-        (sum, value) =>
-          sum + value,
-        0
-      ) / values.length;
-
-    }
-
-
-
-    function median(values) {
-
-      if (!values.length) {
-
-        return NaN;
-
-      }
-
-
-      const sorted =
-        [...values].sort(
-          (a, b) =>
-            a - b
-        );
-
-
-      const middle =
-        Math.floor(
-          sorted.length / 2
-        );
-
-
-      if (
-        sorted.length % 2 === 0
-      ) {
-
-        return (
-          sorted[middle - 1] +
-          sorted[middle]
-        ) / 2;
-
-      }
-
-
-      return sorted[middle];
 
     }
 
@@ -3141,7 +3877,8 @@
 
                 row[header] =
                   values[index]
-                    ?.trim() ?? '';
+                    ?.trim()
+                    ?? '';
 
               }
             );
@@ -3155,11 +3892,6 @@
     }
 
 
-
-    // =========================================================
-    // CSV LINE PARSER
-    // Handles commas inside quoted values
-    // =========================================================
 
     function parseCSVLine(line) {
 
@@ -3222,8 +3954,7 @@
 
         else {
 
-          current +=
-            char;
+          current += char;
 
         }
 
