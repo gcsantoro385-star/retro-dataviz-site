@@ -1,196 +1,2133 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A07: Multivariate Visualizations & Dimensionality // ADV Terminal</title>
-  <link rel="stylesheet" href="../assets/css/terminal.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <div class="crt-overlay"></div>
-
-  <header class="terminal-header">
-    <div class="system-status-bar">
-      <div class="status-group">
-        <span class="status-indicator"><span class="status-dot"></span>MODULE: A07</span>
-        <span>STATUS: PROJECTED</span>
-        <span>SESSION: <span id="terminal-uptime">UP 00:00</span></span>
-      </div>
-      <div class="status-group">
-        <span id="terminal-clock">00:00:00 LOC</span>
-        <button type="button" class="term-btn" id="btn-toggle-audio">[AUDIO: OFF]</button>
-        <button type="button" class="term-btn" id="btn-toggle-scanlines">[SCANLINES: ON]</button>
-        <button type="button" class="term-btn" id="btn-toggle-glow">[GLOW: ON]</button>
-        <button type="button" class="term-btn amber" id="btn-open-cmd">[^K JUMP]</button>
-      </div>
-    </div>
-
-    <nav class="navbar container">
-      <a href="../index.html" class="brand">
-        <span class="brand-icon">■</span>
-        <span>ADV-CORE // MODULE A07</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="assignment-06.html" class="nav-link">[&lt; PREV: A06]</a></li>
-        <li><a href="../index.html" class="nav-link">[COVER]</a></li>
-        <li><a href="assignment-08.html" class="nav-link">[NEXT: A08 &gt;]</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="container" style="flex: 1; padding: 2rem 1.5rem 3rem;">
-    
-    <nav class="assignment-nav-bar">
-      <a href="assignment-06.html" class="nav-btn-link">&lt;&lt; [06] CORRELATIONS</a>
-      <span style="font-weight: 600; color: var(--text-bright);">ASSIGNMENT 07 OF 12</span>
-      <a href="assignment-08.html" class="nav-btn-link">[08] TIME-SERIES &gt;&gt;</a>
-    </nav>
-
-    <section style="margin-bottom: 2rem;">
-      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
-        <span class="card-badge complete">STAGE 07</span>
-        <span class="tag">MULTIVARIATE</span>
-        <span class="tag">DIMENSIONALITY REDUCTION</span>
-      </div>
-      <h1>07. MULTIVARIATE VISUALIZATIONS &amp; DIMENSIONALITY<span class="cursor-blink">_</span></h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">
-        Synthesizing high-dimensional attribute topologies, executing PCA decompositions, and mapping multi-axial radar profiles.
-      </p>
-    </section>
-
-    <div class="edit-prompt-callout">
-      <strong>EDITING GUIDE:</strong> Explain your multivariate projections, cluster profiles, and how you mapped 3+ dimensions simultaneously.
-    </div>
-
-    <div class="stat-metric-strip">
-      <div class="metric-card">
-        <div class="metric-val">6</div>
-        <div class="metric-label">FEATURE DIMENSIONS</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val">83.2%</div>
-        <div class="metric-label">PCA EXPLAINED VAR</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val">3</div>
-        <div class="metric-label">DISTINCT CLUSTERS</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val">0.68</div>
-        <div class="metric-label">SILHOUETTE SCORE</div>
-      </div>
-    </div>
-
-    <article class="terminal-card">
-      <div class="card-header">
-        <h2 class="card-title"><span>[7.1]</span> RADAR TOPOLOGY OF EMPIRICAL CLUSTERS</h2>
-        <span class="card-badge complete">[DECOMPOSED]</span>
-      </div>
-      <p>
-        To prevent cognitive overload from multiple pairwise scatterplots, we map multi-dimensional cluster profiles across six normalized axes. 
-        Cluster Alpha demonstrates high velocity and volume, whereas Cluster Beta specializes in reliability and low error variance.
-      </p>
-    </article>
-
-    <section class="chart-container-box">
-      <div class="chart-header">
-        <div>
-          <h2 class="card-title" style="font-size: 1.1rem;"><span>[7.2]</span> VISUALIZATION: MULTI-AXIS RADAR SIGNATURE</h2>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">Comparing normalized feature profiles across 6 operational dimensions</span>
-        </div>
-        <div class="chart-controls">
-          <span class="tag">RADAR TOPOLOGY</span>
-        </div>
-      </div>
-      <div class="chart-canvas-wrapper">
-        <canvas id="chart-a07"></canvas>
-      </div>
-    </section>
-
-    <section class="terminal-card">
-      <div class="card-header">
-        <h2 class="card-title"><span>[7.3]</span> PCA PROJECTION SCRIPT</h2>
-        <span class="tag">PYTHON / SCIKIT-LEARN</span>
-      </div>
-      <div class="code-block-container">
-        <div class="code-header">
-          <span>pipeline/07_pca_decomposition.py</span>
-          <span>SHA-256: 6b19a0...</span>
-        </div>
-        <pre class="code-content"><code>from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-import pandas as pd
-
-features = ['dim_volume', 'dim_velocity', 'dim_fidelity', 'dim_spread', 'dim_intensity', 'dim_latency']
-X = df[features]
-X_scaled = StandardScaler().fit_transform(X)
-
-pca = PCA(n_components=2)
-principal_components = pca.fit_transform(X_scaled)
-print("Explained Variance Ratio:", pca.explained_variance_ratio_)</code></pre>
-      </div>
-    </section>
-
-    <nav class="assignment-nav-bar" style="margin-top: 2rem;">
-      <a href="assignment-06.html" class="nav-btn-link">&lt;&lt; [06] RETURN TO ASSIGNMENT 06</a>
-      <a href="assignment-08.html" class="nav-btn-link primary">PROCEED TO ASSIGNMENT 08 &gt;&gt;</a>
-    </nav>
-
-  </main>
-
-  <footer class="terminal-footer">
-    <div class="container footer-content">
-      <div>[ADV-CORE // MODULE A07: MULTIVARIATE]</div>
-      <ul class="footer-links">
-        <li><a href="../index.html">[COVER]</a></li>
-        <li><a href="assignment-06.html">[PREV]</a></li>
-        <li><a href="assignment-08.html">[NEXT]</a></li>
-        <li><a href="javascript:void(0)" onclick="RetroTerminal.openCommandPalette()">[^K COMMANDS]</a></li>
-      </ul>
-    </div>
-  </footer>
-
-  <script src="../assets/js/terminal.js"></script>
-  <script src="../assets/js/retro-charts.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const ctx = document.getElementById('chart-a07');
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: ['Volume Capacity', 'Processing Velocity', 'System Fidelity', 'Spatial Spread', 'Energy Intensity', 'Latency Overhead'],
-          datasets: [
-            {
-              label: 'Cohort Alpha (High Throughput)',
-              data: [88, 92, 65, 78, 85, 42],
-              backgroundColor: 'rgba(66, 255, 146, 0.25)',
-              borderColor: '#42ff92',
-              pointBackgroundColor: '#42ff92'
-            },
-            {
-              label: 'Cohort Beta (High Fidelity)',
-              data: [54, 60, 94, 52, 48, 86],
-              backgroundColor: 'rgba(0, 229, 255, 0.2)',
-              borderColor: '#00e5ff',
-              pointBackgroundColor: '#00e5ff'
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            r: {
-              grid: { color: 'rgba(25, 106, 54, 0.4)' },
-              angleLines: { color: 'rgba(25, 106, 54, 0.6)' },
-              pointLabels: { color: '#20e070', font: { family: "'Share Tech Mono', monospace" } },
-              ticks: { color: '#128243', backdropColor: 'transparent' }
-            }
-          }
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>A07: Analytical Findings &amp; Statistical Interpretation // ADV Terminal</title><link rel="stylesheet" href="../assets/css/terminal.css"><style>body{margin:0;background:#030a06;color:#d3eedc;font:15px/1.7 "Courier New",monospace}*{box-sizing:border-box}a{color:#75ffad}header,footer{border-block:1px solid #287348;padding:16px 24px;background:#07140c}.container{max-width:1180px;margin:auto;padding:24px}h1,h2,h3{color:#75ffad;line-height:1.35}h1{font-size:clamp(24px,3.5vw,36px)}h2{font-size:23px}.terminal-card{background:#08170f;border:1px solid #287348;padding:26px;margin:26px 0}.tag{display:inline-block;border:1px solid #287348;color:#ffcc70;padding:4px 8px}.static-chart{overflow:hidden;margin:20px 0}.static-chart svg{width:100%;height:auto;display:block}.table-scroll{overflow-x:auto}.terminal-table{border-collapse:collapse;width:100%;font-size:13px}.terminal-table th,.terminal-table td{border-bottom:1px solid #287348;padding:9px;text-align:left;white-space:nowrap}.terminal-table th{color:#75ffad}.assignment-nav-bar{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:20px 0}.intro{padding:12px 0 22px}@media(max-width:600px){.container{padding:14px}.terminal-card{padding:16px}.terminal-table{font-size:12px}}</style></head><body><header><div class="container">■ ADV-CORE // MODULE A07 · ANALYTICAL FINDINGS</div></header><main class="container"><nav class="assignment-nav-bar"><a href="assignment-06.html">[&lt; A06 · STATIC FIGURES]</a><a href="../index.html">[HOME]</a><a href="assignment-08.html">[A08 &gt;]</a></nav><section class="intro"><span class="tag">STAGE 07 · FROM VISUALIZATION TO EVIDENCE</span><h1>07. ANALYTICAL FINDINGS &amp; STATISTICAL INTERPRETATION<span class="cursor-blink">_</span></h1><p>Deliveries and social status · Giancarlo Santoro</p><p>Research focus: how are social-status indicators associated with the dataset’s recorded online-food-ordering outcome?</p></section><section class="terminal-card"><h2>[METHOD] What the evidence can support</h2><p>The source contains 388 rows. After trimming text, standardizing occupation labels, removing the redundant target copy, and removing 103 exact duplicate substantive rows, 285 distinct records remain. The categorical tests and age analysis use all 285 records; model metrics use only the 57-record holdout. These are different analysis populations and must not be mixed.</p><p>The data dictionary does not establish that Output measures order frequency, expenditure, satisfaction, or future repeat ordering. Findings therefore refer explicitly to Output = Yes. Customer Type and Feedback are excluded from the predictive feature set to avoid potentially downstream information. The survey’s sampling frame and respondent identifiers are unavailable. Exact duplicate removal assumes matching substantive rows are repeat records, not distinct matching respondents.</p><p>Three omnibus categorical association tests use the Pearson χ² statistic with 9,999 shuffled outcome labels, seed 42, preserving observed margins. Cramér’s V summarizes association strength. Spearman’s age test permutes labels and uses an absolute statistic for a two-sided test. Monte Carlo p values use (exceedances + 1)/(9,999 + 1); Holm correction covers these four exploratory tests. Independence/exchangeability of rows is an assumption, not established by deduplication. All confidence intervals are descriptive 95% Wilson intervals, not population-representative guarantees.</p></section><article class="terminal-card" id="finding-1"><span class="tag">FINDING 1 / 5</span><h2>[7.1] Marital Status: observed group differences</h2><h3>Research question</h3><p>Is marital status associated with the recorded Output outcome?</p><h3>Evidence</h3><div class="table-scroll"><table class="dataframe terminal-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Group</th>
+      <th>No</th>
+      <th>Yes</th>
+      <th>n</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Married</td>
+      <td>34</td>
+      <td>53</td>
+      <td>87</td>
+      <td>60.9%</td>
+    </tr>
+    <tr>
+      <td>Prefer not to say</td>
+      <td>5</td>
+      <td>4</td>
+      <td>9</td>
+      <td>44.4%</td>
+    </tr>
+    <tr>
+      <td>Single</td>
+      <td>29</td>
+      <td>160</td>
+      <td>189</td>
+      <td>84.7%</td>
+    </tr>
+  </tbody>
+</table></div><h3>Visualization</h3><div class="static-chart"><svg role="img" aria-label="F01_group_rates" xmlns:xlink="http://www.w3.org/1999/xlink" width="792pt" height="338.4pt" viewBox="0 0 792 338.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F01_group_rates-figure_1">
+  <g id="F01_group_rates-patch_1">
+   <path d="M 0 338.4 
+L 792 338.4 
+L 792 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F01_group_rates-axes_1">
+   <g id="F01_group_rates-patch_2">
+    <path d="M 176.81 287.1 
+L 773.3 287.1 
+L 773.3 18.7 
+L 176.81 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g id="F01_group_rates-matplotlib.axis_1">
+    <g id="F01_group_rates-xtick_1">
+     <g id="F01_group_rates-line2d_1">
+      <path d="M 176.81 287.1 
+L 176.81 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_2">
+      <defs>
+       <path id="F01_group_rates-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="176.81" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="176.81" y="302.516719" transform="rotate(-0 176.81 302.516719)">0</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-xtick_2">
+     <g id="F01_group_rates-line2d_3">
+      <path d="M 293.768824 287.1 
+L 293.768824 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_4">
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="293.768824" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="293.768824" y="302.516719" transform="rotate(-0 293.768824 302.516719)">20</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-xtick_3">
+     <g id="F01_group_rates-line2d_5">
+      <path d="M 410.727647 287.1 
+L 410.727647 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_6">
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="410.727647" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="410.727647" y="302.516719" transform="rotate(-0 410.727647 302.516719)">40</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-xtick_4">
+     <g id="F01_group_rates-line2d_7">
+      <path d="M 527.686471 287.1 
+L 527.686471 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_8">
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="527.686471" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="527.686471" y="302.516719" transform="rotate(-0 527.686471 302.516719)">60</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-xtick_5">
+     <g id="F01_group_rates-line2d_9">
+      <path d="M 644.645294 287.1 
+L 644.645294 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_10">
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="644.645294" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="644.645294" y="302.516719" transform="rotate(-0 644.645294 302.516719)">80</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-xtick_6">
+     <g id="F01_group_rates-line2d_11">
+      <path d="M 761.604118 287.1 
+L 761.604118 18.7 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F01_group_rates-line2d_12">
+      <g>
+       <use xlink:href="#F01_group_rates-m4abfc7e720" x="761.604118" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="761.604118" y="302.516719" transform="rotate(-0 761.604118 302.516719)">100</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="475.055" y="317.221094" transform="rotate(-0 475.055 317.221094)">Output = Yes (%) · 95% Wilson intervals</text>
+    </g>
+   </g>
+   <g id="F01_group_rates-matplotlib.axis_2">
+    <g id="F01_group_rates-ytick_1">
+     <g id="F01_group_rates-line2d_13">
+      <defs>
+       <path id="F01_group_rates-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F01_group_rates-m93340619f2" x="176.81" y="30.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="169.81" y="35.108359" transform="rotate(-0 169.81 35.108359)">Married (n=87)</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-ytick_2">
+     <g id="F01_group_rates-line2d_14">
+      <g>
+       <use xlink:href="#F01_group_rates-m93340619f2" x="176.81" y="152.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="169.81" y="157.108359" transform="rotate(-0 169.81 157.108359)">Prefer not to say (n=9)</text>
+     </g>
+    </g>
+    <g id="F01_group_rates-ytick_3">
+     <g id="F01_group_rates-line2d_15">
+      <g>
+       <use xlink:href="#F01_group_rates-m93340619f2" x="176.81" y="274.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F01_group_rates-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="169.81" y="279.108359" transform="rotate(-0 169.81 279.108359)">Single (n=189)</text>
+     </g>
+    </g>
+   </g>
+   <g id="F01_group_rates-LineCollection_1">
+    <path d="M 471.624537 30.9 
+L 589.102547 30.9 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 287.206569 152.9 
+L 605.66801 152.9 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 637.816582 274.9 
+L 697.856662 274.9 
+" clip-path="url(#F01_group_rates-p22353e02e2)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+   </g>
+   <g id="F01_group_rates-line2d_16">
+    <defs>
+     <path id="F01_group_rates-me559b8337b" d="M 0 5 
+L 0 -5 
+" style="stroke: #70dfff"/>
+    </defs>
+    <g clip-path="url(#F01_group_rates-p22353e02e2)">
+     <use xlink:href="#F01_group_rates-me559b8337b" x="471.624537" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F01_group_rates-me559b8337b" x="287.206569" y="152.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F01_group_rates-me559b8337b" x="637.816582" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F01_group_rates-line2d_17">
+    <g clip-path="url(#F01_group_rates-p22353e02e2)">
+     <use xlink:href="#F01_group_rates-me559b8337b" x="589.102547" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F01_group_rates-me559b8337b" x="605.66801" y="152.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F01_group_rates-me559b8337b" x="697.856662" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F01_group_rates-line2d_18">
+    <defs>
+     <path id="F01_group_rates-m9824daeed1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #75ffad"/>
+    </defs>
+    <g clip-path="url(#F01_group_rates-p22353e02e2)">
+     <use xlink:href="#F01_group_rates-m9824daeed1" x="533.063888" y="30.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F01_group_rates-m9824daeed1" x="436.718497" y="152.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F01_group_rates-m9824daeed1" x="671.873803" y="274.9" style="fill: #75ffad; stroke: #75ffad"/>
+    </g>
+   </g>
+   <g id="F01_group_rates-patch_3">
+    <path d="M 176.81 287.1 
+L 176.81 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F01_group_rates-patch_4">
+    <path d="M 773.3 287.1 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F01_group_rates-patch_5">
+    <path d="M 176.81 287.1 
+L 773.3 287.1 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F01_group_rates-patch_6">
+    <path d="M 176.81 18.7 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F01_group_rates-p22353e02e2">
+   <rect x="176.81" y="18.7" width="596.49" height="268.4"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><h3>Analysis</h3><p>The highest observed proportion is Single (160/189; 84.7%); the lowest is Prefer not to say (4/9; 44.4%), a descriptive gap of 40.2 percentage points. The omnibus Pearson statistic is 23.616; Cramér’s V = 0.288. Label-permutation p = 0.0001; Holm-adjusted p = 0.0004. This provides evidence of an association after correction at α = 0.05. The omnibus result does not establish which individual pairs differ.</p><h3>Interpretation &amp; research connection</h3><p>This finding connects social status to the recorded Yes/No outcome, not to spending or order frequency. Age, occupation and income can be intertwined, so the unadjusted association cannot identify an independent or causal effect. Sparse groups and the dataset’s unknown sampling design limit generalization; intervals assume independent observations and are not simultaneous pairwise tests.</p></article><article class="terminal-card" id="finding-2"><span class="tag">FINDING 2 / 5</span><h2>[7.2] Monthly Income: observed group differences</h2><h3>Research question</h3><p>Is monthly income associated with the recorded Output outcome?</p><h3>Evidence</h3><div class="table-scroll"><table class="dataframe terminal-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Group</th>
+      <th>No</th>
+      <th>Yes</th>
+      <th>n</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10001 to 25000</td>
+      <td>9</td>
+      <td>27</td>
+      <td>36</td>
+      <td>75.0%</td>
+    </tr>
+    <tr>
+      <td>25001 to 50000</td>
+      <td>19</td>
+      <td>33</td>
+      <td>52</td>
+      <td>63.5%</td>
+    </tr>
+    <tr>
+      <td>Below Rs.10000</td>
+      <td>4</td>
+      <td>15</td>
+      <td>19</td>
+      <td>78.9%</td>
+    </tr>
+    <tr>
+      <td>More than 50000</td>
+      <td>17</td>
+      <td>30</td>
+      <td>47</td>
+      <td>63.8%</td>
+    </tr>
+    <tr>
+      <td>No Income</td>
+      <td>19</td>
+      <td>112</td>
+      <td>131</td>
+      <td>85.5%</td>
+    </tr>
+  </tbody>
+</table></div><h3>Visualization</h3><div class="static-chart"><svg role="img" aria-label="F02_group_rates" xmlns:xlink="http://www.w3.org/1999/xlink" width="792pt" height="338.4pt" viewBox="0 0 792 338.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F02_group_rates-figure_1">
+  <g id="F02_group_rates-patch_1">
+   <path d="M 0 338.4 
+L 792 338.4 
+L 792 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F02_group_rates-axes_1">
+   <g id="F02_group_rates-patch_2">
+    <path d="M 170.24 287.1 
+L 773.3 287.1 
+L 773.3 18.7 
+L 170.24 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g id="F02_group_rates-matplotlib.axis_1">
+    <g id="F02_group_rates-xtick_1">
+     <g id="F02_group_rates-line2d_1">
+      <path d="M 170.24 287.1 
+L 170.24 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_2">
+      <defs>
+       <path id="F02_group_rates-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="170.24" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="170.24" y="302.516719" transform="rotate(-0 170.24 302.516719)">0</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-xtick_2">
+     <g id="F02_group_rates-line2d_3">
+      <path d="M 288.487059 287.1 
+L 288.487059 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_4">
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="288.487059" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="288.487059" y="302.516719" transform="rotate(-0 288.487059 302.516719)">20</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-xtick_3">
+     <g id="F02_group_rates-line2d_5">
+      <path d="M 406.734118 287.1 
+L 406.734118 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_6">
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="406.734118" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="406.734118" y="302.516719" transform="rotate(-0 406.734118 302.516719)">40</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-xtick_4">
+     <g id="F02_group_rates-line2d_7">
+      <path d="M 524.981176 287.1 
+L 524.981176 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_8">
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="524.981176" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="524.981176" y="302.516719" transform="rotate(-0 524.981176 302.516719)">60</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-xtick_5">
+     <g id="F02_group_rates-line2d_9">
+      <path d="M 643.228235 287.1 
+L 643.228235 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_10">
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="643.228235" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="643.228235" y="302.516719" transform="rotate(-0 643.228235 302.516719)">80</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-xtick_6">
+     <g id="F02_group_rates-line2d_11">
+      <path d="M 761.475294 287.1 
+L 761.475294 18.7 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F02_group_rates-line2d_12">
+      <g>
+       <use xlink:href="#F02_group_rates-m4abfc7e720" x="761.475294" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="761.475294" y="302.516719" transform="rotate(-0 761.475294 302.516719)">100</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="471.77" y="317.221094" transform="rotate(-0 471.77 317.221094)">Output = Yes (%) · 95% Wilson intervals</text>
+    </g>
+   </g>
+   <g id="F02_group_rates-matplotlib.axis_2">
+    <g id="F02_group_rates-ytick_1">
+     <g id="F02_group_rates-line2d_13">
+      <defs>
+       <path id="F02_group_rates-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F02_group_rates-m93340619f2" x="170.24" y="30.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="163.24" y="35.108359" transform="rotate(-0 163.24 35.108359)">10001 to 25000 (n=36)</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-ytick_2">
+     <g id="F02_group_rates-line2d_14">
+      <g>
+       <use xlink:href="#F02_group_rates-m93340619f2" x="170.24" y="91.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="163.24" y="96.108359" transform="rotate(-0 163.24 96.108359)">25001 to 50000 (n=52)</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-ytick_3">
+     <g id="F02_group_rates-line2d_15">
+      <g>
+       <use xlink:href="#F02_group_rates-m93340619f2" x="170.24" y="152.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="163.24" y="157.108359" transform="rotate(-0 163.24 157.108359)">Below Rs.10000 (n=19)</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-ytick_4">
+     <g id="F02_group_rates-line2d_16">
+      <g>
+       <use xlink:href="#F02_group_rates-m93340619f2" x="170.24" y="213.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="163.24" y="218.108359" transform="rotate(-0 163.24 218.108359)">More than 50000 (n=47)</text>
+     </g>
+    </g>
+    <g id="F02_group_rates-ytick_5">
+     <g id="F02_group_rates-line2d_17">
+      <g>
+       <use xlink:href="#F02_group_rates-m93340619f2" x="170.24" y="274.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F02_group_rates-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="163.24" y="279.108359" transform="rotate(-0 163.24 279.108359)">No Income (n=131)</text>
+     </g>
+    </g>
+   </g>
+   <g id="F02_group_rates-LineCollection_1">
+    <path d="M 518.652276 30.9 
+L 680.177617 30.9 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 465.098963 91.9 
+L 614.844803 91.9 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 505.267746 152.9 
+L 711.174907 152.9 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 463.113704 213.9 
+L 619.778583 213.9 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 634.099048 274.9 
+L 705.390553 274.9 
+" clip-path="url(#F02_group_rates-pa9ec0efa39)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+   </g>
+   <g id="F02_group_rates-line2d_18">
+    <defs>
+     <path id="F02_group_rates-me559b8337b" d="M 0 5 
+L 0 -5 
+" style="stroke: #70dfff"/>
+    </defs>
+    <g clip-path="url(#F02_group_rates-pa9ec0efa39)">
+     <use xlink:href="#F02_group_rates-me559b8337b" x="518.652276" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="465.098963" y="91.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="505.267746" y="152.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="463.113704" y="213.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="634.099048" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F02_group_rates-line2d_19">
+    <g clip-path="url(#F02_group_rates-pa9ec0efa39)">
+     <use xlink:href="#F02_group_rates-me559b8337b" x="680.177617" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="614.844803" y="91.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="711.174907" y="152.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="619.778583" y="213.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F02_group_rates-me559b8337b" x="705.390553" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F02_group_rates-line2d_20">
+    <defs>
+     <path id="F02_group_rates-m9824daeed1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #75ffad"/>
+    </defs>
+    <g clip-path="url(#F02_group_rates-pa9ec0efa39)">
+     <use xlink:href="#F02_group_rates-m9824daeed1" x="613.666471" y="30.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F02_group_rates-m9824daeed1" x="545.447014" y="91.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F02_group_rates-m9824daeed1" x="637.004706" y="152.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F02_group_rates-m9824daeed1" x="547.62423" y="213.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F02_group_rates-m9824daeed1" x="675.72361" y="274.9" style="fill: #75ffad; stroke: #75ffad"/>
+    </g>
+   </g>
+   <g id="F02_group_rates-patch_3">
+    <path d="M 170.24 287.1 
+L 170.24 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F02_group_rates-patch_4">
+    <path d="M 773.3 287.1 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F02_group_rates-patch_5">
+    <path d="M 170.24 287.1 
+L 773.3 287.1 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F02_group_rates-patch_6">
+    <path d="M 170.24 18.7 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F02_group_rates-pa9ec0efa39">
+   <rect x="170.24" y="18.7" width="603.06" height="268.4"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><h3>Analysis</h3><p>The highest observed proportion is No Income (112/131; 85.5%); the lowest is 25001 to 50000 (33/52; 63.5%), a descriptive gap of 22.0 percentage points. The omnibus Pearson statistic is 14.942; Cramér’s V = 0.229. Label-permutation p = 0.0051; Holm-adjusted p = 0.0051. This provides evidence of an association after correction at α = 0.05. The omnibus result does not establish which individual pairs differ.</p><h3>Interpretation &amp; research connection</h3><p>This finding connects social status to the recorded Yes/No outcome, not to spending or order frequency. Age, occupation and income can be intertwined, so the unadjusted association cannot identify an independent or causal effect. Sparse groups and the dataset’s unknown sampling design limit generalization; intervals assume independent observations and are not simultaneous pairwise tests.</p></article><article class="terminal-card" id="finding-3"><span class="tag">FINDING 3 / 5</span><h2>[7.3] Occupation: observed group differences</h2><h3>Research question</h3><p>Is occupation associated with the recorded Output outcome?</p><h3>Evidence</h3><div class="table-scroll"><table class="dataframe terminal-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Group</th>
+      <th>No</th>
+      <th>Yes</th>
+      <th>n</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Employee</td>
+      <td>34</td>
+      <td>60</td>
+      <td>94</td>
+      <td>63.8%</td>
+    </tr>
+    <tr>
+      <td>Housewife</td>
+      <td>2</td>
+      <td>7</td>
+      <td>9</td>
+      <td>77.8%</td>
+    </tr>
+    <tr>
+      <td>Self Employed</td>
+      <td>14</td>
+      <td>24</td>
+      <td>38</td>
+      <td>63.2%</td>
+    </tr>
+    <tr>
+      <td>Student</td>
+      <td>18</td>
+      <td>126</td>
+      <td>144</td>
+      <td>87.5%</td>
+    </tr>
+  </tbody>
+</table></div><h3>Visualization</h3><div class="static-chart"><svg role="img" aria-label="F03_group_rates" xmlns:xlink="http://www.w3.org/1999/xlink" width="792pt" height="338.4pt" viewBox="0 0 792 338.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F03_group_rates-figure_1">
+  <g id="F03_group_rates-patch_1">
+   <path d="M 0 338.4 
+L 792 338.4 
+L 792 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F03_group_rates-axes_1">
+   <g id="F03_group_rates-patch_2">
+    <path d="M 157.1 287.1 
+L 773.3 287.1 
+L 773.3 18.7 
+L 157.1 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g id="F03_group_rates-matplotlib.axis_1">
+    <g id="F03_group_rates-xtick_1">
+     <g id="F03_group_rates-line2d_1">
+      <path d="M 157.1 287.1 
+L 157.1 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_2">
+      <defs>
+       <path id="F03_group_rates-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="157.1" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="157.1" y="302.516719" transform="rotate(-0 157.1 302.516719)">0</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-xtick_2">
+     <g id="F03_group_rates-line2d_3">
+      <path d="M 277.923529 287.1 
+L 277.923529 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_4">
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="277.923529" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="277.923529" y="302.516719" transform="rotate(-0 277.923529 302.516719)">20</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-xtick_3">
+     <g id="F03_group_rates-line2d_5">
+      <path d="M 398.747059 287.1 
+L 398.747059 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_6">
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="398.747059" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="398.747059" y="302.516719" transform="rotate(-0 398.747059 302.516719)">40</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-xtick_4">
+     <g id="F03_group_rates-line2d_7">
+      <path d="M 519.570588 287.1 
+L 519.570588 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_8">
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="519.570588" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="519.570588" y="302.516719" transform="rotate(-0 519.570588 302.516719)">60</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-xtick_5">
+     <g id="F03_group_rates-line2d_9">
+      <path d="M 640.394118 287.1 
+L 640.394118 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_10">
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="640.394118" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="640.394118" y="302.516719" transform="rotate(-0 640.394118 302.516719)">80</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-xtick_6">
+     <g id="F03_group_rates-line2d_11">
+      <path d="M 761.217647 287.1 
+L 761.217647 18.7 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #287348; stroke-opacity: 0.5; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F03_group_rates-line2d_12">
+      <g>
+       <use xlink:href="#F03_group_rates-m4abfc7e720" x="761.217647" y="287.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="761.217647" y="302.516719" transform="rotate(-0 761.217647 302.516719)">100</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="465.2" y="317.221094" transform="rotate(-0 465.2 317.221094)">Output = Yes (%) · 95% Wilson intervals</text>
+    </g>
+   </g>
+   <g id="F03_group_rates-matplotlib.axis_2">
+    <g id="F03_group_rates-ytick_1">
+     <g id="F03_group_rates-line2d_13">
+      <defs>
+       <path id="F03_group_rates-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F03_group_rates-m93340619f2" x="157.1" y="30.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="150.1" y="35.108359" transform="rotate(-0 150.1 35.108359)">Employee (n=94)</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-ytick_2">
+     <g id="F03_group_rates-line2d_14">
+      <g>
+       <use xlink:href="#F03_group_rates-m93340619f2" x="157.1" y="112.233333" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="150.1" y="116.441693" transform="rotate(-0 150.1 116.441693)">Housewife (n=9)</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-ytick_3">
+     <g id="F03_group_rates-line2d_15">
+      <g>
+       <use xlink:href="#F03_group_rates-m93340619f2" x="157.1" y="193.566667" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="150.1" y="197.775026" transform="rotate(-0 150.1 197.775026)">Self Employed (n=38)</text>
+     </g>
+    </g>
+    <g id="F03_group_rates-ytick_4">
+     <g id="F03_group_rates-line2d_16">
+      <g>
+       <use xlink:href="#F03_group_rates-m93340619f2" x="157.1" y="274.9" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F03_group_rates-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="150.1" y="279.108359" transform="rotate(-0 150.1 279.108359)">Student (n=144)</text>
+     </g>
+    </g>
+   </g>
+   <g id="F03_group_rates-LineCollection_1">
+    <path d="M 481.816381 30.9 
+L 597.037086 30.9 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 430.516983 112.233333 
+L 723.022244 112.233333 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 442.750744 193.566667 
+L 619.949452 193.566667 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 647.077431 274.9 
+L 712.555571 274.9 
+" clip-path="url(#F03_group_rates-p1d6d039395)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+   </g>
+   <g id="F03_group_rates-line2d_17">
+    <defs>
+     <path id="F03_group_rates-me559b8337b" d="M 0 5 
+L 0 -5 
+" style="stroke: #70dfff"/>
+    </defs>
+    <g clip-path="url(#F03_group_rates-p1d6d039395)">
+     <use xlink:href="#F03_group_rates-me559b8337b" x="481.816381" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="430.516983" y="112.233333" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="442.750744" y="193.566667" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="647.077431" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F03_group_rates-line2d_18">
+    <g clip-path="url(#F03_group_rates-p1d6d039395)">
+     <use xlink:href="#F03_group_rates-me559b8337b" x="597.037086" y="30.9" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="723.022244" y="112.233333" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="619.949452" y="193.566667" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F03_group_rates-me559b8337b" x="712.555571" y="274.9" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F03_group_rates-line2d_19">
+    <defs>
+     <path id="F03_group_rates-m9824daeed1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #75ffad"/>
+    </defs>
+    <g clip-path="url(#F03_group_rates-p1d6d039395)">
+     <use xlink:href="#F03_group_rates-m9824daeed1" x="542.707009" y="30.9" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F03_group_rates-m9824daeed1" x="626.969281" y="112.233333" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F03_group_rates-m9824daeed1" x="538.647988" y="193.566667" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F03_group_rates-m9824daeed1" x="685.702941" y="274.9" style="fill: #75ffad; stroke: #75ffad"/>
+    </g>
+   </g>
+   <g id="F03_group_rates-patch_3">
+    <path d="M 157.1 287.1 
+L 157.1 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F03_group_rates-patch_4">
+    <path d="M 773.3 287.1 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F03_group_rates-patch_5">
+    <path d="M 157.1 287.1 
+L 773.3 287.1 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F03_group_rates-patch_6">
+    <path d="M 157.1 18.7 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F03_group_rates-p1d6d039395">
+   <rect x="157.1" y="18.7" width="616.2" height="268.4"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><h3>Analysis</h3><p>The highest observed proportion is Student (126/144; 87.5%); the lowest is Self Employed (24/38; 63.2%), a descriptive gap of 24.3 percentage points. The omnibus Pearson statistic is 21.609; Cramér’s V = 0.275. Label-permutation p = 0.0004; Holm-adjusted p = 0.0008. This provides evidence of an association after correction at α = 0.05. The omnibus result does not establish which individual pairs differ.</p><h3>Interpretation &amp; research connection</h3><p>This finding connects social status to the recorded Yes/No outcome, not to spending or order frequency. Age, occupation and income can be intertwined, so the unadjusted association cannot identify an independent or causal effect. Sparse groups and the dataset’s unknown sampling design limit generalization; intervals assume independent observations and are not simultaneous pairwise tests.</p></article><article class="terminal-card" id="finding-4"><span class="tag">FINDING 4 / 5</span><h2>[7.4] Age differences are cross-sectional, not time trends</h2><h3>Research question</h3><p>Is age monotonically associated with Output = Yes?</p><h3>Evidence</h3><p>Observed ages span 18–33 years. Spearman ρ = -0.264; two-sided label-permutation p = 0.0001; Holm-adjusted p = 0.0004. The test uses exact ages, not the displayed bands.</p><h3>Visualization</h3><div class="static-chart"><svg role="img" aria-label="F04_age" xmlns:xlink="http://www.w3.org/1999/xlink" width="792pt" height="338.4pt" viewBox="0 0 792 338.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F04_age-figure_1">
+  <g id="F04_age-patch_1">
+   <path d="M 0 338.4 
+L 792 338.4 
+L 792 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F04_age-axes_1">
+   <g id="F04_age-patch_2">
+    <path d="M 60.21 274.572 
+L 773.3 274.572 
+L 773.3 18.7 
+L 60.21 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g id="F04_age-matplotlib.axis_1">
+    <g id="F04_age-xtick_1">
+     <g id="F04_age-line2d_1">
+      <path d="M 92.623182 274.572 
+L 92.623182 18.7 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_2">
+      <defs>
+       <path id="F04_age-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F04_age-m4abfc7e720" x="92.623182" y="274.572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(66.133807 289.988719)">[17, 21)</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(79.378494 302.376438)">n=12</text>
+     </g>
+    </g>
+    <g id="F04_age-xtick_2">
+     <g id="F04_age-line2d_3">
+      <path d="M 308.711061 274.572 
+L 308.711061 18.7 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_4">
+      <g>
+       <use xlink:href="#F04_age-m4abfc7e720" x="308.711061" y="274.572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(282.221686 289.988719)">[21, 25)</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(292.155201 302.376438)">n=142</text>
+     </g>
+    </g>
+    <g id="F04_age-xtick_3">
+     <g id="F04_age-line2d_5">
+      <path d="M 524.798939 274.572 
+L 524.798939 18.7 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_6">
+      <g>
+       <use xlink:href="#F04_age-m4abfc7e720" x="524.798939" y="274.572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(498.309564 289.988719)">[25, 29)</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(511.554252 302.376438)">n=96</text>
+     </g>
+    </g>
+    <g id="F04_age-xtick_4">
+     <g id="F04_age-line2d_7">
+      <path d="M 740.886818 274.572 
+L 740.886818 18.7 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_8">
+      <g>
+       <use xlink:href="#F04_age-m4abfc7e720" x="740.886818" y="274.572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(714.397443 289.988719)">[29, 34)</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; fill: #d3eedc" transform="translate(727.642131 302.376438)">n=35</text>
+     </g>
+    </g>
+    <g id="F04_age-text_5">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="416.755" y="317.080813" transform="rotate(-0 416.755 317.080813)">Age band [lower, upper) · descriptive grouping only</text>
+    </g>
+   </g>
+   <g id="F04_age-matplotlib.axis_2">
+    <g id="F04_age-ytick_1">
+     <g id="F04_age-line2d_9">
+      <path d="M 60.21 274.572 
+L 773.3 274.572 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_10">
+      <defs>
+       <path id="F04_age-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="274.572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="278.780359" transform="rotate(-0 53.21 278.780359)">0</text>
+     </g>
+    </g>
+    <g id="F04_age-ytick_2">
+     <g id="F04_age-line2d_11">
+      <path d="M 60.21 224.40102 
+L 773.3 224.40102 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_12">
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="224.40102" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="228.609379" transform="rotate(-0 53.21 228.609379)">20</text>
+     </g>
+    </g>
+    <g id="F04_age-ytick_3">
+     <g id="F04_age-line2d_13">
+      <path d="M 60.21 174.230039 
+L 773.3 174.230039 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_14">
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="174.230039" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="178.438399" transform="rotate(-0 53.21 178.438399)">40</text>
+     </g>
+    </g>
+    <g id="F04_age-ytick_4">
+     <g id="F04_age-line2d_15">
+      <path d="M 60.21 124.059059 
+L 773.3 124.059059 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_16">
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="124.059059" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="128.267418" transform="rotate(-0 53.21 128.267418)">60</text>
+     </g>
+    </g>
+    <g id="F04_age-ytick_5">
+     <g id="F04_age-line2d_17">
+      <path d="M 60.21 73.888078 
+L 773.3 73.888078 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_18">
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="73.888078" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="78.096438" transform="rotate(-0 53.21 78.096438)">80</text>
+     </g>
+    </g>
+    <g id="F04_age-ytick_6">
+     <g id="F04_age-line2d_19">
+      <path d="M 60.21 23.717098 
+L 773.3 23.717098 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F04_age-line2d_20">
+      <g>
+       <use xlink:href="#F04_age-m93340619f2" x="60.21" y="23.717098" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F04_age-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="53.21" y="27.925457" transform="rotate(-0 53.21 27.925457)">100</text>
+     </g>
+    </g>
+    <g id="F04_age-text_12">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="27.055313" y="146.636" transform="rotate(-90 27.055313 146.636)">Output = Yes (%)</text>
+    </g>
+   </g>
+   <g id="F04_age-LineCollection_1">
+    <path d="M 92.623182 136.107836 
+L 92.623182 35.498534 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 308.711061 73.771716 
+L 308.711061 45.631968 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 524.798939 137.54426 
+L 524.798939 90.39393 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+    <path d="M 740.886818 158.333523 
+L 740.886818 81.829692 
+" clip-path="url(#F04_age-peeb2d8b1cc)" style="fill: none; stroke: #70dfff; stroke-width: 1.5"/>
+   </g>
+   <g id="F04_age-line2d_21">
+    <defs>
+     <path id="F04_age-mf0cd4b2395" d="M 5 0 
+L -5 -0 
+" style="stroke: #70dfff"/>
+    </defs>
+    <g clip-path="url(#F04_age-peeb2d8b1cc)">
+     <use xlink:href="#F04_age-mf0cd4b2395" x="92.623182" y="136.107836" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="308.711061" y="73.771716" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="524.798939" y="137.54426" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="740.886818" y="158.333523" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F04_age-line2d_22">
+    <g clip-path="url(#F04_age-peeb2d8b1cc)">
+     <use xlink:href="#F04_age-mf0cd4b2395" x="92.623182" y="35.498534" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="308.711061" y="45.631968" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="524.798939" y="90.39393" style="fill: #75ffad; stroke: #70dfff"/>
+     <use xlink:href="#F04_age-mf0cd4b2395" x="740.886818" y="81.829692" style="fill: #75ffad; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F04_age-line2d_23">
+    <defs>
+     <path id="F04_age-m9824daeed1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #75ffad"/>
+    </defs>
+    <g clip-path="url(#F04_age-peeb2d8b1cc)">
+     <use xlink:href="#F04_age-m9824daeed1" x="92.623182" y="65.526248" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F04_age-m9824daeed1" x="308.711061" y="57.282191" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F04_age-m9824daeed1" x="524.798939" y="112.561542" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F04_age-m9824daeed1" x="740.886818" y="116.891776" style="fill: #75ffad; stroke: #75ffad"/>
+    </g>
+   </g>
+   <g id="F04_age-patch_3">
+    <path d="M 60.21 274.572 
+L 60.21 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F04_age-patch_4">
+    <path d="M 773.3 274.572 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F04_age-patch_5">
+    <path d="M 60.21 274.572 
+L 773.3 274.572 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F04_age-patch_6">
+    <path d="M 60.21 18.7 
+L 773.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F04_age-peeb2d8b1cc">
+   <rect x="60.21" y="18.7" width="713.09" height="255.872"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><h3>Analysis</h3><p>The rank association is negative: older ages tend to have lower recorded Yes outcomes in this sample. The binary outcome creates many tied ranks. There is evidence against independence after the four-test Holm correction. Bars are 95% Wilson intervals under independent-observation assumptions.</p><h3>Interpretation &amp; research connection</h3><p>These are different respondents observed in a cross-sectional dataset. Age is not a timestamp, so this is not evidence that an individual’s behavior changes over time. No date or repeated-order field is available to support trend, seasonality or forecasting claims.</p></article><article class="terminal-card" id="finding-5"><span class="tag">FINDING 5 / 5</span><h2>[7.5] Twenty models: strong Yes recall hides weak No detection</h2><h3>Research question</h3><p>Which models perform best, and what does the TabPFN result actually mean?</p><h3>Evidence</h3><p>All 20 supplied models have measured predictions on the same 57 records (43 Yes, 14 No), with 228 training records and six predictors. Random forest, Extra Trees, TabPFN-3.5 tie for the highest accuracy at 77.2%. TabPFN-3.5: accuracy 77.2%, F1 0.869, AUC 0.669, specificity 7.1%, balanced accuracy 53.6%.</p><div class="table-scroll"><table class="dataframe terminal-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Accuracy</th>
+      <th>F1</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>Specificity</th>
+      <th>Balanced_accuracy</th>
+      <th>AUC</th>
+      <th>TN</th>
+      <th>FP</th>
+      <th>FN</th>
+      <th>TP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Decision tree</td>
+      <td>0.754</td>
+      <td>0.860</td>
+      <td>0.754</td>
+      <td>1.000</td>
+      <td>0.000</td>
+      <td>0.500</td>
+      <td>0.708</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>Random forest</td>
+      <td>0.772</td>
+      <td>0.869</td>
+      <td>0.768</td>
+      <td>1.000</td>
+      <td>0.071</td>
+      <td>0.536</td>
+      <td>0.693</td>
+      <td>1</td>
+      <td>13</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>XGBoost</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.699</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>Logistic regression</td>
+      <td>0.754</td>
+      <td>0.860</td>
+      <td>0.754</td>
+      <td>1.000</td>
+      <td>0.000</td>
+      <td>0.500</td>
+      <td>0.694</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>Extra Trees</td>
+      <td>0.772</td>
+      <td>0.869</td>
+      <td>0.768</td>
+      <td>1.000</td>
+      <td>0.071</td>
+      <td>0.536</td>
+      <td>0.645</td>
+      <td>1</td>
+      <td>13</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>Gradient boosting</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.786</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>AdaBoost</td>
+      <td>0.754</td>
+      <td>0.860</td>
+      <td>0.754</td>
+      <td>1.000</td>
+      <td>0.000</td>
+      <td>0.500</td>
+      <td>0.718</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>Bagging</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.736</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>Histogram gradient boosting</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.694</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>K-nearest neighbors</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.674</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>Gaussian Naive Bayes</td>
+      <td>0.719</td>
+      <td>0.814</td>
+      <td>0.814</td>
+      <td>0.814</td>
+      <td>0.429</td>
+      <td>0.621</td>
+      <td>0.739</td>
+      <td>6</td>
+      <td>8</td>
+      <td>8</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>Bernoulli Naive Bayes</td>
+      <td>0.737</td>
+      <td>0.824</td>
+      <td>0.833</td>
+      <td>0.814</td>
+      <td>0.500</td>
+      <td>0.657</td>
+      <td>0.714</td>
+      <td>7</td>
+      <td>7</td>
+      <td>8</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>Linear discriminant analysis</td>
+      <td>0.754</td>
+      <td>0.854</td>
+      <td>0.774</td>
+      <td>0.953</td>
+      <td>0.143</td>
+      <td>0.548</td>
+      <td>0.718</td>
+      <td>2</td>
+      <td>12</td>
+      <td>2</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>Quadratic discriminant analysis</td>
+      <td>0.737</td>
+      <td>0.845</td>
+      <td>0.759</td>
+      <td>0.953</td>
+      <td>0.071</td>
+      <td>0.512</td>
+      <td>0.653</td>
+      <td>1</td>
+      <td>13</td>
+      <td>2</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>Linear SVM</td>
+      <td>0.754</td>
+      <td>0.860</td>
+      <td>0.754</td>
+      <td>1.000</td>
+      <td>0.000</td>
+      <td>0.500</td>
+      <td>0.721</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>RBF kernel SVM</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.595</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>Multilayer perceptron</td>
+      <td>0.719</td>
+      <td>0.833</td>
+      <td>0.755</td>
+      <td>0.930</td>
+      <td>0.071</td>
+      <td>0.501</td>
+      <td>0.581</td>
+      <td>1</td>
+      <td>13</td>
+      <td>3</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>Gaussian process</td>
+      <td>0.754</td>
+      <td>0.857</td>
+      <td>0.764</td>
+      <td>0.977</td>
+      <td>0.071</td>
+      <td>0.524</td>
+      <td>0.651</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>Nearest centroid</td>
+      <td>0.737</td>
+      <td>0.819</td>
+      <td>0.850</td>
+      <td>0.791</td>
+      <td>0.571</td>
+      <td>0.681</td>
+      <td>0.757</td>
+      <td>8</td>
+      <td>6</td>
+      <td>9</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>TabPFN-3.5</td>
+      <td>0.772</td>
+      <td>0.869</td>
+      <td>0.768</td>
+      <td>1.000</td>
+      <td>0.071</td>
+      <td>0.536</td>
+      <td>0.669</td>
+      <td>1</td>
+      <td>13</td>
+      <td>0</td>
+      <td>43</td>
+    </tr>
+  </tbody>
+</table></div><h3>Visualization</h3><div class="static-chart"><svg role="img" aria-label="F05_model_comparison" xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="648pt" viewBox="0 0 864 648" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F05_model_comparison-figure_1">
+  <g id="F05_model_comparison-patch_1">
+   <path d="M 0 648 
+L 864 648 
+L 864 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F05_model_comparison-axes_1">
+   <g id="F05_model_comparison-patch_2">
+    <path d="M 229.37 596.7 
+L 845.3 596.7 
+L 845.3 18.7 
+L 229.37 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g id="F05_model_comparison-PathCollection_1">
+    <defs>
+     <path id="F05_model_comparison-m9824daeed1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #75ffad"/>
+    </defs>
+    <g clip-path="url(#F05_model_comparison-p3a22bcb386)">
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="44.972727" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="686.538016" y="72.283255" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="99.593782" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="126.904309" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="686.538016" y="154.214837" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="181.525364" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="208.835891" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="236.146418" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="263.456946" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="290.767473" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="655.36747" y="318.078" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="665.757652" y="345.388528" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="372.699055" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="665.757652" y="400.009582" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="427.32011" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="454.630637" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="655.36747" y="481.941164" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="676.147834" y="509.251692" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="665.757652" y="536.562219" style="fill: #75ffad; stroke: #75ffad"/>
+     <use xlink:href="#F05_model_comparison-m9824daeed1" x="686.538016" y="563.872746" style="fill: #75ffad; stroke: #75ffad"/>
+    </g>
+   </g>
+   <g id="F05_model_comparison-PathCollection_2">
+    <defs>
+     <path id="F05_model_comparison-m64ffd715e7" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #70dfff"/>
+    </defs>
+    <g clip-path="url(#F05_model_comparison-p3a22bcb386)">
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="525.490192" y="51.527254" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="546.641635" y="78.837781" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="106.148308" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="525.490192" y="133.458836" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="546.641635" y="160.769363" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="188.07989" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="525.490192" y="215.390418" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="242.700945" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="270.011472" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="297.322" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="597.306717" y="324.632527" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="618.45816" y="351.943054" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="554.020045" y="379.253582" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="532.868602" y="406.564109" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="525.490192" y="433.874636" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="461.185163" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="525.982086" y="488.495691" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="539.755119" y="515.806218" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="632.723086" y="543.116745" style="fill: #70dfff; stroke: #70dfff"/>
+     <use xlink:href="#F05_model_comparison-m64ffd715e7" x="546.641635" y="570.427273" style="fill: #70dfff; stroke: #70dfff"/>
+    </g>
+   </g>
+   <g id="F05_model_comparison-matplotlib.axis_1">
+    <g id="F05_model_comparison-xtick_1">
+     <g id="F05_model_comparison-line2d_1">
+      <path d="M 229.37 596.7 
+L 229.37 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_2">
+      <defs>
+       <path id="F05_model_comparison-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="229.37" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="229.37" y="612.116719" transform="rotate(-0 229.37 612.116719)">0.0</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-xtick_2">
+     <g id="F05_model_comparison-line2d_3">
+      <path d="M 347.818077 596.7 
+L 347.818077 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_4">
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="347.818077" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="347.818077" y="612.116719" transform="rotate(-0 347.818077 612.116719)">0.2</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-xtick_3">
+     <g id="F05_model_comparison-line2d_5">
+      <path d="M 466.266154 596.7 
+L 466.266154 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_6">
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="466.266154" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="466.266154" y="612.116719" transform="rotate(-0 466.266154 612.116719)">0.4</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-xtick_4">
+     <g id="F05_model_comparison-line2d_7">
+      <path d="M 584.714231 596.7 
+L 584.714231 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_8">
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="584.714231" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="584.714231" y="612.116719" transform="rotate(-0 584.714231 612.116719)">0.6</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-xtick_5">
+     <g id="F05_model_comparison-line2d_9">
+      <path d="M 703.162308 596.7 
+L 703.162308 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_10">
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="703.162308" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="703.162308" y="612.116719" transform="rotate(-0 703.162308 612.116719)">0.8</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-xtick_6">
+     <g id="F05_model_comparison-line2d_11">
+      <path d="M 821.610385 596.7 
+L 821.610385 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke: #287348; stroke-opacity: 0.4; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="F05_model_comparison-line2d_12">
+      <g>
+       <use xlink:href="#F05_model_comparison-m4abfc7e720" x="821.610385" y="596.7" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="821.610385" y="612.116719" transform="rotate(-0 821.610385 612.116719)">1.0</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="537.335" y="626.821094" transform="rotate(-0 537.335 626.821094)">Same 57-record holdout</text>
+    </g>
+   </g>
+   <g id="F05_model_comparison-matplotlib.axis_2">
+    <g id="F05_model_comparison-ytick_1">
+     <g id="F05_model_comparison-line2d_13">
+      <defs>
+       <path id="F05_model_comparison-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="48.249991" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="52.45835" transform="rotate(-0 222.37 52.45835)">Decision tree</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_2">
+     <g id="F05_model_comparison-line2d_14">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="75.560518" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="79.768877" transform="rotate(-0 222.37 79.768877)">Random forest</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_3">
+     <g id="F05_model_comparison-line2d_15">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="102.871045" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="107.079405" transform="rotate(-0 222.37 107.079405)">XGBoost</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_4">
+     <g id="F05_model_comparison-line2d_16">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="130.181572" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="134.360713" transform="rotate(-0 222.37 134.360713)">Logistic regression</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_5">
+     <g id="F05_model_comparison-line2d_17">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="157.4921" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="161.700459" transform="rotate(-0 222.37 161.700459)">Extra Trees</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_6">
+     <g id="F05_model_comparison-line2d_18">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="184.802627" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_13">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="188.981768" transform="rotate(-0 222.37 188.981768)">Gradient boosting</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_7">
+     <g id="F05_model_comparison-line2d_19">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="212.113154" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_14">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="216.321514" transform="rotate(-0 222.37 216.321514)">AdaBoost</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_8">
+     <g id="F05_model_comparison-line2d_20">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="239.423682" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_15">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="243.602822" transform="rotate(-0 222.37 243.602822)">Bagging</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_9">
+     <g id="F05_model_comparison-line2d_21">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="266.734209" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_16">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="270.91335" transform="rotate(-0 222.37 270.91335)">Histogram gradient boosting</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_10">
+     <g id="F05_model_comparison-line2d_22">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="294.044736" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_17">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="298.223877" transform="rotate(-0 222.37 298.223877)">K-nearest neighbors</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_11">
+     <g id="F05_model_comparison-line2d_23">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="321.355264" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_18">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="325.563623" transform="rotate(-0 222.37 325.563623)">Gaussian Naive Bayes</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_12">
+     <g id="F05_model_comparison-line2d_24">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="348.665791" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_19">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="352.87415" transform="rotate(-0 222.37 352.87415)">Bernoulli Naive Bayes</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_13">
+     <g id="F05_model_comparison-line2d_25">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="375.976318" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_20">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="380.184678" transform="rotate(-0 222.37 380.184678)">Linear discriminant analysis</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_14">
+     <g id="F05_model_comparison-line2d_26">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="403.286846" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_21">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="407.495205" transform="rotate(-0 222.37 407.495205)">Quadratic discriminant analysis</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_15">
+     <g id="F05_model_comparison-line2d_27">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="430.597373" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_22">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="434.805732" transform="rotate(-0 222.37 434.805732)">Linear SVM</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_16">
+     <g id="F05_model_comparison-line2d_28">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="457.9079" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_23">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="462.11626" transform="rotate(-0 222.37 462.11626)">RBF kernel SVM</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_17">
+     <g id="F05_model_comparison-line2d_29">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="485.218428" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_24">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="489.426787" transform="rotate(-0 222.37 489.426787)">Multilayer perceptron</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_18">
+     <g id="F05_model_comparison-line2d_30">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="512.528955" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_25">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="516.737314" transform="rotate(-0 222.37 516.737314)">Gaussian process</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_19">
+     <g id="F05_model_comparison-line2d_31">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="539.839482" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_26">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="544.047842" transform="rotate(-0 222.37 544.047842)">Nearest centroid</text>
+     </g>
+    </g>
+    <g id="F05_model_comparison-ytick_20">
+     <g id="F05_model_comparison-line2d_32">
+      <g>
+       <use xlink:href="#F05_model_comparison-m93340619f2" x="229.37" y="567.150009" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F05_model_comparison-text_27">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="222.37" y="571.358369" transform="rotate(-0 222.37 571.358369)">TabPFN-3.5</text>
+     </g>
+    </g>
+   </g>
+   <g id="F05_model_comparison-line2d_33">
+    <path d="M 676.147834 596.7 
+L 676.147834 18.7 
+" clip-path="url(#F05_model_comparison-p3a22bcb386)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #ffcc70; stroke-width: 1.5"/>
+   </g>
+   <g id="F05_model_comparison-patch_3">
+    <path d="M 229.37 596.7 
+L 229.37 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F05_model_comparison-patch_4">
+    <path d="M 845.3 596.7 
+L 845.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F05_model_comparison-patch_5">
+    <path d="M 229.37 596.7 
+L 845.3 596.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F05_model_comparison-patch_6">
+    <path d="M 229.37 18.7 
+L 845.3 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F05_model_comparison-legend_1">
+    <g id="F05_model_comparison-patch_7">
+     <path d="M 237.07 591.2 
+L 444.450938 591.2 
+Q 446.650938 591.2 446.650938 589 
+L 446.650938 541.486875 
+Q 446.650938 539.286875 444.450938 539.286875 
+L 237.07 539.286875 
+Q 234.87 539.286875 234.87 541.486875 
+L 234.87 589 
+Q 234.87 591.2 237.07 591.2 
+z
+" style="fill: #08170f; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="F05_model_comparison-PathCollection_3">
+     <g>
+      <use xlink:href="#F05_model_comparison-m9824daeed1" x="250.27" y="549.216094" style="fill: #75ffad; stroke: #75ffad"/>
+     </g>
+    </g>
+    <g id="F05_model_comparison-text_28">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #d3eedc" x="270.07" y="552.103594" transform="rotate(-0 270.07 552.103594)">Accuracy</text>
+    </g>
+    <g id="F05_model_comparison-PathCollection_4">
+     <g>
+      <use xlink:href="#F05_model_comparison-m64ffd715e7" x="250.27" y="565.420469" style="fill: #70dfff; stroke: #70dfff"/>
+     </g>
+    </g>
+    <g id="F05_model_comparison-text_29">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #d3eedc" x="270.07" y="568.307969" transform="rotate(-0 270.07 568.307969)">Balanced accuracy</text>
+    </g>
+    <g id="F05_model_comparison-line2d_34">
+     <path d="M 239.27 580.662344 
+L 250.27 580.662344 
+L 261.27 580.662344 
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #ffcc70; stroke-width: 1.5"/>
+    </g>
+    <g id="F05_model_comparison-text_30">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: start; fill: #d3eedc" x="270.07" y="584.512344" transform="rotate(-0 270.07 584.512344)">Majority baseline accuracy</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F05_model_comparison-p3a22bcb386">
+   <rect x="229.37" y="18.7" width="615.93" height="578"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="static-chart"><svg role="img" aria-label="F06_tabpfn_confusion" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="345.6pt" viewBox="0 0 504 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="F06_tabpfn_confusion-figure_1">
+  <g id="F06_tabpfn_confusion-patch_1">
+   <path d="M 0 345.6 
+L 504 345.6 
+L 504 0 
+L 0 0 
+z
+" style="fill: #08170f"/>
+  </g>
+  <g id="F06_tabpfn_confusion-axes_1">
+   <g id="F06_tabpfn_confusion-patch_2">
+    <path d="M 112.028 309.1 
+L 402.428 309.1 
+L 402.428 18.7 
+L 112.028 18.7 
+z
+" style="fill: #08170f"/>
+   </g>
+   <g clip-path="url(#F06_tabpfn_confusion-p3e38ee148c)">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAZQAAAGUCAYAAAASxdSgAAAF+UlEQVR4nO3XsQnCUABFUWPnIs7i1hZZxjagCCIkG1hd+B85Z4LXXd7y/r72E/DT5XYdPQGmdx49AID/ICgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASCxPD/bPnoEzG593EdPgOl5KAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQEBYCEoACQEBQAEoICQEJQAEgICgAJQQEgISgAJAQFgISgAJAQFAASggJAQlAASAgKAAlBASAhKAAkBAWAhKAAkBAUABKCAkBCUABICAoACUEBICEoACQO2ywNzc/3gyMAAAAASUVORK5CYII=" id="F06_tabpfn_confusion-imagee6351760e1" transform="scale(1 -1) translate(0 -290.88)" x="112.028" y="-18.22" width="290.88" height="290.88"/>
+   </g>
+   <g id="F06_tabpfn_confusion-matplotlib.axis_1">
+    <g id="F06_tabpfn_confusion-xtick_1">
+     <g id="F06_tabpfn_confusion-line2d_1">
+      <defs>
+       <path id="F06_tabpfn_confusion-m4abfc7e720" d="M 0 0 
+L 0 3.5 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F06_tabpfn_confusion-m4abfc7e720" x="184.628" y="309.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F06_tabpfn_confusion-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="184.628" y="324.516719" transform="rotate(-0 184.628 324.516719)">Predicted No</text>
+     </g>
+    </g>
+    <g id="F06_tabpfn_confusion-xtick_2">
+     <g id="F06_tabpfn_confusion-line2d_2">
+      <g>
+       <use xlink:href="#F06_tabpfn_confusion-m4abfc7e720" x="329.828" y="309.1" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F06_tabpfn_confusion-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #d3eedc" x="329.828" y="324.516719" transform="rotate(-0 329.828 324.516719)">Predicted Yes</text>
+     </g>
+    </g>
+   </g>
+   <g id="F06_tabpfn_confusion-matplotlib.axis_2">
+    <g id="F06_tabpfn_confusion-ytick_1">
+     <g id="F06_tabpfn_confusion-line2d_3">
+      <defs>
+       <path id="F06_tabpfn_confusion-m93340619f2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #d3eedc; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#F06_tabpfn_confusion-m93340619f2" x="112.028" y="91.3" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F06_tabpfn_confusion-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="105.028" y="95.508359" transform="rotate(-0 105.028 95.508359)">Actual No</text>
+     </g>
+    </g>
+    <g id="F06_tabpfn_confusion-ytick_2">
+     <g id="F06_tabpfn_confusion-line2d_4">
+      <g>
+       <use xlink:href="#F06_tabpfn_confusion-m93340619f2" x="112.028" y="236.5" style="fill: #d3eedc; stroke: #d3eedc; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="F06_tabpfn_confusion-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans Mono'; text-anchor: end; fill: #d3eedc" x="105.028" y="240.708359" transform="rotate(-0 105.028 240.708359)">Actual Yes</text>
+     </g>
+    </g>
+   </g>
+   <g id="F06_tabpfn_confusion-patch_3">
+    <path d="M 112.028 309.1 
+L 112.028 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F06_tabpfn_confusion-patch_4">
+    <path d="M 402.428 309.1 
+L 402.428 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F06_tabpfn_confusion-patch_5">
+    <path d="M 112.028 309.1 
+L 402.428 309.1 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F06_tabpfn_confusion-patch_6">
+    <path d="M 112.028 18.7 
+L 402.428 18.7 
+" style="fill: none; stroke: #75ffad; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="F06_tabpfn_confusion-text_5">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #75ffad" x="184.628" y="97.98625" transform="rotate(-0 184.628 97.98625)">1</text>
+   </g>
+   <g id="F06_tabpfn_confusion-text_6">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #75ffad" x="329.828" y="97.98625" transform="rotate(-0 329.828 97.98625)">13</text>
+   </g>
+   <g id="F06_tabpfn_confusion-text_7">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans Mono'; text-anchor: middle; fill: #75ffad" x="184.628" y="243.18625" transform="rotate(-0 184.628 243.18625)">0</text>
+   </g>
+   <g id="F06_tabpfn_confusion-text_8">
+    <text style="font-size: 24px; font-family: 'DejaVu Sans Mono'; text-anchor: middle" x="329.828" y="243.18625" transform="rotate(-0 329.828 243.18625)">43</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="F06_tabpfn_confusion-p3e38ee148c">
+   <rect x="112.028" y="18.7" width="290.4" height="290.4"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><h3>Analysis</h3><p>TabPFN classifies 43/43 actual Yes records correctly but only 1/14 actual No records. It predicts Yes for 56 of 57 records. Its 44/57 correct predictions exceed the all-Yes majority baseline (43/57; 75.4%) by only one record, or 1.75 percentage points. Its tied accuracy and F1 do not make it superior in ranking or minority-class detection. Gradient boosting has the highest observed AUC (0.786), while nearest centroid has the highest balanced accuracy (68.1%). These metrics answer different questions: ranking quality versus average class recall. No significance claim about model differences is made from this small reused holdout.</p><h3>Interpretation &amp; research connection</h3><p>The newest model is not automatically the best model for the research task. The high F1 is for the majority Yes class; it must be interpreted alongside specificity, balanced accuracy and AUC. Similar input profiles and class imbalance plausibly contribute to the limited gains, but this experiment does not establish the cause. The current feature set provides limited evidence of useful No detection. Use fresh grouped validation and a task-specific error cost before selecting a model or changing its threshold.</p></article><section class="terminal-card"><h2>[7.6] Synthesis for the research results section</h2><ul><li>Marital Status: Cramér’s V 0.288, Holm p 0.0004.</li><li>Monthly Income: Cramér’s V 0.229, Holm p 0.0051.</li><li>Occupation: Cramér’s V 0.275, Holm p 0.0008.</li></ul><p>The observed social-status differences provide hypotheses about the recorded outcome; they do not establish that status determines behavior. The 20-model experiment demonstrates why predictive performance needs multiple metrics: TabPFN-3.5 ties the leading accuracy/F1 results while recognizing only one of fourteen No outcomes. A defensible conclusion separates in-sample associations from holdout prediction and avoids causal or time-trend claims.</p><h3>Next research steps</h3><p>Confirm the target definition, obtain respondent IDs and a documented sampling design, collect additional minority-class records, and validate on new grouped data. Adjusted association modeling and confidence intervals accounting for respondent clusters would strengthen the findings. Do not choose a threshold using the current test labels.</p><h3>Reproducibility &amp; grading evidence</h3><p>Twenty fitted classifier results are included, exceeding the stated ten-model count for an A; a grade also depends on experimental quality and interpretation. The supplied model-results JSON contains all prediction records and software metadata. The accompanying Python builder rechecks every confusion matrix, accuracy, F1 and AUC and reproduces these findings and figures. The accompanying 20-model Colab notebook contains the executable model code; its historical provenance differs from the statistical inference tests on all records.</p><p><a href="assignment-02.html">[20-MODEL EXPERIMENT: A02]</a> · <a href="https://colab.research.google.com/drive/12M8q78Jki-yGjUOBV8LYtse1QiF2aCBn" target="_blank" rel="noopener noreferrer">[PYTHON COLAB LAB]</a></p><h3>Method references</h3><p><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html">SciPy contingency tests</a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html">SciPy Spearman interpretation</a> · <a href="https://huggingface.co/Prior-Labs/tabpfn_3_5">TabPFN-3.5 model card</a></p></section><nav class="assignment-nav-bar"><a href="assignment-06.html">[&lt; A06 · STATIC FIGURES]</a><a href="../index.html">[HOME]</a><a href="assignment-08.html">[A08 &gt;]</a></nav></main><footer>ADV-CORE // RESULTS &amp; STATISTICAL INTERPRETATION</footer></body></html>
